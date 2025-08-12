@@ -1,0 +1,169 @@
+---
+import { Image } from 'astro:assets';
+import vispyrBanner from '../assets/vispyr-banner.png';
+import githubLogo from '../assets/github.svg';
+import Search from '@astrojs/starlight/components/Search.astro';
+import type { Props } from '@astrojs/starlight/props';
+---
+
+<div class="header-content">
+  <div class="logo">
+    <a href="/">
+      <Image src={vispyrBanner} alt="Vispyr Banner" />
+    </a>
+  </div>
+  
+  <div class="header-right">
+    <Search {...Astro.props} />
+    <nav class="nav-links">
+      <a href="/docs/introduction">Case Study</a>
+      <a href="/team/">Team</a>
+      <a href="https://github.com/vispyr" target="_blank">
+        <Image src={githubLogo} alt="GitHub Logo" />
+      </a>
+    </nav>
+    <button id="theme-toggle" aria-label="Toggle theme">
+      <svg class="sun-icon" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="12" cy="12" r="5"></circle>
+        <line x1="12" y1="1" x2="12" y2="3"></line>
+        <line x1="12" y1="21" x2="12" y2="23"></line>
+        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+        <line x1="1" y1="12" x2="3" y2="12"></line>
+        <line x1="21" y1="12" x2="23" y2="12"></line>
+        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+      </svg>
+      <svg class="moon-icon" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+      </svg>
+    </button>
+  </div>
+</div>
+
+<script>
+  const button = document.getElementById('theme-toggle') as HTMLButtonElement | null;
+  
+  if (button) {
+    const updateIcons = () => {
+      const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+      const sunIcon = button.querySelector('.sun-icon') as SVGElement;
+      const moonIcon = button.querySelector('.moon-icon') as SVGElement;
+      
+      sunIcon.style.display = isDark ? 'block' : 'none';
+      moonIcon.style.display = isDark ? 'none' : 'block';
+    };
+
+    button.addEventListener('click', () => {
+      const currentTheme = document.documentElement.getAttribute('data-theme');
+      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      
+      document.documentElement.setAttribute('data-theme', newTheme);
+      localStorage.setItem('starlight-theme', newTheme);
+      updateIcons();
+    });
+
+    updateIcons();
+    new MutationObserver(updateIcons).observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['data-theme']
+    });
+  }
+</script>
+
+<style>
+  :global(.header) {
+    height: 6rem !important;
+    padding: 0 1.5rem !important;
+    background-color: rgb(2, 45, 45);
+    /* background: var(--sl-color-bg-nav) !important; */
+    border-bottom: 1px solid var(--sl-color-hairline) !important;
+    position: fixed;
+  }
+
+  .header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    gap: 1.5rem;
+  }
+
+  .logo img {
+    height: 3rem;
+    width: auto;
+  }
+
+  .header-right {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  .nav-links a {
+    color: var(--sl-color-white);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 1.1rem;
+    white-space: nowrap;
+  }
+
+  .nav-links a:hover {
+    color: rgb(255, 71, 58);
+  }
+
+  .nav-links img {
+    height: 1.75rem;
+    width: 1.75rem;
+  }
+
+  .logo img {
+    height: 4.5rem;
+    width: auto;
+  }
+
+  #theme-toggle {
+    background: transparent;
+    border: none;
+    padding: 0.5rem;
+    cursor: pointer;
+    color: var(--sl-color-white);
+    transition: all 0.2s ease;
+  }
+
+  #theme-toggle:hover {
+    background: var(--sl-color-gray-6);
+    border-color: var(--sl-color-accent);
+  }
+
+  @media (max-width: 768px) {
+    :global(.header) {
+      height: 5rem !important;
+      padding: 0 1rem !important;
+    }
+
+    .header-right > :first-child {
+      display: none;
+    }
+
+    .nav-links {
+      gap: 1.5rem;
+    }
+
+    .logo img {
+      height: 2.5rem;
+    }
+
+    .nav-links img {
+      height: 1.5rem;
+      width: 1.5rem;
+    }
+  }
+</style>

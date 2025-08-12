@@ -1,0 +1,31 @@
+:root {
+  --sl-nav-height: 6rem;
+}
+
+.sidebar {
+  position: fixed !important;
+  top: var(--sl-nav-height) !important;
+  left: 0 !important;
+  height: calc(100vh - var(--sl-nav-height)) !important;
+  z-index: 10 !important;
+}
+
+.sidebar a:hover {
+  color: rgb(255, 71, 58);
+}
+
+.content-panel {
+  margin-top: 0 !important;
+  padding-top: 1rem !important;
+  margin-left: 0 !important;
+}
+
+@media (max-width: 768px) {
+  :root {
+    --sl-nav-height: 5rem;
+  }
+
+  .sidebar {
+    top: var(--sl-nav-height) !important;
+  }
+}
