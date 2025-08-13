@@ -2,43 +2,43 @@
 import { Image } from 'astro:assets';
 import vispyrBanner from '../assets/vispyr-banner.png';
 import githubLogo from '../assets/github.svg';
-import Search from '@astrojs/starlight/components/Search.astro';
-import type { Props } from '@astrojs/starlight/props';
 ---
-<div class="header-content">
-  <div class="logo">
-    <a href="/">
-      <Image src={vispyrBanner} alt="Vispyr Banner" />
-    </a>
-  </div>
-  
-  <div class="header-right">
-    <Search {...Astro.props} />
-    <nav class="nav-links">
-      <a href="/docs/introduction">Case Study</a>
-      <a href="/team/">Team</a>
-      <a href="https://github.com/vispyr" target="_blank">
-        <Image src={githubLogo} alt="GitHub Logo" />
+
+<header class="landing-header">
+  <div class="header-content">
+    <div class="logo">
+      <a href="/">
+        <Image src={vispyrBanner} alt="Vispyr Banner" />
       </a>
-    </nav>
-    <button id="theme-toggle" aria-label="Toggle theme">
-      <svg class="sun-icon" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <circle cx="12" cy="12" r="5"></circle>
-        <line x1="12" y1="1" x2="12" y2="3"></line>
-        <line x1="12" y1="21" x2="12" y2="23"></line>
-        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-        <line x1="1" y1="12" x2="3" y2="12"></line>
-        <line x1="21" y1="12" x2="23" y2="12"></line>
-        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-      </svg>
-      <svg class="moon-icon" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
-      </svg>
-    </button>
+    </div>
+    
+    <div class="header-right">
+      <nav class="nav-links">
+        <a href="/docs/introduction/">Case Study</a>
+        <a href="/#team">Team</a>
+        <a href="https://github.com/vispyr" target="_blank">
+          <Image src={githubLogo} alt="GitHub Logo" />
+        </a>
+      </nav>
+      <button id="theme-toggle" aria-label="Toggle theme">
+        <svg class="sun-icon" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="5"></circle>
+          <line x1="12" y1="1" x2="12" y2="3"></line>
+          <line x1="12" y1="21" x2="12" y2="23"></line>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+          <line x1="1" y1="12" x2="3" y2="12"></line>
+          <line x1="21" y1="12" x2="23" y2="12"></line>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+        </svg>
+        <svg class="moon-icon" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+        </svg>
+      </button>
+    </div>
   </div>
-</div>
+</header>
 
 <script>
   const button = document.getElementById('theme-toggle') as HTMLButtonElement | null;
@@ -71,13 +71,19 @@ import type { Props } from '@astrojs/starlight/props';
 </script>
 
 <style>
-  :global(.header) {
-    height: 6rem !important;
-    padding: 0 1.5rem !important;
+  .landing-header {
+    height: 6rem;
+    padding: 0 1.5rem;
     background-color: rgb(2, 45, 45);
-    /* background: var(--sl-color-bg-nav) !important; */
-    border-bottom: 1px solid var(--sl-color-hairline) !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    font-family: 'Nunito Sans', sans-serif;
     position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
   }
 
   .header-content {
@@ -87,7 +93,11 @@ import type { Props } from '@astrojs/starlight/props';
     width: 100%;
     height: 100%;
     gap: 1.5rem;
-    line-height: 0 !important;
+  }
+
+  .logo img {
+    height: 4.5rem;
+    width: auto;
   }
 
   .header-right {
@@ -99,16 +109,13 @@ import type { Props } from '@astrojs/starlight/props';
   .nav-links {
     display: flex;
     align-items: center;
-    justify-content: center;
     gap: 2rem;
-    line-height: 1 !important;  /* Add this */
   }
 
   .nav-links a {
     display: flex;
     align-items: center;
-    justify-content: center;
-    color: var(--sl-color-white);
+    color: white;
     text-decoration: none;
     font-weight: 500;
     font-size: 1.1rem;
@@ -122,11 +129,6 @@ import type { Props } from '@astrojs/starlight/props';
   .nav-links img {
     height: 1.75rem;
     width: 1.75rem;
-  }
-
-  .logo img {
-    height: 4.5rem;
-    width: auto;
   }
 
   /* Hide both icons by default to prevent flash */
@@ -173,18 +175,13 @@ import type { Props } from '@astrojs/starlight/props';
   }
 
   #theme-toggle:hover {
-    background: var(--sl-color-gray-6);
-    border-color: var(--sl-color-accent);
+    background: rgba(255, 255, 255, 0.1);
   }
 
   @media (max-width: 768px) {
-    :global(.header) {
-      height: 5rem !important;
-      padding: 0 1rem !important;
-    }
-
-    .header-right > :first-child {
-      display: none;
+    .standalone-header {
+      height: 5rem;
+      padding: 0 1rem;
     }
 
     .nav-links {

@@ -1,0 +1,64 @@
+---
+const team = [
+  {
+    name: 'Derek Novak',
+    img: 'src/assets/derek-headshot.jpg',
+    location: 'Austin, TX, USA',
+    github: 'https://github.com/dereknovak',
+    linkedin: 'https://www.linkedin.com/in/derek-novak-2754a3289/',
+    resume: ''
+  },
+  {
+    name: 'Jeffrey Houghton',
+    img: 'src/assets/jeffrey-placeholder.jpg',
+    location: 'Kansas City, MO, USA',
+    github: 'https://github.com/HoughtonJK',
+    linkedin: 'https://www.linkedin.com/in/jeffrey-houghton-a92b95353/',
+    resume: ''
+  },
+  {
+    name: 'Joe Cardoso',
+    img: 'src/assets/joe-headshot.png',
+    location: 'Toronto, ON, CA',
+    github: 'https://github.com/JoeCardoso13',
+    linkedin: 'https://www.linkedin.com/in/joe-cardoso-eng/',
+    resume: ''
+  },
+  {
+    name: 'Kipchumba Chelilim',
+    img: 'src/assets/kip-headshot.jpeg',
+    location: 'Detroit, MI, USA',
+    github: 'https://github.com/KipChelilim',
+    linkedin: 'https://www.linkedin.com/in/kchelilim/',
+    resume: ''
+  }
+]
+---
+<section class="team">
+  <h2>Meet the Vispyr Team</h2>
+  <div class="team-members">
+    {team.map(({name, img, location, github, linkedin, resume}) => (
+      <div class="team-member">
+        <img src={img} alt="Team Member headshot" />
+        <h3>{name}</h3>
+        <p>{location}</p>
+        <div class="links">
+          <a href={linkedin}>LinkedIn</a>
+          <a href={github}>GitHub</a>
+          <a href={resume}>Resume</a>
+        </div>
+      </div>
+    ))}
+  </div>
+</section>
+
+<style>
+  .team-members {
+    display: flex;
+    align-items: center;
+  }
+
+  .team-member img {
+    width: 200px;
+  }
+</style>
