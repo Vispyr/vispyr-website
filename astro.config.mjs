@@ -11,6 +11,7 @@ export default defineConfig({
         src: './src/assets/vispyr-banner.png',
         replacesTitle: true,
       },
+      favicon: '/favicon.ico',
       social: [
         {
           icon: 'github',
@@ -20,7 +21,6 @@ export default defineConfig({
       ],
       components: {
         Header: './src/components/Header.astro',
-        Footer: './src/components/Footer.astro',
       },
       sidebar: [
         { slug: 'docs/introduction' },

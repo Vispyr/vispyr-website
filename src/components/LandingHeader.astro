@@ -1,7 +1,8 @@
 ---
 import { Image } from 'astro:assets';
 import vispyrBanner from '../assets/vispyr-banner.png';
-import githubLogo from '../assets/github.svg';
+import githubDark from '../assets/github-dark.svg';
+import githubLight from '../assets/github-light.svg';
 ---
 
 <header class="landing-header">
@@ -17,7 +18,7 @@ import githubLogo from '../assets/github.svg';
         <a href="/docs/introduction/">Case Study</a>
         <a href="/#team">Team</a>
         <a href="https://github.com/vispyr" target="_blank">
-          <Image src={githubLogo} alt="GitHub Logo" />
+          <img id="github-logo" alt="GitHub Logo" width="28" height="28" />
         </a>
       </nav>
       <button id="theme-toggle" aria-label="Toggle theme">
@@ -40,42 +41,69 @@ import githubLogo from '../assets/github.svg';
   </div>
 </header>
 
-<script>
-  const button = document.getElementById('theme-toggle') as HTMLButtonElement | null;
-  
+<script define:vars={{ githubDark: githubDark.src, githubLight: githubLight.src }}>
+  const button = document.getElementById('theme-toggle');
+  const githubLogo = document.getElementById('github-logo');
+
+  const logos = {
+    dark: githubDark,
+    light: githubLight
+  };
+
+  function updateIconsAndLogo() {
+    const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
+    const isDark = currentTheme === 'dark';
+    const sunIcon = button.querySelector('.sun-icon');
+    const moonIcon = button.querySelector('.moon-icon');
+    
+    if (sunIcon && moonIcon) {
+      sunIcon.style.display = isDark ? 'none' : 'block';
+      moonIcon.style.display = isDark ? 'block' : 'none';
+    }
+
+    if (githubLogo) {
+      githubLogo.src = logos[currentTheme];
+    }
+  }
+
+  function toggleTheme() {
+    const currentTheme = document.documentElement.getAttribute('data-theme');
+    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    
+    document.documentElement.setAttribute('data-theme', newTheme);
+    localStorage.setItem('starlight-theme', newTheme);
+    
+    window.dispatchEvent(new CustomEvent('theme-changed', { detail: { theme: newTheme } }));
+    
+    updateIconsAndLogo();
+  }
+
   if (button) {
-    const updateIcons = () => {
-      const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-      const sunIcon = button.querySelector('.sun-icon') as SVGElement;
-      const moonIcon = button.querySelector('.moon-icon') as SVGElement;
-      
-      sunIcon.style.display = isDark ? 'block' : 'none';
-      moonIcon.style.display = isDark ? 'none' : 'block';
-    };
+    button.addEventListener('click', toggleTheme);
 
-    button.addEventListener('click', () => {
-      const currentTheme = document.documentElement.getAttribute('data-theme');
-      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-      
-      document.documentElement.setAttribute('data-theme', newTheme);
-      localStorage.setItem('starlight-theme', newTheme);
-      updateIcons();
-    });
-
-    updateIcons();
-    new MutationObserver(updateIcons).observe(document.documentElement, {
+    const observer = new MutationObserver(updateIconsAndLogo);
+    observer.observe(document.documentElement, {
       attributes: true,
       attributeFilter: ['data-theme']
     });
+
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+      if (!localStorage.getItem('starlight-theme')) {
+        document.documentElement.setAttribute('data-theme', e.matches ? 'dark' : 'light');
+        updateIconsAndLogo();
+      }
+    });
+
+    updateIconsAndLogo();
   }
 </script>
 
 <style>
   .landing-header {
     height: 6rem;
-    padding: 0 1.5rem;
-    background-color: rgb(2, 45, 45);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 0 2.6rem 0 1.5rem;
+    background-color: var(--sl-color-bg-nav);
+    border-bottom: 1px solid var(--sl-color-gray-3);
     font-family: 'Nunito Sans', sans-serif;
     position: fixed;
     top: 0;
@@ -84,6 +112,7 @@ import githubLogo from '../assets/github.svg';
     z-index: 100;
     display: flex;
     align-items: center;
+    line-height: 0 !important;
   }
 
   .header-content {
@@ -115,49 +144,26 @@ import githubLogo from '../assets/github.svg';
   .nav-links a {
     display: flex;
     align-items: center;
-    color: white;
+    color: var(--sl-color-text);
     text-decoration: none;
     font-weight: 500;
     font-size: 1.1rem;
     white-space: nowrap;
+    transition: color 0.2s ease;
   }
 
   .nav-links a:hover {
-    color: rgb(255, 71, 58);
+    color: var(--sl-color-accent-high);
   }
 
-  .nav-links img {
+  #github-logo {
     height: 1.75rem;
     width: 1.75rem;
+    transition: opacity 0.2s ease;
   }
 
-  /* Hide both icons by default to prevent flash */
-  .sun-icon,
-  .moon-icon {
-    display: none;
-  }
-
-  /* Show sun icon by default (light mode) */
-  .sun-icon {
-    display: block;
-  }
-
-  /* When dark mode is active, show moon and hide sun */
-  :global([data-theme="dark"]) .sun-icon {
-    display: none;
-  }
-
-  :global([data-theme="dark"]) .moon-icon {
-    display: block;
-  }
-
-  /* When light mode is active, show sun and hide moon */
-  :global([data-theme="light"]) .sun-icon {
-    display: block;
-  }
-
-  :global([data-theme="light"]) .moon-icon {
-    display: none;
+  .nav-links a:hover #github-logo {
+    filter: brightness(0) saturate(100%) invert(27%) sepia(51%) saturate(2878%) hue-rotate(346deg) brightness(104%) contrast(97%);
   }
 
   #theme-toggle {
@@ -165,21 +171,53 @@ import githubLogo from '../assets/github.svg';
     border: none;
     padding: 0.5rem;
     cursor: pointer;
-    color: var(--sl-color-white);
+    color: var(--sl-color-text);
     transition: all 0.2s ease;
-    min-width: 50px; /* Prevent layout shift */
-    min-height: 50px; /* Prevent layout shift */
+    min-width: 50px;
+    min-height: 50px;
     display: flex;
     align-items: center;
     justify-content: center;
+    border-radius: 0.5rem;
   }
 
   #theme-toggle:hover {
-    background: rgba(255, 255, 255, 0.1);
+    background: var(--sl-color-gray-6);
+  }
+
+  #theme-toggle:focus-visible {
+    outline: 2px solid var(--sl-color-accent);
+    outline-offset: 2px;
+  }
+
+  .sun-icon,
+  .moon-icon {
+    display: none;
+    transition: opacity 0.2s ease;
+  }
+
+  :root .sun-icon {
+    display: block;
+  }
+
+  [data-theme="dark"] .sun-icon {
+    display: none;
+  }
+
+  [data-theme="dark"] .moon-icon {
+    display: block;
+  }
+
+  [data-theme="light"] .sun-icon {
+    display: block;
+  }
+
+  [data-theme="light"] .moon-icon {
+    display: none;
   }
 
   @media (max-width: 768px) {
-    .standalone-header {
+    .landing-header {
       height: 5rem;
       padding: 0 1rem;
     }
@@ -188,13 +226,46 @@ import githubLogo from '../assets/github.svg';
       gap: 1.5rem;
     }
 
-    .logo img {
-      height: 2.5rem;
+    .nav-links a {
+      font-size: 1rem;
     }
 
-    .nav-links img {
+    .logo img {
+      height: 3rem;
+    }
+
+    #github-logo {
       height: 1.5rem;
       width: 1.5rem;
+    }
+
+    #theme-toggle {
+      min-width: 44px;
+      min-height: 44px;
+    }
+
+    .sun-icon,
+    .moon-icon {
+      width: 24px;
+      height: 24px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .header-content {
+      gap: 1rem;
+    }
+
+    .header-right {
+      gap: 1rem;
+    }
+
+    .nav-links {
+      gap: 1rem;
+    }
+
+    .nav-links a span {
+      display: none;
     }
   }
 </style>
