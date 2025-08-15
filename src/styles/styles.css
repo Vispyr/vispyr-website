@@ -1,0 +1,151 @@
+:root {
+  --image-filter: brightness(0);
+}
+
+[data-theme='dark'] {
+  --image-filter: brightness(0) invert(1);
+}
+
+h1 {
+  font-size: 6rem;
+  margin: 0;
+}
+
+h2 {
+  font-size: 2.5rem;
+}
+
+h3 {
+  font-size: 1.5rem;
+}
+
+em {
+  color: rgb(255, 71, 58);
+}
+
+strong {
+  color: rgb(255, 71, 58);
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 6rem 0;
+  padding-top: 2rem;
+}
+
+section {
+  margin: 5rem 4rem 24rem;
+}
+
+section.top {
+  margin-right: 12rem;
+  display: flex;
+  align-items: center;
+}
+
+section.grafana-dashboard {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
+}
+
+section.cli-deploy {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
+}
+
+.landing-hook {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.feature-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4rem;
+}
+
+.feature-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 20rem;
+  height: 25rem;
+  padding: 2rem;
+  background-color: var(--sl-color-gray-2);
+}
+
+.feature-item img {
+  width: 12rem;
+}
+
+.feature-item h3 {
+  text-align: center;
+}
+
+.demonstration {
+  width: 70rem;
+  padding: 0.5rem;
+  background-color: var(--sl-color-gray-2);
+  border: 1px solid rgb(255, 71, 58);
+  box-shadow: 0 0 10px rgb(255, 71, 58);
+}
+
+#team {
+  margin: 0rem 0 6rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.team-members {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4rem;
+}
+
+.team-member {
+  padding: 2rem;
+  background-color: var(--sl-color-gray-2);
+  box-shadow: 0 0 10px var(--sl-color-gray-2);
+  border-radius: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.team-member img {
+  width: 18rem;
+}
+
+#vispyr-logo {
+  margin: -6rem -4rem -6rem;
+  width: 50rem;
+}
+
+#case-study-button {
+  font-size: 1.5rem;
+  text-decoration: none;
+  padding: 1rem;
+  width: 14.5rem;
+  text-align: center;
+  color: var(--sl-color-text);
+  background-color: transparent;
+  border: 1px solid var(--sl-color-text);
+}
+
+#case-study-button:hover {
+  color: rgb(255, 71, 58);
+  border: 1px solid rgb(255, 71, 58);
+  box-shadow: 0 0 10px rgb(255, 71, 58);
+}

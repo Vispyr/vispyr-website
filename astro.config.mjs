@@ -8,7 +8,7 @@ export default defineConfig({
     starlight({
       title: 'Vispyr',
       logo: {
-        src: './src/assets/vispyr-banner.png',
+        src: './src/assets/vispyr-flame.png',
         replacesTitle: true,
       },
       favicon: '/favicon.ico',

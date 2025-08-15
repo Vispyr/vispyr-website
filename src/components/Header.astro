@@ -1,6 +1,7 @@
 ---
 import { Image } from 'astro:assets';
-import vispyrBanner from '../assets/vispyr-banner.png';
+import vispyrFlame from '../assets/vispyr-flame.png';
+import vispyrText from '../assets/vispyr-text.png';
 import githubDark from '../assets/github-dark.svg';
 import githubLight from '../assets/github-light.svg';
 ---
@@ -8,7 +9,8 @@ import githubLight from '../assets/github-light.svg';
   <div class="header-content">
     <div class="logo">
       <a href="/">
-        <Image src={vispyrBanner} alt="Vispyr Banner" />
+        <Image id="logo-flame" src={vispyrFlame} alt="Vispyr Banner" />
+        <Image id="logo-text" src={vispyrText} alt="Vispyr Text" />
       </a>
     </div>
     
@@ -124,11 +126,6 @@ import githubLight from '../assets/github-light.svg';
     gap: 1.5rem;
   }
 
-  .logo img {
-    height: 4.5rem;
-    width: auto;
-  }
-
   .header-right {
     display: flex;
     align-items: center;
@@ -166,6 +163,28 @@ import githubLight from '../assets/github-light.svg';
     filter: brightness(0) saturate(100%) invert(27%) sepia(51%) saturate(2878%) hue-rotate(346deg) brightness(104%) contrast(97%);
   }
 
+  .logo a {
+    display: flex;
+    align-items: center;
+  }
+
+  .logo img {
+    width: auto;
+  }
+
+  #logo-flame {
+    height: 7rem;
+  }
+
+  #logo-text {
+    height: 2rem;
+    filter: var(--image-filter);
+  }
+
+  #logo-text:hover {
+    filter: brightness(1) invert(0);
+  }
+
   #theme-toggle {
     background: transparent;
     border: none;
@@ -182,7 +201,7 @@ import githubLight from '../assets/github-light.svg';
   }
 
   #theme-toggle:hover {
-    background: var(--sl-color-gray-6);
+    color: rgb(255, 71, 58);
   }
 
   #theme-toggle:focus-visible {

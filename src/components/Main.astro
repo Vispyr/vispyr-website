@@ -1,0 +1,48 @@
+---
+import vispyrLogo from "../assets/vispyr-symbol.png";
+import grafanaLogo from "../assets/grafana.svg";
+import terminalLogo from "../assets/terminal.svg";
+import cliMovie from "../assets/cli-deploy.mp4";
+import dashboardMovie from "../assets/grafana-dashboard.mp4";
+import "../styles/styles.css";
+---
+
+<main>
+  <section class="top">
+    <img id='vispyr-logo' src={vispyrLogo.src} />
+    <div class="landing-hook">
+      <h1 class="landing-title">Code-Level Observability in Minutes</h1>
+      <h2 class="landing-subtitle">The self-hosted, easy-to-deploy observability tool that brings you code-level insights</h2>
+      <a id="case-study-button" href='/docs/introduction'>Read our Case Study</a>
+    </div>
+  </section>
+
+  <section class="features">
+    <div class="feature-row">
+      <div class="feature-item">
+        <img src={grafanaLogo.src} />
+        <h3>Feature-rich Visualization using Grafana's User Interface</h3>
+      </div>
+      <div class="feature-item">
+        <img src={terminalLogo.src} />
+        <h3>Automated Deployment through the Vispyr CLI</h3>
+      </div>
+    </div>
+  </section>
+
+  <section class="grafana-dashboard">
+    <video class="demonstration" src={dashboardMovie} autoplay loop />
+    <div>
+      <h2>Discover the <em>exact line of code</em> impacting your app's performance</h2>
+      <h3>Vispyr combines metrics and traces with <strong>continuous profiling</strong>, taking the bug out of debugging.</h3>
+    </div>
+  </section>
+
+  <section class="cli-deploy">
+    <div>
+      <h2>Overwhelmed by AWS deployment? We've got your back!</h2>
+      <h3>The Vispyr CLI provisions the entire Vispyr Backend, removing all the guess-work.</h3>
+    </div>
+    <video class="demonstration" src={cliMovie} autoplay loop />
+  </section>
+</main>

@@ -6,12 +6,19 @@
   --sl-color-bg-nav: #f8fafc;
   --sl-color-bg-sidebar: #fafbfc;
   --sl-color-bg: #ffffff;
+
+  --image-filter: brightness(0);
 }
 
 [data-theme='dark'] {
   --sl-color-bg-nav: #1a1d23;
   --sl-color-bg-sidebar: #1b1f2a;
   --sl-color-bg: #0f1114;
+  --image-filter: brightness(0) invert(1);
+}
+
+body {
+  font-family: 'Nunito Sans', sans-serif;
 }
 
 .main-pane {

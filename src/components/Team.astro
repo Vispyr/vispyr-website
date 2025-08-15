@@ -1,4 +1,6 @@
 ---
+import "../styles/styles.css";
+
 const team = [
   {
     name: 'Derek Novak',
@@ -34,7 +36,7 @@ const team = [
   }
 ]
 ---
-<section class="team">
+<section id="team">
   <h2>Meet the Vispyr Team</h2>
   <div class="team-members">
     {team.map(({name, img, location, github, linkedin, resume}) => (
@@ -51,14 +53,3 @@ const team = [
     ))}
   </div>
 </section>
-
-<style>
-  .team-members {
-    display: flex;
-    align-items: center;
-  }
-
-  .team-member img {
-    width: 200px;
-  }
-</style>
