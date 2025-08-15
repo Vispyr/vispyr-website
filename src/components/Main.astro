@@ -4,9 +4,9 @@ import grafanaLogo from "../assets/grafana.svg";
 import terminalLogo from "../assets/terminal.svg";
 import cliMovie from "../assets/cli-deploy.mp4";
 import dashboardMovie from "../assets/grafana-dashboard.mp4";
+import telemetryFlowSVG from '../assets/telemetry-flow.drawio.svg?raw';
 import "../styles/styles.css";
 ---
-
 <main>
   <section class="top">
     <img id='vispyr-logo' src={vispyrLogo.src} />
@@ -19,14 +19,27 @@ import "../styles/styles.css";
 
   <section class="features">
     <div class="feature-row">
-      <div class="feature-item">
+      <div class="card">
         <img src={grafanaLogo.src} />
-        <h3>Feature-rich Visualization using Grafana's User Interface</h3>
+        <h3>Feature-rich Visualization Powered by Grafana</h3>
       </div>
-      <div class="feature-item">
+      <div class="card">
         <img src={terminalLogo.src} />
-        <h3>Automated Deployment through the Vispyr CLI</h3>
+        <h3>Automated AWS Deployment using a simple CLI</h3>
       </div>
+      <div class="card">
+        <h3>Fully Provisioned Telemetry Pipeline</h3>
+      </div>
+    </div>
+  </section>
+
+  <section class="provisioned-telemetry">
+    <div>
+      <h2>No telemetry-hookup required</h2>
+      <h3>Vispyr deploys a <em>fully-provisioned backend</em>, handling all the telemetry configurations and allowing you to focus on what matters.</h3>
+    </div>
+    <div class="svg-container">
+      <Fragment set:html={telemetryFlowSVG} />
     </div>
   </section>
 
@@ -40,7 +53,7 @@ import "../styles/styles.css";
 
   <section class="cli-deploy">
     <div>
-      <h2>Overwhelmed by AWS deployment? We've got your back!</h2>
+      <h2>Overwhelmed by AWS deployment?<br>We've got your back</h2>
       <h3>The Vispyr CLI provisions the entire Vispyr Backend, removing all the guess-work.</h3>
     </div>
     <video class="demonstration" src={cliMovie} autoplay loop />

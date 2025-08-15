@@ -1,6 +1,7 @@
 :root {
   --sl-nav-height: 6rem;
   --sl-content-width: 100%;
+  --sl-color-accent: rgb(255, 71, 58);
   --sl-color-accent-high: rgb(255, 71, 58);
 
   --sl-color-bg-nav: #f8fafc;
@@ -69,6 +70,7 @@ body {
 
 footer a:hover {
   border: 1px solid rgb(255, 71, 58);
+  transition: all 0.3s ease;
 }
 
 @media (max-width: 768px) {

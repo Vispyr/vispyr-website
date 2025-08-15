@@ -1,5 +1,54 @@
 :root {
+  --sl-color-white: #ffffff;
+  --sl-color-gray-1: #f5f6f8;
+  --sl-color-gray-2: #e8eaed;
+  --sl-color-gray-3: #c2c6cc;
+  --sl-color-gray-4: #8d9199;
+  --sl-color-gray-5: #5d6066;
+  --sl-color-gray-6: #383a42;
+  --sl-color-black: #23262d;
+  --sl-color-accent-low: #c7f0ff;
+  --sl-color-accent: #0ea5e9;
+  --sl-color-accent-high: #b6e7ff;
+  --sl-color-bg: #ffffff;
+  --sl-color-bg-nav: #f8fafc;
+  --sl-color-bg-sidebar: #fafbfc;
+  --sl-color-text: #383a42;
+  --sl-color-text-accent: #0ea5e9;
+
   --image-filter: brightness(0);
+}
+
+[data-theme='dark'] {
+  --sl-color-white: #ffffff;
+  --sl-color-gray-1: #23262d;
+  --sl-color-gray-2: #2a2e37;
+  --sl-color-gray-3: #383a42;
+  --sl-color-gray-4: #5d6066;
+  --sl-color-gray-5: #8d9199;
+  --sl-color-gray-6: #c2c6cc;
+  --sl-color-black: #f5f6f8;
+  --sl-color-accent-low: #0d4663;
+  --sl-color-accent: #0ea5e9;
+  --sl-color-accent-high: rgb(255, 71, 58);
+  --sl-color-bg: #17181c;
+  --sl-color-bg-nav: #1a1d23;
+  --sl-color-bg-sidebar: #161922;
+  --sl-color-text: #e8eaed;
+  --sl-color-text-accent: #b6e7ff;
+}
+
+html {
+  background-color: var(--sl-color-bg);
+  color: var(--sl-color-text);
+}
+
+body {
+  background-color: var(--sl-color-bg);
+  font-family: 'Nunito Sans', sans-serif;
+  color: var(--sl-color-text);
+  margin: 0;
+  padding: 0;
 }
 
 [data-theme='dark'] {
@@ -29,6 +78,7 @@ strong {
 
 main {
   display: flex;
+  background-color: var(--sl-color-bg);
   flex-direction: column;
   align-items: center;
   margin: 6rem 0;
@@ -36,7 +86,12 @@ main {
 }
 
 section {
+  background-color: var(--sl-color-bg);
   margin: 5rem 4rem 24rem;
+
+  opacity: 0;
+  animation: fadeInUp 0.8s ease forwards;
+  animation-delay: 0.3s;
 }
 
 section.top {
@@ -59,6 +114,14 @@ section.cli-deploy {
   gap: 2rem;
 }
 
+section.provisioned-telemetry {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
 .landing-hook {
   display: flex;
   flex-direction: column;
@@ -72,22 +135,31 @@ section.cli-deploy {
   gap: 4rem;
 }
 
-.feature-item {
+.card {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 20rem;
+  width: 18rem;
   height: 25rem;
   padding: 2rem;
-  background-color: var(--sl-color-gray-2);
+  border-radius: 0.8rem;
+  transition: transform 0.3s ease;
+  background-color: var(--sl-color-gray-1);
+  box-shadow: 0 10px 8px black;
 }
 
-.feature-item img {
+.card:hover {
+  transform: translateY(-12px) scale(1);
+  box-shadow: 0 10px 8px black;
+}
+
+.card img {
   width: 12rem;
+  border-radius: 0.8rem;
 }
 
-.feature-item h3 {
+.card h3 {
   text-align: center;
 }
 
@@ -97,6 +169,19 @@ section.cli-deploy {
   background-color: var(--sl-color-gray-2);
   border: 1px solid rgb(255, 71, 58);
   box-shadow: 0 0 10px rgb(255, 71, 58);
+}
+
+.svg-container {
+  width: 80%;
+  min-width: 0;
+  flex: 1 1 auto;
+  overflow: hidden;
+}
+
+.svg-container svg {
+  width: 100%;
+  height: auto;
+  max-width: 100%;
 }
 
 #team {
@@ -142,10 +227,22 @@ section.cli-deploy {
   color: var(--sl-color-text);
   background-color: transparent;
   border: 1px solid var(--sl-color-text);
+  transition: all 0.3s ease;
 }
 
 #case-study-button:hover {
   color: rgb(255, 71, 58);
   border: 1px solid rgb(255, 71, 58);
   box-shadow: 0 0 10px rgb(255, 71, 58);
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
