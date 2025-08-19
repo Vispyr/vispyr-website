@@ -4,21 +4,72 @@ import grafanaLogo from "../assets/grafana.svg";
 import terminalLogo from "../assets/terminal.svg";
 import cliMovie from "../assets/cli-deploy.mp4";
 import dashboardMovie from "../assets/grafana-dashboard.mp4";
-import telemetryFlowSVG from '../assets/telemetry-flow.drawio.svg?raw';
+import telemetryFlowSVG from '../assets/Telemetry-Flow.drawio.svg?raw';
+import pipelineIcon from '../assets/pipeline-icon.png';
+
+import awsIcon from '../assets/icons/AWS.drawio.svg?raw';
+import grafanaIcon from "../assets/icons/Grafana.drawio.svg?raw";
+import alloyIcon from '../assets/icons/Alloy.drawio.svg?raw';
+import promIcon from '../assets/icons/Prometheus.drawio.svg?raw';
+import tempoIcon from '../assets/icons/Tempo.drawio.svg?raw';
+import pyroIcon from '../assets/icons/Pyroscope.drawio.svg?raw';
+import nginxIcon from '../assets/icons/Nginx.drawio.svg?raw';
+import dockerIcon from '../assets/icons/Docker.drawio.svg?raw';
 import "../styles/styles.css";
+
+const icons = [
+  {
+    name: 'Grafana',
+    src: grafanaIcon,
+  },
+  {
+    name: 'AWS',
+    src: awsIcon,
+  },
+  {
+    name: 'Grafana Alloy',
+    src: alloyIcon,
+  },
+  {
+    name: 'Prometheus',
+    src: promIcon,
+  },
+  {
+    name: 'Grafana Tempo',
+    src: tempoIcon,
+  },
+  {
+    name: 'NGNIX',
+    src: nginxIcon,
+  },
+  {
+    name: 'Grafana Pyroscope',
+    src: pyroIcon,
+  },
+  {
+    name: 'Docker',
+    src: dockerIcon,
+  },
+];
 ---
 <main>
   <section class="top">
-    <img id='vispyr-logo' src={vispyrLogo.src} />
-    <div class="landing-hook">
-      <h1 class="landing-title">Code-Level Observability in Minutes</h1>
-      <h2 class="landing-subtitle">The self-hosted, easy-to-deploy observability tool that brings you code-level insights</h2>
-      <a id="case-study-button" href='/docs/introduction'>Read our Case Study</a>
+    <div class="top-content">
+      <img id='vispyr-logo' src={vispyrLogo.src} />
+      <div class="landing-hook">
+        <h1 class="landing-title">Code-Level Observability in Minutes</h1>
+        <h2 class="landing-subtitle">The self-hosted, easy-to-deploy observability tool that brings you code-level insights</h2>
+        <a id="case-study-button" href='/docs/introduction'>Read our Case Study</a>
+      </div>
     </div>
   </section>
 
-  <section class="features">
+  <section class="horizontal">
     <div class="feature-row">
+      <div class="card">
+        <img src={pipelineIcon.src} />
+        <h3>Fully Provisioned Telemetry Pipeline</h3>
+      </div>
       <div class="card">
         <img src={grafanaLogo.src} />
         <h3>Feature-rich Visualization Powered by Grafana</h3>
@@ -27,13 +78,10 @@ import "../styles/styles.css";
         <img src={terminalLogo.src} />
         <h3>Automated AWS Deployment using a simple CLI</h3>
       </div>
-      <div class="card">
-        <h3>Fully Provisioned Telemetry Pipeline</h3>
-      </div>
     </div>
   </section>
 
-  <section class="provisioned-telemetry">
+  <section>
     <div>
       <h2>No telemetry-hookup required</h2>
       <h3>Vispyr deploys a <em>fully-provisioned backend</em>, handling all the telemetry configurations and allowing you to focus on what matters.</h3>
@@ -43,19 +91,37 @@ import "../styles/styles.css";
     </div>
   </section>
 
-  <section class="grafana-dashboard">
-    <video class="demonstration" src={dashboardMovie} autoplay loop />
-    <div>
-      <h2>Discover the <em>exact line of code</em> impacting your app's performance</h2>
-      <h3>Vispyr combines metrics and traces with <strong>continuous profiling</strong>, taking the bug out of debugging.</h3>
+  <section>
+    <div class="demonstration-content">
+      <video class="demonstration" src={dashboardMovie} autoplay loop />
+      <div>
+        <h2>Discover the <em>exact line of code</em> impacting your app's performance</h2>
+        <h3>Vispyr combines metrics and traces with <strong>continuous profiling</strong>, taking the bug out of debugging.</h3>
+      </div>
     </div>
   </section>
 
-  <section class="cli-deploy">
-    <div>
-      <h2>Overwhelmed by AWS deployment?<br>We've got your back</h2>
-      <h3>The Vispyr CLI provisions the entire Vispyr Backend, removing all the guess-work.</h3>
+  <section>
+    <div class="demonstration-content">
+      <div>
+        <h2>Overwhelmed by AWS deployment?<br><strong>We've got your back</strong></h2>
+        <h3>The Vispyr CLI provisions the entire Vispyr Backend, removing all the guess-work from provisioning your own cloud environment.</h3>
+      </div>
+      <video class="demonstration" src={cliMovie} autoplay loop />
     </div>
-    <video class="demonstration" src={cliMovie} autoplay loop />
+  </section>
+
+  <section class="technologies">
+    <h2>Technologies</h2>
+    <div class="mini-card-row">
+      {icons.map(({ name, src }) => (
+        <div class="card-name-pair">
+          <div class="mini-card">
+            <Fragment set:html={src} />
+          </div>
+          <h3>{name}</h3>
+        </div>
+      ))}
+    </div>
   </section>
 </main>

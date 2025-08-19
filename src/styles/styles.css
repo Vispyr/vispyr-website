@@ -9,7 +9,7 @@
   --sl-color-black: #23262d;
   --sl-color-accent-low: #c7f0ff;
   --sl-color-accent: #0ea5e9;
-  --sl-color-accent-high: #b6e7ff;
+  --sl-color-accent-high: rgb(255, 71, 58);
   --sl-color-bg: #ffffff;
   --sl-color-bg-nav: #f8fafc;
   --sl-color-bg-sidebar: #fafbfc;
@@ -44,6 +44,10 @@ html {
 }
 
 body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   background-color: var(--sl-color-bg);
   font-family: 'Nunito Sans', sans-serif;
   color: var(--sl-color-text);
@@ -86,40 +90,48 @@ main {
 }
 
 section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   background-color: var(--sl-color-bg);
-  margin: 5rem 4rem 24rem;
-
+  width: 90%;
   opacity: 0;
   animation: fadeInUp 0.8s ease forwards;
   animation-delay: 0.3s;
 }
 
-section.top {
+.top-content {
   margin-right: 12rem;
   display: flex;
   align-items: center;
+  min-height: 100vh;
+  justify-content: center;
 }
 
-section.grafana-dashboard {
+.demonstration-content {
   display: flex;
-  justify-content: space-between;
   align-items: center;
   gap: 2rem;
 }
 
-section.cli-deploy {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 2rem;
+section::after {
+  content: '';
+  display: block;
+  width: 100%;
+  height: 2px;
+  margin: 24rem;
+  background: linear-gradient(
+    to right,
+    transparent 0%,
+    var(--sl-color-accent-high) 20%,
+    var(--sl-color-accent-high) 80%,
+    transparent 100%
+  );
 }
 
-section.provisioned-telemetry {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  gap: 2rem;
+#team::after {
+  display: none;
 }
 
 .landing-hook {
@@ -155,12 +167,53 @@ section.provisioned-telemetry {
 }
 
 .card img {
-  width: 12rem;
+  width: 14rem;
   border-radius: 0.8rem;
 }
 
 .card h3 {
   text-align: center;
+}
+
+.mini-card-row {
+  display: flex;
+  justify-content: space-evenly;
+  gap: 3rem;
+}
+
+.mini-card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--sl-color-gray-1);
+  width: 8rem;
+  height: 8rem;
+  border-radius: 0.8rem;
+  box-shadow: 0 10px 8px black;
+  transition: transform 0.3s ease;
+}
+
+.card-name-pair h3 {
+  width: 8rem;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.mini-card:hover {
+  transform: translateY(-12px) scale(1);
+  box-shadow: 0 10px 8px black;
+}
+
+.mini-card:hover + h3 {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.mini-card svg {
+  width: 70%;
+  height: 70%;
 }
 
 .demonstration {
@@ -223,6 +276,7 @@ section.provisioned-telemetry {
   text-decoration: none;
   padding: 1rem;
   width: 14.5rem;
+  border-radius: 0.8rem;
   text-align: center;
   color: var(--sl-color-text);
   background-color: transparent;
