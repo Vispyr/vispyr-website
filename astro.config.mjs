@@ -3,6 +3,8 @@ import starlight from '@astrojs/starlight';
 
 import react from '@astrojs/react';
 
+import vercel from '@astrojs/vercel';
+
 export default defineConfig({
   integrations: [
     starlight({
@@ -34,4 +36,6 @@ export default defineConfig({
     }),
     react(),
   ],
+
+  adapter: vercel(),
 });
