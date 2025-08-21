@@ -201,12 +201,12 @@ section::after {
   transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
-.mini-card:hover {
+.card-name-pair:hover a {
   transform: translateY(-12px) scale(1);
   box-shadow: 0 10px 8px black;
 }
 
-.card-name-pair a:hover + h3 {
+.card-name-pair:hover h3 {
   opacity: 1;
   transform: translateY(0);
 }
