@@ -1,10 +1,15 @@
 ---
-title: "Building Vispyr"
-description: "How we built our observability platform"
+title: 'Building Vispyr'
+description: 'How we built our observability platform'
 order: 4
 ---
 
+import vispyrInfrastructure from '../../../assets/diagrams/Vispyr-Infrastructure.svg?raw';
+import vispyrBackend from '../../../assets/diagrams/Vispyr-Backend.svg?raw';
+import vispyrAgent from '../../../assets/diagrams/Vispyr-Agent.svg?raw';
+
 ## Our North Star
+
 The goal of Vispyr is to expand observability and continuous profiling to smaller teams that do not have the resources for a managed cloud service or the capacity to research and implement a DIY solution. Our target user group is smaller teams in need of an observability platform that matches the flexibility, lower cost, and composability of open source tooling, combined ease of adoption provided by a managed cloud service. To maintain compatibility with existing industry standards, Vispyr prioritizes maintaining compatibility with OTel as much as possible. Continuous profiling is central to the platform, with additional telemetry signals incorporated to enhance our ability to monitor and investigate applications. Vispyr also prioritizes pre-provisioned, ready to use visuals in order to allow teams to ramp up quickly on analysis of telemetry data.
 
 Below is a summary of how these priorities position Vispyr against the landscape of managed cloud platforms and DIY solutions:
@@ -13,9 +18,17 @@ Below is a summary of how these priorities position Vispyr against the landscape
 
 Vispyr has three basic components: the backend, the agent, and the command line tool (CLI). The backend is responsible for centralizing, storing, and displaying telemetry data, while the agent is responsible for collecting metrics, traces, and profiles from a user’s application and transmitting it to the backend. The CLI is used to deploy the Vispyr application and is responsible for orchestrating the setup of all tooling.
 
+<figure style="display: flex; justify-content: center; margin: 4rem;">
+  <div set:html={vispyrInfrastructure} />
+</figure>
+
 ### Vispyr Backend
 
-The Vispyr Backend includes a component of the telemetry pipeline, plus the full data storage and visualization layers of the observability platform. 
+The Vispyr Backend includes a component of the telemetry pipeline, plus the full data storage and visualization layers of the observability platform.
+
+<figure style="display: flex; justify-content: center; margin: 4rem;">
+  <div set:html={vispyrBackend} />
+</figure>
 
 The pipeline uses Grafana Alloy, a vendor-specific distribution of the OTel collector, which is deployed as a gateway collector. Alloy centralizes the processing and routing of incoming telemetry signals from one or more instrumented applications and is capable of processing the profiling data produced by the Vispyr continuous profiler (see below). This gives the backend a single point of ingestion while maintaining a clear separation between instrumentation alongside the user application and pipeline processing in the backend. The alloy collector is configured to receive traces, metrics, and profiles.
 
@@ -34,9 +47,13 @@ The backend is deployed on AWS. All components of the backend are run in docker 
 
 The Vispyr Agent includes the instrumentation layer and a portion of the telemetry pipeline.
 
+<figure style="display: flex; justify-content: center; margin: 4rem;">
+  <div set:html={vispyrAgent} />
+</figure>
+
 Instrumentation of the user’s application relies on the OTel SDK. The SDK is implemented through a script that is run as part of the application’s startup command. The script initializes OTel components that capture telemetry data and configures the application to send that data to the gateway collector. The SDK produces traces, runtime application-specific metrics (such as garbage collection statistics, event loop metrics, etc), and profiles.
 
-The instrumentation layer of Vispyr also includes the Prometheus Node Exporter, which is used to gather metrics from the host machine. The Node Exporter is a Prometheus component that runs as a lightweight system process `systemd` service that exposes the host’s system-level metrics for a Prometheus instance to scrape telemetry data. It runs independently of the user’s application, so that it can withstand failures of the instrumented application. 
+The instrumentation layer of Vispyr also includes the Prometheus Node Exporter, which is used to gather metrics from the host machine. The Node Exporter is a Prometheus component that runs as a lightweight system process `systemd` service that exposes the host’s system-level metrics for a Prometheus instance to scrape telemetry data. It runs independently of the user’s application, so that it can withstand failures of the instrumented application.
 
 The telemetry pipeline of the Vispyr Agent is another instance of Grafana Alloy, run as an agent collector on the host machine of the application. The agent collector centralizes the collection of telemetry data on the user’s application side and then directs that data to Vispyr’s backend through the established VPC peering connection. This collector operates in both a push and a pull mode. For traces and profiles, Alloy is configured to listen for traffic from the application (as configured by the instrumentation script) and receive telemetry in a push configuration. For metrics, Alloy is configured to periodically scrape Node Exporter in a pull configuration.
 

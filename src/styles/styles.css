@@ -206,7 +206,7 @@ section::after {
   box-shadow: 0 10px 8px black;
 }
 
-.mini-card:hover + h3 {
+.card-name-pair a:hover + h3 {
   opacity: 1;
   transform: translateY(0);
 }

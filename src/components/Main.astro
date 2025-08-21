@@ -21,34 +21,42 @@ const icons = [
   {
     name: 'Grafana',
     src: grafanaIcon,
+    site: 'https://grafana.com/oss/',
   },
   {
     name: 'AWS',
     src: awsIcon,
+    site: 'https://aws.amazon.com/',
   },
   {
     name: 'Grafana Alloy',
     src: alloyIcon,
+    site: 'https://grafana.com/oss/alloy-opentelemetry-collector/',
   },
   {
     name: 'Prometheus',
     src: promIcon,
+    site: 'https://prometheus.io/',
   },
   {
     name: 'Grafana Tempo',
     src: tempoIcon,
+    site: 'https://grafana.com/oss/tempo/',
   },
   {
     name: 'NGNIX',
     src: nginxIcon,
+    site: 'https://nginx.org/',
   },
   {
     name: 'Grafana Pyroscope',
     src: pyroIcon,
+    site: 'https://grafana.com/oss/pyroscope/',
   },
   {
     name: 'Docker',
     src: dockerIcon,
+    site: 'https://www.docker.com/',
   },
 ];
 ---
@@ -114,11 +122,13 @@ const icons = [
   <section class="technologies">
     <h2>Technologies</h2>
     <div class="mini-card-row">
-      {icons.map(({ name, src }) => (
+      {icons.map(({ name, src, site }) => (
         <div class="card-name-pair">
-          <div class="mini-card">
-            <Fragment set:html={src} />
-          </div>
+          <a href={site} target="_blank">
+            <div class="mini-card">
+              <Fragment set:html={src} />
+            </div>
+          </a>
           <h3>{name}</h3>
         </div>
       ))}

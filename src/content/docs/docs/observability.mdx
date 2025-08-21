@@ -4,6 +4,17 @@ description: "Understanding observability in modern applications"
 order: 2
 ---
 
+import metricsExample from '../../../assets/examples/metrics.png';
+import tracesExample from '../../../assets/examples/traces.png';
+import logsExample from '../../../assets/examples/logs.png';
+import profilesExample from '../../../assets/examples/profiles.png';
+import observabilityPlatform from '../../../assets/diagrams/Observability-Platform.svg?raw';
+import telemetryPipeline from '../../../assets/diagrams/Telemetry-Pipeline.svg?raw';
+import metricStorage from '../../../assets/diagrams/Metric-Storage.svg?raw';
+
+
+import dashboardExample from '../../../assets/examples/dashboard.png';
+
 ## Overview
 
 Observability, in its broadest sense, is the ability to evaluate and understand the internal state of an application based on the data it produces. By creating applications and systems that produce such data (referred to as telemetry), developers are able to analyze and diagnose problems in their systems. The ultimate goal of making a system observable is to have “the ability to ask any question of your system…without having to predict that question, behavior or experience in advance.”
@@ -16,6 +27,10 @@ In order for a system to be observable, it needs to produce telemetry data. Trad
 
 Metrics are measurements of a service or system at runtime. A metric might capture the current CPU utilization, the amount of memory being used by an application, or the average latency of a service. Through metrics, developers are able to monitor the state of a system or an application and answer the question "Is something happening?"
 
+<figure style="display: flex; justify-content: center; margin: 4rem;">
+  <img src={metricsExample.src} />
+</figure>
+
 For instance, a common use case is to monitor what are known as “RED” metrics: rate, error, and duration metrics. These metrics are focused on the number of requests received per second (rate), number of errors (error), and the duration of requests (duration). By collecting RED metrics and monitoring their change over time, developers are able to focus on extreme outliers (referred to as P99 for 99th percentile) to improve the performance of an application or service. Moreover, metrics can be used to configure alerts that notify developers when predefined thresholds are exceeded, indicating that an issue needs to be investigated and resolved.
 
 The primary limitation of metrics is that it’s often difficult to diagnose what causes outliers or alerts within an application or system. For this more detail is needed about the components of an application, 
@@ -24,11 +39,19 @@ The primary limitation of metrics is that it’s often difficult to diagnose wha
 
 Traces are a collection of events that record the path a request takes through a system and are used to understand how services in a system are related to each other. The events that make up a single trace are called spans. By recording spans that occur in a system (e.g. a POST request to an endpoint and a subsequent write to a database) and chaining them together as parent and children spans, traces allow developers to identify how the various services within an application interact for a single request. Additionally, it allows developers to pinpoint the service(s) that produce errors or introduce latency into a request.
 
+<figure style="display: flex; justify-content: center; margin: 4rem;">
+  <img src={tracesExample.src} />
+</figure>
+
 Traces are ultimately concerned with the bigger picture of how distinct services within an application or ecosystem behave together and are commonly used in microservice architectures. While this is a powerful tool for observing a system, a key limitation is that traces provide very limited insight into the internals of a service.
 
 ### Logs
 
 Logs should be familiar to most programmers as they are the oldest form of telemetry, predating the modern concept of observability. Logs are timestamped, text records capturing metadata or some form of message detailing what occurred in a system. The message could be as simple as a statement that a function has been executed, or more complex like recording an error and provide some information about the state of the application for debugging purposes.
+
+<figure style="display: flex; justify-content: center; margin: 4rem;">
+  <img src={logsExample.src} />
+</figure>
 
 Logs have long been useful for looking back at a program to see what has occurred, as structured logs provide the level of granularity needed to understand what is happening within an application at a code level. However, the challenge is that searching logs to first find and then understand the cause of an issue is a laborious process. Additionally, it relies on having existing logging at the right points within a codebase with enough detail to allow an effective root cause analysis. Often, when issues are found, logs only allow developers to approximate the source of the issues. This then leads to modified, additional logging added to the codebase at that location in order to identify the next occurrence of an issue. Another significant drawback is the required storage and associated cost; logging can generate a significant amount of data that requires dedicated storage.
 
@@ -42,11 +65,19 @@ As mentioned before, profiles have become the “4th pillar” of observability 
 
 A profile is generated by collecting samples of system resource usage (e.g. cpu utilization, memory allocation etc) by function, often hundreds of times per second. By aggregating these samples, a continuous profiler is able to produce a relative measure of resource utilization for each function call within a specific time period. Profiles are often analyzed through a flamegraph which visualizes the stack traces collected through the profiler and sizes particular function calls based on their relative utilization of the CPU (or memory, depending on what resource is being profiled).
 
+<figure style="display: flex; justify-content: center; margin: 4rem;">
+  <img src={profilesExample.src} />
+</figure>
+
 This level of analysis alone is enough to identify code optimization opportunities that can eliminate latency issues or even improve performance without increasing infrastructure spend. Combining this detail with traces, metrics and logs has become an increasingly common method to unlock even further insight into the internal state of an application.
 
 ## An Observability Platform
 
 Altogether, the four telemetry signals can give developers an in-depth view of a program's performance. An observability platform surfaces insights from these signals through the following architectural layers:
+
+<figure style="display: flex; justify-content: center; margin: 4rem; max-width: 100%;">
+  <div set:html={observabilityPlatform} style="transform: scale(2); max-width: 60%; transform-origin: center;" />
+</figure>
 
 ### Instrumentation
 
@@ -62,6 +93,10 @@ While eBPF is an increasingly popular option for instrumentation, specifically c
 
 ### Telemetry Pipeline
 
+<figure style="display: flex; justify-content: center; margin: 11rem; max-width: 100%;">
+  <div set:html={telemetryPipeline} style="transform: scale(2); max-width: 60%; transform-origin: center;" />
+</figure>
+
 A telemetry pipeline provides a means to collect, process, aggregate, and transmit data from instrumented applications to the rest of the observability platform. Technically, a telemetry pipeline is an optional component, as instrumentation tooling can be configured to send data directly to the data storage backend. However, telemetry data usually comes in high volumes that can drastically increase as an application scales, gains a larger user base, or transitions to a distributed microservices architecture. As an example of this, metrics are often measured per million “active series,” where an active series represents a distinct metric that is scraped from a single host machine every 15 seconds.
 
 Because of this it’s common to leverage a telemetry pipeline to centralize telemetry data and standardize the format of data that’s sent. This pipeline can utilize a “pull” method, where it scrapes telemetry data from an endpoint, or a “push” method, where it provides an endpoint for services to send telemetry data.
@@ -76,6 +111,10 @@ The tradeoffs of implementing a collector are the increased complexity of adding
 
 Storage for observability data is unique because of the bespoke nature of different telemetry signals and high volumes. This results in many data stores that are customized to the specific telemetry data being collected, as opposed to traditional forms of data storage like a relational database.
 
+<figure style="display: flex; justify-content: center; margin: 11rem; max-width: 100%;">
+  <div set:html={metricStorage} style="transform: scale(2); max-width: 60%; transform-origin: center;" />
+</figure>
+
 Metrics are perhaps the best example: this signal produces high volume, high cardinality time series data, requires frequent writes, and needs efficient indexing for fast, frequent retrieval of data. As a result, the data stores for metrics are typically time-series databases built to work with the high volume nature of metrics. The most common of these is Prometheus, which is discussed further in the The Observability Landscape section below. Other forms of telemetry require different forms of data storage (e.g. traces and logs are often written to object storage instead of a time-series or relational database).
 
 The importance of the data store is also dependent on compatibility with the telemetry pipeline, the format of the data it receives, the availability of compatible instrumentation, and compatibility with frontend visualization tools. The tradeoffs of any particular data store are specific to the nature of the signal and prior choices made elsewhere in the architecture.
@@ -83,3 +122,7 @@ The importance of the data store is also dependent on compatibility with the tel
 ### Visualization
 
 The last component of the platform is the visualization layer, which provides a dedicated user interface to interact with the data. Through the UI, a developer gains dashboarding, alerting, and querying capabilities. This all serves the benefit of giving developers the ability to take action based on the data collected. The choice of a visualization platform is driven by compatibility with chosen data sources and the provided features of the tool (e.g. querying, analysis, alerting, dashboarding etc).
+
+<figure style="display: flex; justify-content: center; margin: 4rem;">
+  <img src={dashboardExample.src} />
+</figure>

@@ -18,6 +18,22 @@
   --image-filter: brightness(0) invert(1);
 }
 
+h1 {
+  font-size: 4rem;
+}
+
+h2 {
+  font-size: 3rem;
+}
+
+h3 {
+  font-size: 2rem;
+}
+
+p {
+  font-size: 1.4rem;
+}
+
 body {
   font-family: 'Nunito Sans', sans-serif;
 }
@@ -71,6 +87,10 @@ body {
 footer a:hover {
   border: 1px solid rgb(255, 71, 58);
   transition: all 0.3s ease;
+}
+
+#starlight__on-this-page {
+  font-size: 1.2rem;
 }
 
 @media (max-width: 768px) {
