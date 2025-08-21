@@ -27,10 +27,10 @@ export default defineConfig({
       sidebar: [
         { slug: 'docs/introduction' },
         { slug: 'docs/observability' },
-        { slug: 'docs/existing-solutions' },
+        { slug: 'docs/observability-landscape' },
         { slug: 'docs/building-vispyr' },
+        { slug: 'docs/design-decisions' },
         { slug: 'docs/future-work' },
-        { slug: 'docs/references' },
       ],
       customCss: ['./src/styles/custom.css'],
     }),

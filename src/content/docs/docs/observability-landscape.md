@@ -1,0 +1,53 @@
+---
+title: "The Observability Landscape"
+description: "Analysis of current observability tools"
+order: 3
+---
+
+Given the various components of an observability platform, the observability landscape contains a large number of open source and proprietary tooling across each component of the stack. These may cover all telemetry signals or only a single one, meaning a single telemetry signal on its own has numerous alternatives. Because of this, it’s helpful to think of the landscape in the context of industry accepted standard tooling and end-to-end platforms built around those standards.
+
+## Industry Standards
+
+The observability community has coalesced around two specific projects as defacto standards for observability: OpenTelemetry and Prometheus.
+
+The OpenTelemetry project itself (often called “OTel” for short) is a “framework and toolkit designed to facilitate the generation, export, and collection of telemetry data”. Included in the toolkit is the OTel Collector which serves as a vendor-agnostic pipeline to transmit different telemetry signals through the OpenTelemetry Protocol (OTLP). As mentioned above, the OpenTelemetry Collector has become an industry standard for the telemetry pipeline and OTLP has been widely adopted across observability tooling.
+
+OTel also includes a wide variety of instrumentation tooling to facilitate gathering telemetry data. This includes SDKs, zero-code instrumentation, and an experimental eBPF based instrumentation tool (OpenTelemetry eBPF Instrumentation, or OBI) currently in development. OTel provides both the specification and implementation of its tooling, which enables various vendors to implement OTel SDKs and deploy vendor specific distributions of the OTel Collector. The scope of OTel covers the three primary observability signals (metrics, traces and logs), with additional support for profiles currently in flight.
+
+Prometheus is “an open-source systems monitoring and alerting toolkit” which has become the standard for collecting and storing systems and service metrics. Included in the Prometheus project is a multi-dimensional time-series database used to store collected metrics, a custom flexible query language used for analysis of metrics, tooling to instrument systems, and a methodology that enables dynamic service discovery and metrics collection. Prometheus is scoped solely around metrics and is fully compatible with OpenTelemetry.
+
+Prometheus is fully capable of fulfilling the instrumentation, telemetry pipeline, and data storage roles within an observability platform, but only for metrics. As a result, it's common for Prometheus to be deployed alongside an OpenTelemetry collector, as opposed to a choice between the two. The OTel Collector also implements a number of components designed to work directly with Prometheus. In these setups, OTel receives metrics from OTLP compatible instrumentation as usual, but then transforms them into Prometheus format, and makes them available at an endpoint for Prometheus to pull from. Prometheus maintains its role as a pipeline by scraping metrics from an endpoint (in this case OTel) and storing that data.
+
+Due to the adoption of OTel and Prometheus across the industry, a large number of platforms are OTel and Prometheus compatible and treat them as first class citizens (though some managed service providers prioritize proprietary solutions as an alternative). However, other telemetry signals and their associated tooling have not achieved such widespread adoption. Traces and logs are often transmitted over OTLP, but they are stored using a variety of solutions. Additionally, because the OTel signal for profiles is still in flight, profiles are often instrumented, transmitted and stored using a variety of tools and formats outside of OTLP and the OTel collector (though the pprof format is commonly used among various implementations of continuous profiling).
+
+## End-to-End Platforms
+
+End-to-end observability platforms can be grouped into open-source and managed cloud platforms. Open source platforms include free, open source, and self-managed solutions across the observability stack (inclusive of all components), while managed cloud platforms cover solutions that provide an all-in-one platform for backend storage, visualization, and managed cloud hosting. These two categories provide different tradeoffs with regard to cost, simplicity of setup and maintenance of the platform, and proprietary tooling.
+
+### Managed Cloud Platforms
+
+The landscape of managed cloud platforms rely on a mix of proprietary tooling and industry standards to abstract away the complexity of setting up the observability pipeline. They typically leverage a proprietary “agent” application to instrument, gather, and transmit telemetry alongside integrations with services (e.g. Docker, Kubernetes, etc.) and different cloud providers (AWS, GCP, Azure, etc). Most also support some level of integration with OpenTelemetry, sometimes providing vendor specific distributions of OTel tooling. The majority of platforms will come with a feature rich visualization layer, while abstracting away backend storage as a managed cloud service.
+
+Managed cloud platforms do achieve some level of simplification for the developers by abstracting away the setup, configuration, and maintenance of an observability architecture. However, this simplicity is often countered by an overwhelming number of features, options, and integrations. Additionally, features may be dependent on proprietary tooling which can introduce vendor lock-in and result in high cost.
+
+### Open Source Platforms
+
+Open source platforms provide flexibility to customize and deploy individual components that meet a user’s use case, but come at the downside of not providing one holistic solution. There are a limited number of end-to-end free and open-source software (FOSS) platforms that cover the instrumentation, pipeline set-up, storage, and visualization components of an observability platform. Some of the options in this space (such as Jaeger for distributed tracing) are specific to only one telemetry signal.
+
+As a result, options for platforms in this space often require DIY solutions that assemble different open source solutions into a cohesive platform. While there are a handful of platforms that provide solutions across all components of the observability stack (e.g. Grafana’s LGTM stack, Signoz, etc), many of them still require developers to set up and configure each component independently.
+
+For example, if a developer wanted to analyze traces, metrics, and logs, they would need to combine OTel and Prometheus with tools such as Jaeger, Loki, and Grafana. Jaeger is a distributed tracing platform that also provides a UI for visualization, but it only supports traces, while Loki is purely a datastore for logs. In order to interact with all telemetry in a single UI, you would also need to deploy a data visualization tool like Grafana and configure it to connect to all data sources.
+
+In this scenario, a developer would need to configure OTel instrumentation and an OTel collector to gather metrics, traces and logs and send the data to the three different data stores (Prometheus for metrics, Jaeger for traces, and Loki for logs) and then configure Grafana to connect to and read from each data source. Each component would require its own research and configuration to ensure they are production ready. From there, additional long-term work would be needed to address configuring the platform for self-hosting, managing networking between components when operating in a cloud environment, and scaling the different components of the stack, and managing the maturity and compatibility of the different components.
+
+One important item missing from this setup is profiles. As mentioned above, because a stable OTLP compatible profiling signal is not available, profiles cannot be transmitted through OTel. This requires configuring a separate pipeline to process profiles and integrate them at the visualization layer, or leveraging a vendor specific collector which is compatible with the profiling tool chosen.
+
+## Vispyr’s Place in the Observability Landscape
+
+After evaluating the landscape of observability solutions, four observations stood out:
+1. Managed cloud solutions abstract away the complexity of deploying the observability backend, but introduce additional cost for cloud services as well as additional complexity due to feature rich platforms and proprietary tooling.
+2. Open source solutions provide benefits in flexibility and cost with increasing levels of maturity, but DIY options can be overwhelming and time consuming to configure and maintain.
+3. There are limited open source options for integrating continuous profiling with other telemetry signals in a single platform.
+4. There is limited tooling for automating the end-to-end deployment process (from instrumentation to backend deployment and set up), which can be a significant challenge for smaller teams without extensive DevOps experience or prior exposure to observability tooling.
+
+These findings led to the “north star” for building Vispyr: easy to use tooling that can automate the configuration and deployment of an observability backend (inclusive of continuous profiling) while simplifying the process of instrumenting a developer’s application.

@@ -4,175 +4,82 @@ description: "Understanding observability in modern applications"
 order: 2
 ---
 
-# The Internet
+## Overview
 
-- The *Internet* is a vast interconnected network of networks, linking hosts from all over the globe using a series of network devices and allowing the exchange of information through the implementation of standardized protocols. Data is exchanged via network devices, such as switches and routers, relaying infomation through various requests and responses from the hosts. 
+Observability, in its broadest sense, is the ability to evaluate and understand the internal state of an application based on the data it produces. By creating applications and systems that produce such data (referred to as telemetry), developers are able to analyze and diagnose problems in their systems. The ultimate goal of making a system observable is to have “the ability to ask any question of your system…without having to predict that question, behavior or experience in advance.”
 
-## Network
-https://launchschool.com/lessons/4af196b9/assignments/268243e5
+In order for a system to be observable, it needs to produce telemetry data. Traditionally that data takes the form of metrics, traces, and logs, often called the “three pillars of observability,” and in recent years profiles have increasingly become common as the fourth pillar.
 
-- "At the most basic level, it's two devices connected in such a way that they can communicate or exchange data."
+## Pillars of Observability
 
-- A network, in its simplest form, is formed when two devices are connected, allowing communication and data to be exchanged between them.
+### Metrics
 
-### Local Area Network (LAN)
-https://launchschool.com/lessons/4af196b9/assignments/268243e5
+Metrics are measurements of a service or system at runtime. A metric might capture the current CPU utilization, the amount of memory being used by an application, or the average latency of a service. Through metrics, developers are able to monitor the state of a system or an application and answer the question "Is something happening?"
 
-- "...multiple computers and other devices connected via a network bridging device such as a hub or, more likely, a switch. The computers are all connected to this device via network cables, and this forms the network."
+For instance, a common use case is to monitor what are known as “RED” metrics: rate, error, and duration metrics. These metrics are focused on the number of requests received per second (rate), number of errors (error), and the duration of requests (duration). By collecting RED metrics and monitoring their change over time, developers are able to focus on extreme outliers (referred to as P99 for 99th percentile) to improve the performance of an application or service. Moreover, metrics can be used to configure alerts that notify developers when predefined thresholds are exceeded, indicating that an issue needs to be investigated and resolved.
 
-- A Local Area Network (LAN) is established between multiple devices that have a tangibly physical source connecting them, typically within a close proximity. These devices are connected by networks cables that are grouped together using hubs, bridges, or switches.
+The primary limitation of metrics is that it’s often difficult to diagnose what causes outliers or alerts within an application or system. For this more detail is needed about the components of an application, 
 
-### Wireless Local Area Network (WLAN)
+### Traces
 
-- Similarly to a LAN, a Wireless Local Area Network is established between mutliple nearby devices; however, these devices are instead connected through radio waves, creating a wireless connection between devices. While WLAN allows for greater device transportability, it comes at the cost of slower latency and smaller bandwidth.
+Traces are a collection of events that record the path a request takes through a system and are used to understand how services in a system are related to each other. The events that make up a single trace are called spans. By recording spans that occur in a system (e.g. a POST request to an endpoint and a subsequent write to a database) and chaining them together as parent and children spans, traces allow developers to identify how the various services within an application interact for a single request. Additionally, it allows developers to pinpoint the service(s) that produce errors or introduce latency into a request.
 
-### Router
+Traces are ultimately concerned with the bigger picture of how distinct services within an application or ecosystem behave together and are commonly used in microservice architectures. While this is a powerful tool for observing a system, a key limitation is that traces provide very limited insight into the internals of a service.
 
-- "Routers are network devices that can route network traffic to other networks. Within a Local Area Network, they effectively act as gateways into and out of the network."
+### Logs
 
-- Networks are linked together by the implementation of **routers**, which route data enchange from network to network.
+Logs should be familiar to most programmers as they are the oldest form of telemetry, predating the modern concept of observability. Logs are timestamped, text records capturing metadata or some form of message detailing what occurred in a system. The message could be as simple as a statement that a function has been executed, or more complex like recording an error and provide some information about the state of the application for debugging purposes.
 
-### Protocol
+Logs have long been useful for looking back at a program to see what has occurred, as structured logs provide the level of granularity needed to understand what is happening within an application at a code level. However, the challenge is that searching logs to first find and then understand the cause of an issue is a laborious process. Additionally, it relies on having existing logging at the right points within a codebase with enough detail to allow an effective root cause analysis. Often, when issues are found, logs only allow developers to approximate the source of the issues. This then leads to modified, additional logging added to the codebase at that location in order to identify the next occurrence of an issue. Another significant drawback is the required storage and associated cost; logging can generate a significant amount of data that requires dedicated storage.
 
-- "In simple terms, we can think of a protocol as a *system of rules*."
-- "In terms of computer networks, we can be a bit more specific: A set of rules that govern the exchange or transmission of data."
+These limitations are often mitigated by combining logging with the other forms of telemetry to limit the scope of logs that need to be produced and then searched. Additionally, the expansion of continuous profiling has provided an additional source to investigate the internal state of the system.
 
-- A *protocol* is a system of rules that two hosts follow to allow for successful data exchange or transmission. Without these agreed-upon rules, information between the hosts would become chaotic and likely misunderstood and unprotected.
+### Profiles
 
-Why so many protocols?
+The “profiles” telemetry signal is produced through continuous profiling. Continuous profiling is a method to dynamically inspect the behavior and performance of application code at runtime and provide insights into resource utilization at a code-level.3 As described above, with traditional observability data the depth of information typically stops at the system or “service” level, resulting in the need to manually investigate large volumes of logs or run debugging processes in development environments. By collecting profiles of code-level system behavior, developers can identify how specific portions of their code impact the performance of an application with comparatively less effort.
 
-1. "Different protocols were developed to address different aspects of network communication."
-2. "Different protocols were developed to address the same aspect of network communication but differently for a specific use case."
+As mentioned before, profiles have become the “4th pillar” of observability in recent years. However, continuous profiling has been around for more than a decade,4 and profiling applications in general has been around for much longer. Previous approaches involved language specific tools, manual instrumentation, and dedicated teams to manage the build and deployment of such tools. The wider adoption in recent years is due to the expansion of new technologies enabling language agnostic instrumentation without adding additional code (e.g. eBPF tooling, explained below), and the increasing maturity of proprietary and open source solutions, resulting in more options with greater efficiency and minimal system overhead.
 
-## Network Models
-https://launchschool.com/lessons/4af196b9/assignments/21ef33af
+A profile is generated by collecting samples of system resource usage (e.g. cpu utilization, memory allocation etc) by function, often hundreds of times per second. By aggregating these samples, a continuous profiler is able to produce a relative measure of resource utilization for each function call within a specific time period. Profiles are often analyzed through a flamegraph which visualizes the stack traces collected through the profiler and sizes particular function calls based on their relative utilization of the CPU (or memory, depending on what resource is being profiled).
 
-- "Although there is utility in both of these approaches, no single model will perfectly fit a real-world implementation."
+This level of analysis alone is enough to identify code optimization opportunities that can eliminate latency issues or even improve performance without increasing infrastructure spend. Combining this detail with traces, metrics and logs has become an increasingly common method to unlock even further insight into the internal state of an application.
 
-### OSI Model
+## An Observability Platform
 
-Wikipedia: https://en.wikipedia.org/wiki/OSI_model
+Altogether, the four telemetry signals can give developers an in-depth view of a program's performance. An observability platform surfaces insights from these signals through the following architectural layers:
 
-- "The Open Systems Interconnection model (OSI model) is a reference model from the International Organization for Standardization (ISO) that "provides a common basis for the coordination of standards development for the purpose of systems interconnection."
+### Instrumentation
 
-- Layer 7: Application
-- Layer 6: Presentation
-- Layer 5: Session   
-- Layer 4: Transport (Service to Service)
-- Layer 3: Network (End to End)
-- Layer 2: Data Link (Hop to Hop)
-- Layer 1: Physical (Transporting Bits)
+Instrumentation is the process of gathering runtime data about an application for one or more telemetry signals. This process often relies on language specific SDKs which are added to a code base and executed as part of the program. In some cases, instrumentation may already exist in a code base as part of third party libraries and packages, which are preconfigured to work with observability tooling once implemented. As an example, the Next.js library is instrumented out of the box which means that all you need to do is include the OpenTelemetry SDK to receive spans and traces produced by Next.js itself. This is typically referred to as zero-code instrumentation, as the instrumentation has already been implemented and all that’s left is to initialize the OpenTelemetry tooling (for more on OpenTelemetry, refer to The Observability Landscape section below).
 
-### Internet Protocol Suite (TCP/IP) Model
+Language specific SDKs are a common method of implementing instrumentation due to the ability to customize the information produced. However, this comes with the tradeoff of requiring additions to your code base to enable that information. As an alternative, an increasingly popular option for instrumenting applications is eBPF-based tooling.
 
-- Layer 4: Application (5-7)
-- Layer 3: Transport (4)
-- Layer 2: Network (3)
-- Layer 1: Network Interface (1-2)
+eBPF (extended Berkley Packet Filter, though the acronym is now a standalone term) is a Linux based technology that allows observability tooling to retrieve telemetry data from the kernel without the need to manually instrument an application. This is enabled through the core functionality of eBPF, which allows developers to run observability tooling in a sandboxed environment within the kernel, which handles program verification to validate that it is safe to run. Because the program is just-in-time (JIT) compiled programs run as efficiently as natively compiled kernel code. As a result, many observability tools using eBPF have minimal compute overhead.
 
-## Protocol Data Units (PDU)
-https://launchschool.com/lessons/4af196b9/assignments/21ef33af
+The specifics of how eBPF implementation and execution are beyond the scope of this case study, however it’s important to note that leveraging eBPF allows observability tools to directly gather information about stack traces, memory allocation, the OS networking layer, and trace spans related to web transactions. This is possible without adding any additional application code or configuration.
 
-"...a Protocol Data Unit (PDU) is an amount or block of data transferred over a network. Different protocols or protocol layers refer to PDUs by different names. At the Link/ Data Link layer, for example, a PDU is known as a frame. At the Internet/ Network layer it is known as a packet. At the Transport layer, it is known as a segment (TCP) or datagram (UDP)."
+While eBPF is an increasingly popular option for instrumentation, specifically continuous profiling, it does come with tradeoffs: First, it requires a newer Linux kernel which limits compatibility and portability of tooling. Second, it limits the customizability of observability data, as this would require application specific additions to embed custom metadata or tags within telemetry data.
 
-- A protocol data unit (**PDU**) represents a block of data that is transferred across a network, with each PDU receiving a different name depending on its placement within the OSI or TCP/IP model.
+### Telemetry Pipeline
 
-Specific Layer PDUs:
+A telemetry pipeline provides a means to collect, process, aggregate, and transmit data from instrumented applications to the rest of the observability platform. Technically, a telemetry pipeline is an optional component, as instrumentation tooling can be configured to send data directly to the data storage backend. However, telemetry data usually comes in high volumes that can drastically increase as an application scales, gains a larger user base, or transitions to a distributed microservices architecture. As an example of this, metrics are often measured per million “active series,” where an active series represents a distinct metric that is scraped from a single host machine every 15 seconds.
 
-- Transfer - *segments* (TCP) *datagrams* (UDP)
-- Network - *packets*
-- Data Link - *frames* (Ethernet frames)
+Because of this it’s common to leverage a telemetry pipeline to centralize telemetry data and standardize the format of data that’s sent. This pipeline can utilize a “pull” method, where it scrapes telemetry data from an endpoint, or a “push” method, where it provides an endpoint for services to send telemetry data.
 
-### Encapsulation of Data
+The benefits of using a pipeline are compounded when working with multiple telemetry signals, as it provides a central endpoint for all data regardless of signal or tooling. Of course, to leverage this benefit it requires all tooling to conform to the same format. For this reason, the observability industry has coalesced around the OpenTelemetry Protocol (OTLP) as the industry standard for transmitting telemetry signals. We expand more on OpenTelemetry and OTLP in The Observability Landscape section below.
 
-- The entire PDU for a specific layer of a network model--header, data payload, trailer--is encapsulated as the data payload for the layer below it. For example, the TCP segment of a data exchange is encapsulated within the data payload of the IP packet, which is then encapsulated as the data payload of the ethernet frame. This allows each layer to operate independently, disregarding any information from other layers and providing a 'service' to the upward layer.
+In addition to aggregation and standardization of telemetry data, leveraging a collector also provides the ability to batch data, limiting the amount of network requests and load placed on downstream endpoints in the pipeline. It also provides the ability to transform data before it arrives at its data storage location, allowing developers to augment or enrich telemetry metadata for later analysis.
 
-Quiz Answers:
+The tradeoffs of implementing a collector are the increased complexity of adding another component to the observability stack and the need to manage scaling, as the collector can now become a single point of failure if not architected to ensure high availability.
 
-- "Encapsulation is implemented through the use of Protocol Data Units (PDUs)."
-- "Encapsulation creates separation between protocols operating at different networks layers."
-- "With encapsulation, the entire PDU from one layer forms the data payload for the PDU at the layer below."
+### Data Storage
 
-### Header/Trailer
+Storage for observability data is unique because of the bespoke nature of different telemetry signals and high volumes. This results in many data stores that are customized to the specific telemetry data being collected, as opposed to traditional forms of data storage like a relational database.
 
-"The exact structure of the header and, if included, trailer varies from protocol to protocol, but the purpose of them is the same in each case: to provide protocol-specific metadata about the PDU."
+Metrics are perhaps the best example: this signal produces high volume, high cardinality time series data, requires frequent writes, and needs efficient indexing for fast, frequent retrieval of data. As a result, the data stores for metrics are typically time-series databases built to work with the high volume nature of metrics. The most common of these is Prometheus, which is discussed further in the The Observability Landscape section below. Other forms of telemetry require different forms of data storage (e.g. traces and logs are often written to object storage instead of a time-series or relational database).
 
-## The Physical Layer
+The importance of the data store is also dependent on compatibility with the telemetry pipeline, the format of the data it receives, the availability of compatible instrumentation, and compatibility with frontend visualization tools. The tradeoffs of any particular data store are specific to the nature of the signal and prior choices made elsewhere in the architecture.
 
-### Wires, Cables, and WiFi (Khan Academy)
-https://www.khanacademy.org/computing/code-org/computers-and-the-internet/internet-works/v/the-internet-wires-cables-and-wifi
+### Visualization
 
-### Bit
-Khan Academy
-"A bit can be described as any pair of opposites: on or off, yes or no. We typically use a 1 (on) or a 0 (off)"
-"These are the atoms of information."
-"Today, we physically send bits by electricity, lights, and radio waves."
-
-### Bandwidth
-
-- "Bandwidth is the amount of data that can be sent in a particular unit of time (typically, a second)."
-
-- **Bandwidth** refers to the total data that can be transferred from one device to another within a specific timeframe.
-
-### Bit Rate
-
-"The number of bits that we can send over a given period of time, usually measured in seconds."
-
-### Latency
-
-- "...latency is a measure of the time it takes for some data to get from one point in a network to another point in a network."
-- "We can think of latency as a measure of delay."
-
-- **Latency** is the measure of time that it takes for data to move from one part of a network to another.
-
-Different types of delay:
-
-- Propagation delay
-- Transmission delay
-- Processing delay
-- Queing delay
-- Last-mile latency
-- Round-trip Time (RTT)
-
-### Methods of Transportation
-
-1. Electricity (Copper wires)
-
-- Cheap
-- Signal loss
-
-2. Fiber Optic Cable
-
-"A thread of glass engineered to reflect light."
-- Really fast
-- No signal loss
-- Expensive
-
-3. Radio Waves
-
-"Uses radio signal to send bits from one place to another."
-- Translates 1's and 0's from binary to radio waves and back.
-- Totally mobile
-- Short range
-
-### Fault Tolerant
-
-- Because a package can take a variety of routes from one IP address to another, the system is fault tolerant, as a distruption in one path can be avoiding by following another path.
-
-### Hop
-
-- A **hop** is the movement from one device to another. Each IP package keeps track of its hop count, preventing bugs in the path from halting a delivery using the hop limit.
-
-## Ethernet
-https://launchschool.com/lessons/4af196b9/assignments/81df3782
-
-- "An Ethernet Frame adds logical structure to this binary data."
-- "Two of the most important aspects of Ethernet are framing and addressing."
-
-## MAC Address
-https://launchschool.com/lessons/4af196b9/assignments/81df3782
-
-- Media Access Control address
-- "Since this address is linked to the specific physical device, and (usually) doesn't change, it is sometimes referred to as the physical address or burned-in address. MAC Addresses are formatted as a sequence of six two-digit hexadecimal numbers, e.g. 00:40:96:9d:68:0a, with different ranges of addresses being assigned to different network hardware manufacturers."
-
-- The Media Access Control (**MAC**) address is an address, formatted as a sequence of six two-digit hexadecimal numbers, that is linked to the Network Interface Card (NIC) of a specific physical device and typically never changes. While useful in the exchange of Ethernet frames between adjacent devices, MAC addresses do not scale well, as they are non-hiarchical and illogical in nature.
+The last component of the platform is the visualization layer, which provides a dedicated user interface to interact with the data. Through the UI, a developer gains dashboarding, alerting, and querying capabilities. This all serves the benefit of giving developers the ability to take action based on the data collected. The choice of a visualization platform is driven by compatibility with chosen data sources and the provided features of the tool (e.g. querying, analysis, alerting, dashboarding etc).
