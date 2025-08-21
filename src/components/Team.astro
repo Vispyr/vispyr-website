@@ -1,4 +1,6 @@
 ---
+import { Icon } from '@astrojs/starlight/components';
+
 import "../styles/styles.css";
 import derekHeadshot from "../assets/derek-headshot.jpg";
 import jeffreyHeadshot from "../assets/jeffrey-headshot.png";
@@ -45,13 +47,14 @@ const team = [
   <div class="team-members">
     {team.map(({name, img, location, github, linkedin, resume}) => (
       <div class="card">
-        <img src={img} alt="Team Member headshot" />
-        <h3>{name}</h3>
-        <p>{location}</p>
-        <div class="links">
-          <a href={linkedin}>LinkedIn</a>
-          <a href={github}>GitHub</a>
-          <a href={resume}>Resume</a>
+        <div class="card-top">
+          <img class="member-headshot" src={img} alt="Team Member headshot" />
+          <h3>{name}</h3>
+          <p>{location}</p>
+        </div>
+        <div class="headshot-links">
+          <a href={github}><Icon name="github" size="2rem" color="white" /></a>
+          <a href={linkedin}><Icon name="linkedin" size="2rem" color="white" /></a>
         </div>
       </div>
     ))}

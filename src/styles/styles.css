@@ -11,7 +11,7 @@
   --sl-color-accent: #0ea5e9;
   --sl-color-accent-high: rgb(255, 71, 58);
   --sl-color-bg: #ffffff;
-  --sl-color-bg-nav: #f8fafc;
+  --sl-color-bg-nav: #c4c4c4;
   --sl-color-bg-sidebar: #fafbfc;
   --sl-color-text: #383a42;
   --sl-color-text-accent: #0ea5e9;
@@ -60,16 +60,21 @@ body {
 }
 
 h1 {
-  font-size: 6rem;
+  font-size: 4rem;
   margin: 0;
 }
 
 h2 {
-  font-size: 2.5rem;
+  font-size: 1.5rem;
 }
 
 h3 {
-  font-size: 1.5rem;
+  font-size: 1.1rem;
+  padding-bottom: 0;
+}
+
+p {
+  padding-bottom: 0;
 }
 
 em {
@@ -85,7 +90,7 @@ main {
   background-color: var(--sl-color-bg);
   flex-direction: column;
   align-items: center;
-  margin: 6rem 0;
+  justify-content: center;
   padding-top: 2rem;
 }
 
@@ -102,7 +107,6 @@ section {
 }
 
 .top-content {
-  margin-right: 12rem;
   display: flex;
   align-items: center;
   min-height: 100vh;
@@ -151,9 +155,8 @@ section::after {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  width: 18rem;
-  height: 25rem;
+  width: 12rem;
+  height: 16rem;
   padding: 2rem;
   border-radius: 0.8rem;
   transition: transform 0.3s ease;
@@ -167,18 +170,34 @@ section::after {
 }
 
 .card img {
-  width: 14rem;
+  width: 8rem;
   border-radius: 0.8rem;
+}
+
+.card .member-headshot {
+  width: 10rem;
 }
 
 .card h3 {
   text-align: center;
+  margin-top: 2rem;
+}
+
+.card p {
+  margin-top: 0.2rem;
+}
+
+.card-top {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .mini-card-row {
   display: flex;
   justify-content: space-evenly;
-  gap: 3rem;
+  gap: 1.5rem;
 }
 
 .mini-card {
@@ -186,27 +205,37 @@ section::after {
   align-items: center;
   justify-content: center;
   background-color: var(--sl-color-gray-1);
-  width: 8rem;
-  height: 8rem;
+  width: 6rem;
+  height: 6rem;
   border-radius: 0.8rem;
   box-shadow: 0 10px 8px black;
   transition: transform 0.3s ease;
 }
 
+.mini-card a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  text-decoration: none;
+}
+
 .card-name-pair h3 {
-  width: 8rem;
+  width: 6rem;
+  height: 6rem;
   text-align: center;
   opacity: 0;
   transform: translateY(20px);
   transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
-.card-name-pair:hover a {
+.mini-card:hover {
   transform: translateY(-12px) scale(1);
   box-shadow: 0 10px 8px black;
 }
 
-.card-name-pair:hover h3 {
+.mini-card:hover + h3 {
   opacity: 1;
   transform: translateY(0);
 }
@@ -217,7 +246,7 @@ section::after {
 }
 
 .demonstration {
-  width: 70rem;
+  width: 50rem;
   padding: 0.5rem;
   background-color: var(--sl-color-gray-2);
   border: 1px solid rgb(255, 71, 58);
@@ -262,20 +291,50 @@ section::after {
   align-items: center;
 }
 
-.team-member img {
-  width: 18rem;
+.headshot-links svg {
+  margin: 1rem;
+}
+
+.headshot-links {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.card:hover .headshot-links {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.headshot-links a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 0.5rem; /* Space between icons */
+  transition: transform 0.2s ease;
+}
+
+.headshot-links a:hover {
+  transform: scale(1.1); /* Optional: slight scale on individual icon hover */
+}
+
+.headshot-links svg {
+  margin: 1rem;
 }
 
 #vispyr-logo {
-  margin: -6rem -4rem -6rem;
-  width: 50rem;
+  width: 35rem;
 }
 
 #case-study-button {
-  font-size: 1.5rem;
+  font-size: 1rem;
   text-decoration: none;
-  padding: 1rem;
-  width: 14.5rem;
+  padding: 0.5rem;
+  width: 10rem;
   border-radius: 0.8rem;
   text-align: center;
   color: var(--sl-color-text);

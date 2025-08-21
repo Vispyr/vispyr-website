@@ -1,12 +1,12 @@
 :root {
-  --sl-nav-height: 6rem;
+  --sl-nav-height: 4rem;
   --sl-content-width: 100%;
   --sl-color-accent: rgb(255, 71, 58);
   --sl-color-accent-high: rgb(255, 71, 58);
 
-  --sl-color-bg-nav: #f8fafc;
-  --sl-color-bg-sidebar: #fafbfc;
   --sl-color-bg: #ffffff;
+  --sl-color-bg-nav: #c4c4c4;
+  --sl-color-bg-sidebar: #fafbfc;
 
   --image-filter: brightness(0);
 }
@@ -19,27 +19,31 @@
 }
 
 h1 {
-  font-size: 4rem;
-}
-
-h2 {
   font-size: 3rem;
 }
 
-h3 {
+h2 {
   font-size: 2rem;
 }
 
-p {
+h3 {
   font-size: 1.4rem;
+}
+
+p {
+  font-size: 1.2rem;
 }
 
 body {
   font-family: 'Nunito Sans', sans-serif;
 }
 
+.header {
+  height: 4rem;
+}
+
 .main-pane {
-  padding: 2rem;
+  padding: 1rem;
 }
 
 .sidebar {
@@ -56,7 +60,7 @@ body {
 
 .sidebar a {
   padding: 1rem;
-  font-size: 1.2rem;
+  font-size: 1rem;
 }
 
 .sidebar a[aria-current='page'] {
@@ -73,9 +77,25 @@ body {
   color: white;
 }
 
+.right-sidebar-panel {
+  padding-left: 6px;
+  padding-right: 6px;
+}
+
 .right-sidebar-container {
-  width: 22rem;
-  max-width: 22rem;
+  width: 14rem;
+  max-width: 14rem;
+}
+
+.sl-container ul {
+  width: 80%;
+}
+
+.right-sidebar-container span {
+  font-size: 0.7rem;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  hyphens: auto;
 }
 
 .content-panel {
@@ -90,7 +110,7 @@ footer a:hover {
 }
 
 #starlight__on-this-page {
-  font-size: 1.2rem;
+  font-size: 1rem;
 }
 
 @media (max-width: 768px) {

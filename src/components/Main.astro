@@ -124,11 +124,11 @@ const icons = [
     <div class="mini-card-row">
       {icons.map(({ name, src, site }) => (
         <div class="card-name-pair">
-          <a href={site} target="_blank">
-            <div class="mini-card">
+          <div class="mini-card">
+            <a href={site} target="_blank">
               <Fragment set:html={src} />
-            </div>
-          </a>
+            </a>
+          </div>
           <h3>{name}</h3>
         </div>
       ))}

@@ -1,6 +1,6 @@
 ---
-title: "Observability"
-description: "Understanding observability in modern applications"
+title: 'Observability'
+description: 'Understanding observability in modern applications'
 order: 2
 ---
 
@@ -12,10 +12,7 @@ import observabilityPlatform from '../../../assets/diagrams/Observability-Platfo
 import telemetryPipeline from '../../../assets/diagrams/Telemetry-Pipeline.svg?raw';
 import metricStorage from '../../../assets/diagrams/Metric-Storage.svg?raw';
 
-
 import dashboardExample from '../../../assets/examples/dashboard.png';
-
-## Overview
 
 Observability, in its broadest sense, is the ability to evaluate and understand the internal state of an application based on the data it produces. By creating applications and systems that produce such data (referred to as telemetry), developers are able to analyze and diagnose problems in their systems. The ultimate goal of making a system observable is to have “the ability to ask any question of your system…without having to predict that question, behavior or experience in advance.”
 
@@ -33,7 +30,7 @@ Metrics are measurements of a service or system at runtime. A metric might captu
 
 For instance, a common use case is to monitor what are known as “RED” metrics: rate, error, and duration metrics. These metrics are focused on the number of requests received per second (rate), number of errors (error), and the duration of requests (duration). By collecting RED metrics and monitoring their change over time, developers are able to focus on extreme outliers (referred to as P99 for 99th percentile) to improve the performance of an application or service. Moreover, metrics can be used to configure alerts that notify developers when predefined thresholds are exceeded, indicating that an issue needs to be investigated and resolved.
 
-The primary limitation of metrics is that it’s often difficult to diagnose what causes outliers or alerts within an application or system. For this more detail is needed about the components of an application, 
+The primary limitation of metrics is that it’s often difficult to diagnose what causes outliers or alerts within an application or system. For this more detail is needed about the components of an application,
 
 ### Traces
 
@@ -76,7 +73,10 @@ This level of analysis alone is enough to identify code optimization opportuniti
 Altogether, the four telemetry signals can give developers an in-depth view of a program's performance. An observability platform surfaces insights from these signals through the following architectural layers:
 
 <figure style="display: flex; justify-content: center; margin: 4rem; max-width: 100%;">
-  <div set:html={observabilityPlatform} style="transform: scale(2); max-width: 60%; transform-origin: center;" />
+  <div
+    set:html={observabilityPlatform}
+    style="transform: scale(2); max-width: 60%; transform-origin: center;"
+  />
 </figure>
 
 ### Instrumentation
@@ -94,7 +94,10 @@ While eBPF is an increasingly popular option for instrumentation, specifically c
 ### Telemetry Pipeline
 
 <figure style="display: flex; justify-content: center; margin: 11rem; max-width: 100%;">
-  <div set:html={telemetryPipeline} style="transform: scale(2); max-width: 60%; transform-origin: center;" />
+  <div
+    set:html={telemetryPipeline}
+    style="transform: scale(2); max-width: 60%; transform-origin: center;"
+  />
 </figure>
 
 A telemetry pipeline provides a means to collect, process, aggregate, and transmit data from instrumented applications to the rest of the observability platform. Technically, a telemetry pipeline is an optional component, as instrumentation tooling can be configured to send data directly to the data storage backend. However, telemetry data usually comes in high volumes that can drastically increase as an application scales, gains a larger user base, or transitions to a distributed microservices architecture. As an example of this, metrics are often measured per million “active series,” where an active series represents a distinct metric that is scraped from a single host machine every 15 seconds.
@@ -112,7 +115,10 @@ The tradeoffs of implementing a collector are the increased complexity of adding
 Storage for observability data is unique because of the bespoke nature of different telemetry signals and high volumes. This results in many data stores that are customized to the specific telemetry data being collected, as opposed to traditional forms of data storage like a relational database.
 
 <figure style="display: flex; justify-content: center; margin: 11rem; max-width: 100%;">
-  <div set:html={metricStorage} style="transform: scale(2); max-width: 60%; transform-origin: center;" />
+  <div
+    set:html={metricStorage}
+    style="transform: scale(2); max-width: 60%; transform-origin: center;"
+  />
 </figure>
 
 Metrics are perhaps the best example: this signal produces high volume, high cardinality time series data, requires frequent writes, and needs efficient indexing for fast, frequent retrieval of data. As a result, the data stores for metrics are typically time-series databases built to work with the high volume nature of metrics. The most common of these is Prometheus, which is discussed further in the The Observability Landscape section below. Other forms of telemetry require different forms of data storage (e.g. traces and logs are often written to object storage instead of a time-series or relational database).
