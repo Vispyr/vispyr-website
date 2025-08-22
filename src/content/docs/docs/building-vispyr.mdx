@@ -4,9 +4,9 @@ description: 'How we built our observability platform'
 order: 4
 ---
 
-import vispyrInfrastructure from '../../../assets/diagrams/Vispyr-Infrastructure.svg?raw';
-import vispyrBackend from '../../../assets/diagrams/Vispyr-Backend.svg?raw';
-import vispyrAgent from '../../../assets/diagrams/Vispyr-Agent.svg?raw';
+import vispyrInfrastructure from '../../../assets/diagrams/Vispyr-Infrastructure.svg';
+import vispyrBackend from '../../../assets/diagrams/Vispyr-Backend.svg';
+import vispyrAgent from '../../../assets/diagrams/Vispyr-Agent.svg';
 
 ## Our North Star
 
@@ -19,7 +19,7 @@ Below is a summary of how these priorities position Vispyr against the landscape
 Vispyr has three basic components: the backend, the agent, and the command line tool (CLI). The backend is responsible for centralizing, storing, and displaying telemetry data, while the agent is responsible for collecting metrics, traces, and profiles from a user’s application and transmitting it to the backend. The CLI is used to deploy the Vispyr application and is responsible for orchestrating the setup of all tooling.
 
 <figure style="display: flex; justify-content: center; margin: 4rem;">
-  <div set:html={vispyrInfrastructure} />
+  <img src={vispyrInfrastructure.src} />
 </figure>
 
 ### Vispyr Backend
@@ -27,7 +27,7 @@ Vispyr has three basic components: the backend, the agent, and the command line 
 The Vispyr Backend includes a component of the telemetry pipeline, plus the full data storage and visualization layers of the observability platform.
 
 <figure style="display: flex; justify-content: center; margin: 4rem;">
-  <div set:html={vispyrBackend} />
+  <img src={vispyrBackend.src} />
 </figure>
 
 The pipeline uses Grafana Alloy, a vendor-specific distribution of the OTel collector, which is deployed as a gateway collector. Alloy centralizes the processing and routing of incoming telemetry signals from one or more instrumented applications and is capable of processing the profiling data produced by the Vispyr continuous profiler (see below). This gives the backend a single point of ingestion while maintaining a clear separation between instrumentation alongside the user application and pipeline processing in the backend. The alloy collector is configured to receive traces, metrics, and profiles.
@@ -48,7 +48,7 @@ The backend is deployed on AWS. All components of the backend are run in docker 
 The Vispyr Agent includes the instrumentation layer and a portion of the telemetry pipeline.
 
 <figure style="display: flex; justify-content: center; margin: 4rem;">
-  <div set:html={vispyrAgent} />
+  <img src={vispyrAgent.src} />
 </figure>
 
 Instrumentation of the user’s application relies on the OTel SDK. The SDK is implemented through a script that is run as part of the application’s startup command. The script initializes OTel components that capture telemetry data and configures the application to send that data to the gateway collector. The SDK produces traces, runtime application-specific metrics (such as garbage collection statistics, event loop metrics, etc), and profiles.

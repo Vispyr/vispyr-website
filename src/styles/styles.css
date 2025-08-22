@@ -240,7 +240,7 @@ section::after {
   transform: translateY(0);
 }
 
-.mini-card svg {
+.mini-card img {
   width: 70%;
   height: 70%;
 }
@@ -254,13 +254,14 @@ section::after {
 }
 
 .svg-container {
+  margin-top: 4rem;
   width: 80%;
   min-width: 0;
   flex: 1 1 auto;
   overflow: hidden;
 }
 
-.svg-container svg {
+.svg-container img {
   width: 100%;
   height: auto;
   max-width: 100%;

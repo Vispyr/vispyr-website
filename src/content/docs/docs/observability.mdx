@@ -8,9 +8,9 @@ import metricsExample from '../../../assets/examples/metrics.png';
 import tracesExample from '../../../assets/examples/traces.png';
 import logsExample from '../../../assets/examples/logs.png';
 import profilesExample from '../../../assets/examples/profiles.png';
-import observabilityPlatform from '../../../assets/diagrams/Observability-Platform.svg?raw';
-import telemetryPipeline from '../../../assets/diagrams/Telemetry-Pipeline.svg?raw';
-import metricStorage from '../../../assets/diagrams/Metric-Storage.svg?raw';
+import observabilityPlatform from '../../../assets/diagrams/Observability-Platform.svg';
+import telemetryPipeline from '../../../assets/diagrams/Telemetry-Pipeline.svg';
+import metricStorage from '../../../assets/diagrams/Metric-Storage.svg';
 
 import dashboardExample from '../../../assets/examples/dashboard.png';
 
@@ -73,8 +73,8 @@ This level of analysis alone is enough to identify code optimization opportuniti
 Altogether, the four telemetry signals can give developers an in-depth view of a program's performance. An observability platform surfaces insights from these signals through the following architectural layers:
 
 <figure style="display: flex; justify-content: center; margin: 4rem; max-width: 100%;">
-  <div
-    set:html={observabilityPlatform}
+  <img
+    src={observabilityPlatform.src}
     style="transform: scale(2); max-width: 60%; transform-origin: center;"
   />
 </figure>
@@ -94,8 +94,8 @@ While eBPF is an increasingly popular option for instrumentation, specifically c
 ### Telemetry Pipeline
 
 <figure style="display: flex; justify-content: center; margin: 11rem; max-width: 100%;">
-  <div
-    set:html={telemetryPipeline}
+  <img
+    src={telemetryPipeline.src}
     style="transform: scale(2); max-width: 60%; transform-origin: center;"
   />
 </figure>
@@ -115,8 +115,8 @@ The tradeoffs of implementing a collector are the increased complexity of adding
 Storage for observability data is unique because of the bespoke nature of different telemetry signals and high volumes. This results in many data stores that are customized to the specific telemetry data being collected, as opposed to traditional forms of data storage like a relational database.
 
 <figure style="display: flex; justify-content: center; margin: 11rem; max-width: 100%;">
-  <div
-    set:html={metricStorage}
+  <img
+    src={metricStorage.src}
     style="transform: scale(2); max-width: 60%; transform-origin: center;"
   />
 </figure>

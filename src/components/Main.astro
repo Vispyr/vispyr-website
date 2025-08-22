@@ -4,17 +4,17 @@ import grafanaLogo from "../assets/grafana.svg";
 import terminalLogo from "../assets/terminal.svg";
 import cliMovie from "../assets/cli-deploy.mp4";
 import dashboardMovie from "../assets/grafana-dashboard.mp4";
-import telemetryFlow from '../assets/diagrams/Telemetry-Flow.svg?raw';
+import telemetryFlow from '../assets/diagrams/Telemetry-Flow.svg';
 import pipelineIcon from '../assets/pipeline-icon.png';
 
-import awsIcon from '../assets/icons/AWS.drawio.svg?raw';
-import grafanaIcon from "../assets/icons/Grafana.drawio.svg?raw";
-import alloyIcon from '../assets/icons/Alloy.drawio.svg?raw';
-import promIcon from '../assets/icons/Prometheus.drawio.svg?raw';
-import tempoIcon from '../assets/icons/Tempo.drawio.svg?raw';
-import pyroIcon from '../assets/icons/Pyroscope.drawio.svg?raw';
-import nginxIcon from '../assets/icons/Nginx.drawio.svg?raw';
-import dockerIcon from '../assets/icons/Docker.drawio.svg?raw';
+import awsIcon from '../assets/icons/AWS.svg';
+import grafanaIcon from "../assets/icons/Grafana.svg";
+import alloyIcon from '../assets/icons/Alloy.svg';
+import promIcon from '../assets/icons/Prometheus.svg';
+import tempoIcon from '../assets/icons/Tempo.svg';
+import pyroIcon from '../assets/icons/Pyroscope.svg';
+import nginxIcon from '../assets/icons/Nginx.svg';
+import dockerIcon from '../assets/icons/Docker.svg';
 import "../styles/styles.css";
 
 const icons = [
@@ -44,7 +44,7 @@ const icons = [
     site: 'https://grafana.com/oss/tempo/',
   },
   {
-    name: 'NGNIX',
+    name: 'NGINX',
     src: nginxIcon,
     site: 'https://nginx.org/',
   },
@@ -95,7 +95,7 @@ const icons = [
       <h3>Vispyr deploys a <em>fully-provisioned backend</em>, handling all the telemetry configurations and allowing you to focus on what matters.</h3>
     </div>
     <div class="svg-container">
-      <Fragment set:html={telemetryFlow} />
+      <img src={telemetryFlow.src} />
     </div>
   </section>
 
@@ -126,7 +126,7 @@ const icons = [
         <div class="card-name-pair">
           <div class="mini-card">
             <a href={site} target="_blank">
-              <Fragment set:html={src} />
+              <img src={src.src} />
             </a>
           </div>
           <h3>{name}</h3>
