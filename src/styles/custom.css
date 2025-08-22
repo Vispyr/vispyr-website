@@ -118,6 +118,26 @@ footer a:hover {
     --sl-nav-height: 5rem;
   }
 
+  h1 {
+    font-size: 2rem;
+  }
+
+  h2 {
+    font-size: 1.4rem;
+  }
+
+  h3 {
+    font-size: 1rem;
+  }
+
+  p {
+    font-size: 0.8rem;
+  }
+
+  .header {
+    height: 3rem;
+  }
+
   .sidebar {
     top: var(--sl-nav-height) !important;
   }

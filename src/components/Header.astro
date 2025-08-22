@@ -238,15 +238,10 @@ import githubLight from '../assets/github-light.svg';
   @media (max-width: 768px) {
     .landing-header {
       height: 5rem;
-      padding: 0 1rem;
-    }
-
-    .nav-links {
-      gap: 1.5rem;
     }
 
     .nav-links a {
-      font-size: 1rem;
+      font-size: 0.8rem;
     }
 
     .logo img {
@@ -259,8 +254,7 @@ import githubLight from '../assets/github-light.svg';
     }
 
     #theme-toggle {
-      min-width: 44px;
-      min-height: 44px;
+      display: none;
     }
 
     .sun-icon,
@@ -268,9 +262,13 @@ import githubLight from '../assets/github-light.svg';
       width: 24px;
       height: 24px;
     }
+
+    summary {
+      margin-top: 0;
+    }
   }
 
-  @media (max-width: 480px) {
+  @media (max-width: 420px) {
     .header-content {
       gap: 1rem;
     }
@@ -280,7 +278,7 @@ import githubLight from '../assets/github-light.svg';
     }
 
     .nav-links {
-      gap: 1rem;
+      display: none;
     }
 
     .nav-links a span {
