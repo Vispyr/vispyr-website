@@ -8,6 +8,7 @@ import react from '@astrojs/react';
 import vercel from '@astrojs/vercel';
 
 export default defineConfig({
+  trailingSlash: 'never',
   integrations: [
     starlight({
       title: 'Vispyr',
