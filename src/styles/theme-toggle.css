@@ -1,0 +1,122 @@
+:root {
+  --toggle-ball-color: rgb(255, 71, 58);
+  --toggle-table-background: #ffffff;
+  --sun-icon-color: #ffffff;
+  --moon-icon-color: #000000;
+  --toggle-border-color: #7f7f7f;
+}
+
+[data-theme='dark'] {
+  --toggle-ball-color: rgb(255, 71, 58);
+  --toggle-table-background: #090b11;
+  --sun-icon-color: #ffffff;
+  --moon-icon-color: #ffffff;
+  --toggle-border-color: #7f7f7f;
+}
+
+#theme-toggle-wrapper {
+  position: relative;
+  display: inline-block;
+  flex-shrink: 0;
+  width: auto;
+  height: auto;
+}
+
+#theme-toggle-wrapper > div {
+  position: relative;
+  right: 0;
+  margin-top: 0;
+}
+
+.theme-toggle-checkbox {
+  opacity: 0;
+  position: absolute;
+}
+
+#theme-toggle-label {
+  background-color: var(--toggle-table-background);
+  border-radius: 50px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 7.5px !important;
+  position: relative;
+  width: 66px !important;
+  height: 30px !important;
+  min-width: 66px !important;
+  max-width: 66px !important;
+  min-height: 30px !important;
+  max-height: 30px !important;
+  transform: scale(1) !important;
+  box-shadow: 0 0 0 1px var(--toggle-border-color);
+  outline: 1px solid transparent;
+  transition: box-shadow 0.2s ease;
+  box-sizing: border-box !important;
+}
+
+#theme-toggle-ball {
+  background-color: var(--toggle-ball-color) !important;
+  border-radius: 50%;
+  position: absolute;
+  width: 30px !important;
+  height: 30px !important;
+  min-width: 30px !important;
+  max-width: 30px !important;
+  min-height: 30px !important;
+  max-height: 30px !important;
+  transform: translateX(-7.5px) !important;
+  transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1) 0ms;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  flex-shrink: 0;
+}
+
+.theme-toggle-checkbox:checked + #theme-toggle-label #theme-toggle-ball {
+  transform: translateX(28.5px) !important;
+}
+
+.icon-tabler {
+  transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1) 0ms;
+  z-index: 10;
+}
+
+.icon-tabler-moon {
+  color: var(--moon-icon-color);
+}
+
+.icon-tabler-sun {
+  color: var(--sun-icon-color);
+}
+
+.sr-only {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+}
+
+span.sr-only {
+  display: none !important;
+}
+
+.sl-flex,
+a.sl-flex,
+a[href*="github"].sl-flex {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  vertical-align: middle !important;
+  line-height: 1 !important;
+}
+
+a.sl-flex svg {
+  vertical-align: middle !important;
+  margin: 0 !important;
+}

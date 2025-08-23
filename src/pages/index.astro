@@ -1,8 +1,10 @@
 ---
-import LandingHeader from '../components/LandingHeader.astro';
+import '../styles/theme-toggle.css';
+
 import Team from "../components/Team.astro";
 import Main from "../components/Main.astro";
 import LandingFooter from "../components/LandingFooter.astro";
+import Header from '../components/Header.astro';
 ---
 
 <!DOCTYPE html>
@@ -13,20 +15,114 @@ import LandingFooter from "../components/LandingFooter.astro";
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <title>Vispyr</title>
     <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;700&display=swap" rel="stylesheet">
-    <script>
+    
+    <!-- Inline theme script to prevent FOUC -->
+    <script is:inline>
       (function() {
-        const savedTheme = localStorage.getItem('starlight-theme');
-        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        const theme = savedTheme || (prefersDark ? 'dark' : 'light');
+        const storageKey = 'starlight-theme';
         
-        document.documentElement.setAttribute('data-theme', theme);
+        function getTheme() {
+          if (typeof localStorage !== 'undefined' && localStorage.getItem(storageKey)) {
+            return localStorage.getItem(storageKey);
+          }
+          return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        }
+
+        function applyTheme(theme) {
+          const actualTheme = theme === 'auto' ? 
+            (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : 
+            theme;
+          
+          document.documentElement.setAttribute('data-theme', actualTheme);
+          
+          if (actualTheme === 'dark') {
+            document.documentElement.classList.add('dark');
+          } else {
+            document.documentElement.classList.remove('dark');
+          }
+        }
+
+        // Apply theme immediately, before page renders
+        applyTheme(getTheme());
       })();
     </script>
   </head>
+  
   <body>
-    <LandingHeader />
+    <Header />
     <Main />
     <Team />
     <LandingFooter />
+
+    <script>
+      // Toggle functionality (runs after DOM is ready)
+      document.addEventListener('DOMContentLoaded', () => {
+        const storageKey = 'starlight-theme';
+
+        function getTheme() {
+          if (typeof localStorage !== 'undefined' && localStorage.getItem(storageKey)) {
+            return localStorage.getItem(storageKey);
+          }
+          return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        }
+
+        function applyTheme(theme) {
+          const actualTheme = theme === 'auto' ? 
+            (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : 
+            theme;
+          
+          document.documentElement.setAttribute('data-theme', actualTheme);
+          
+          if (actualTheme === 'dark') {
+            document.documentElement.classList.add('dark');
+          } else {
+            document.documentElement.classList.remove('dark');
+          }
+
+          // Update checkbox state
+          const checkbox = document.querySelector('.theme-toggle-checkbox');
+          if (checkbox) {
+            checkbox.checked = actualTheme === 'dark';
+          }
+
+          // Store theme
+          if (typeof localStorage !== 'undefined') {
+            localStorage.setItem(storageKey, theme);
+          }
+        }
+
+        // Update checkbox state on initial load
+        const checkbox = document.querySelector('.theme-toggle-checkbox');
+        if (checkbox) {
+          const currentTheme = document.documentElement.getAttribute('data-theme');
+          checkbox.checked = currentTheme === 'dark';
+        }
+
+        // Set up toggle functionality
+        function handleToggle() {
+          const currentTheme = document.documentElement.getAttribute('data-theme');
+          const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+          applyTheme(newTheme);
+        }
+
+        if (checkbox) {
+          checkbox.addEventListener('change', handleToggle);
+        }
+        const label = document.querySelector('#theme-toggle-label');
+        if (label) {
+          label.addEventListener('click', (e) => {
+            e.preventDefault();
+            handleToggle();
+          });
+        }
+
+        // Listen for storage changes from other pages
+        window.addEventListener('storage', (e) => {
+          if (e.key === storageKey) {
+            applyTheme(e.newValue || 'light');
+          }
+        });
+      });
+    </script>
   </body>
 </html>

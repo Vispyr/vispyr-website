@@ -1,5 +1,6 @@
 import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
+import starlightImageZoom from 'starlight-image-zoom';
 import mdx from '@astrojs/mdx';
 
 import react from '@astrojs/react';
@@ -24,6 +25,8 @@ export default defineConfig({
       ],
       components: {
         Header: './src/components/Header.astro',
+        SocialIcons: "./src/components/SocialIcons.astro",
+        MobileMenuToggle: "./src/components/MobileMenuToggle.astro",
       },
       sidebar: [
         { slug: 'docs/introduction' },
@@ -34,6 +37,16 @@ export default defineConfig({
         { slug: 'docs/future-work' },
       ],
       customCss: ['./src/styles/custom.css'],
+      head: [
+        {
+          tag: 'link',
+          attrs: {
+            href: 'https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;700&display=swap',
+            rel: 'stylesheet',
+          },
+        },
+      ],
+      plugins: [starlightImageZoom()],
     }),
     mdx(),
     react(),

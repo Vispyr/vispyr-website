@@ -5,13 +5,14 @@
   --sl-color-accent-high: rgb(255, 71, 58);
 
   --sl-color-bg: #ffffff;
-  --sl-color-bg-nav: #c4c4c4;
+  --sl-color-bg-nav: #f7fff5;
   --sl-color-bg-sidebar: #fafbfc;
 
   --image-filter: brightness(0);
 }
 
 [data-theme='dark'] {
+  --sl-color-text: white;
   --sl-color-bg-nav: #1a1d23;
   --sl-color-bg-sidebar: #1b1f2a;
   --sl-color-bg: #0f1114;
@@ -31,7 +32,7 @@ h3 {
 }
 
 p {
-  font-size: 1.2rem;
+  font-size: 1.1rem;
 }
 
 body {
@@ -131,7 +132,7 @@ footer a:hover {
   }
 
   p {
-    font-size: 0.8rem;
+    font-size: 1rem;
   }
 
   .header {

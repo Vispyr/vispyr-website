@@ -1,0 +1,292 @@
+---
+---
+
+<starlight-theme-black-select>
+  <div id="theme-toggle-wrapper">
+    <div>
+      <input type="checkbox" class="theme-toggle-checkbox" id="chk" />
+      <label id="theme-toggle-label" for="chk" aria-label={Astro.locals.t('themeSelect.accessibleLabel')} title={Astro.locals.t('themeSelect.accessibleLabel')}>
+        <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="icon-tabler icon-tabler-sun" width="15px" height="15px" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+          <circle cx="12" cy="12" r="4" />
+          <path d="M3 12h1m8 -9v1m8 8h1m-9 8v1m-6.4 -15.4l.7 .7m12.1 -.7l-.7 .7m0 11.4l.7 .7m-12.1 -.7l-.7 .7" />
+        </svg>
+        <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="icon-tabler icon-tabler-moon" width="15" height="15" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+          <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+        </svg>
+        <div id="theme-toggle-ball">
+          <span class="sr-only">Toggle theme</span>
+        </div>
+      </label>
+    </div>
+  </div>
+</starlight-theme-black-select>
+
+<style>
+  /* Exact CSS from Astro's error overlay adapted for Starlight */
+  :root {
+    /* Light theme colors - using Starlight's accent color */
+    --toggle-ball-color: var(--sl-color-accent, #5f11a6);
+    --toggle-table-background: var(--sl-color-bg, #ffffff);
+    --sun-icon-color: #ffffff;
+    --moon-icon-color: var(--sl-color-gray-4, #a3acc8);
+    --toggle-border-color: var(--sl-color-gray-3, #C3CADB);
+  }
+
+  :global([data-theme='dark']) {
+    --sun-icon-color: var(--sl-color-gray-4, #505D84);
+    --moon-icon-color: var(--sl-color-bg, #090B11);
+    --toggle-border-color: var(--sl-color-gray-5, #3D4663);
+    --toggle-ball-color: var(--sl-color-accent, #c490f4);
+  }
+
+  #theme-toggle-wrapper {
+    position: relative;
+    display: inline-block;
+  }
+
+  #theme-toggle-wrapper > div {
+    position: relative;
+    right: 0;
+    margin-top: 0;
+  }
+
+  .theme-toggle-checkbox {
+    opacity: 0;
+    position: absolute;
+  }
+
+  #theme-toggle-label {
+    background-color: var(--toggle-table-background);
+    border-radius: 50px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 7.5px;
+    position: relative;
+    width: 66px;
+    height: 30px;
+    transform: scale(1.2);
+    box-shadow: 0 0 0 1px var(--toggle-border-color);
+    outline: 1px solid transparent;
+    transition: box-shadow 0.2s ease;
+  }
+
+  .theme-toggle-checkbox:focus ~ #theme-toggle-label {
+    outline: 2px solid var(--toggle-border-color);
+    outline-offset: 4px;
+  }
+
+  #theme-toggle-label:hover {
+    box-shadow: 
+      0 0 0 1px var(--toggle-border-color),
+      0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  #theme-toggle-label #theme-toggle-ball {
+    background-color: var(--toggle-ball-color);
+    border-radius: 50%;
+    position: absolute;
+    height: 30px;
+    width: 30px;
+    transform: translateX(-7.5px);
+    transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1) 0ms;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+
+  @media (forced-colors: active) {
+    #theme-toggle-label {
+      --moon-icon-color: CanvasText;
+      --sun-icon-color: CanvasText;
+    }
+    #theme-toggle-label #theme-toggle-ball {
+      background-color: SelectedItem;
+    }
+  }
+
+  .theme-toggle-checkbox:checked + #theme-toggle-label #theme-toggle-ball {
+    transform: translateX(28.5px);
+    background-color: var(--toggle-ball-color);
+  }
+  
+  /* Force the animation to be visible */
+  #theme-toggle-label #theme-toggle-ball {
+    background-color: var(--toggle-ball-color);
+    border-radius: 50%;
+    position: absolute;
+    height: 30px;
+    width: 30px;
+    transform: translateX(-7.5px);
+    transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1) 0ms;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+
+  .sr-only {
+    border: 0 !important;
+    clip: rect(1px, 1px, 1px, 1px) !important;
+    -webkit-clip-path: inset(50%) !important;
+    clip-path: inset(50%) !important;
+    height: 1px !important;
+    margin: -1px !important;
+    overflow: hidden !important;
+    padding: 0 !important;
+    position: absolute !important;
+    width: 1px !important;
+    white-space: nowrap !important;
+  }
+
+  .icon-tabler {
+    transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1) 0ms;
+    z-index: 10;
+  }
+
+  .icon-tabler-moon {
+    color: var(--moon-icon-color);
+  }
+
+  .icon-tabler-sun {
+    color: var(--sun-icon-color);
+  }
+
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    #theme-toggle-label {
+      transform: scale(1);
+      width: 55px;
+      height: 26px;
+      padding: 6px;
+    }
+    
+    #theme-toggle-label #theme-toggle-ball {
+      height: 26px;
+      width: 26px;
+      transform: translateX(-6px);
+    }
+    
+    .theme-toggle-checkbox:checked + #theme-toggle-label #theme-toggle-ball {
+      transform: translateX(23px);
+    }
+    
+    .icon-tabler {
+      width: 12px;
+      height: 12px;
+    }
+  }
+</style>
+
+{/* Keep the original Starlight script to avoid FOUC */}
+<script is:inline>
+  StarlightThemeProvider.updatePickers()
+</script>
+
+<script>
+  type Theme = 'auto' | 'dark' | 'light'
+
+  /** Key in `localStorage` to store color theme preference at. */
+  const storageKey = 'starlight-theme'
+
+  /** Get a typesafe theme string from any JS value (unknown values are coerced to `'auto'`). */
+  function parseTheme(theme: unknown): Theme {
+    return theme === 'auto' || theme === 'dark' || theme === 'light' ? theme : 'auto'
+  }
+
+  /** Load the user's preference from `localStorage`. */
+  function loadTheme(): Theme {
+    return parseTheme(typeof localStorage !== 'undefined' && localStorage.getItem(storageKey))
+  }
+
+  /** Store the user's preference in `localStorage`. */
+  function storeTheme(theme: Theme): void {
+    if (typeof localStorage !== 'undefined') {
+      localStorage.setItem(storageKey, theme === 'light' || theme === 'dark' ? theme : '')
+    }
+  }
+
+  /** Get the preferred system color scheme. */
+  function getPreferredColorScheme(): Theme {
+    return matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark'
+  }
+
+  /** Update select menu UI, document theme, and local storage state. */
+  function onThemeChange(theme: Theme): void {
+    StarlightThemeProvider.updatePickers(theme)
+    document.documentElement.dataset.theme = theme === 'auto' ? getPreferredColorScheme() : theme
+    storeTheme(theme)
+    
+    // Update the checkbox state to match the current theme
+    const checkbox = document.querySelector('.theme-toggle-checkbox') as HTMLInputElement
+    if (checkbox) {
+      const actualTheme = theme === 'auto' ? getPreferredColorScheme() : theme
+      checkbox.checked = actualTheme === 'dark'
+    }
+  }
+
+  // React to changes in system color scheme.
+  matchMedia(`(prefers-color-scheme: light)`).addEventListener('change', () => {
+    if (loadTheme() === 'auto') {
+      onThemeChange('auto')
+    }
+  })
+
+  customElements.define(
+    'starlight-theme-black-select',
+    class StarlightThemeBlackSelect extends HTMLElement {
+      constructor() {
+        super()
+        
+        // Initialize theme
+        const initialTheme = loadTheme()
+        onThemeChange(initialTheme)
+        
+        // Set up both checkbox and label listeners for better compatibility
+        const checkbox = this.querySelector('.theme-toggle-checkbox') as HTMLInputElement
+        const label = this.querySelector('#theme-toggle-label') as HTMLLabelElement
+        
+        // Function to handle theme toggle
+        const handleToggle = (e?: Event) => {
+          console.log('Toggle clicked!') // Debug log
+          
+          const currentTheme = parseTheme(document.documentElement.dataset.theme)
+          let newTheme: Theme
+          
+          // Simple toggle between light and dark (skip auto for now to test)
+          if (currentTheme === 'dark') {
+            newTheme = 'light'
+          } else {
+            newTheme = 'dark'
+          }
+          
+          console.log('Current theme:', currentTheme, 'New theme:', newTheme) // Debug log
+          
+          onThemeChange(newTheme)
+          
+          // Manually update checkbox state
+          if (checkbox) {
+            checkbox.checked = newTheme === 'dark'
+          }
+          
+          // Update aria-label for accessibility
+          if (label) {
+            label.setAttribute('aria-label', `Switch to ${newTheme === 'dark' ? 'light' : 'dark'} theme`)
+            label.setAttribute('title', `Switch to ${newTheme === 'dark' ? 'light' : 'dark'} theme`)
+          }
+        }
+        
+        // Add listeners to both checkbox and label
+        checkbox?.addEventListener('change', handleToggle)
+        label?.addEventListener('click', (e) => {
+          e.preventDefault() // Prevent default label behavior
+          handleToggle(e)
+        })
+        
+        // Initialize checkbox state
+        if (checkbox) {
+          const currentTheme = parseTheme(document.documentElement.dataset.theme)
+          checkbox.checked = currentTheme === 'dark'
+        }
+      }
+    },
+  )
+</script>

@@ -2,8 +2,8 @@
 import { Image } from 'astro:assets';
 import vispyrFlame from '../assets/vispyr-flame.png';
 import vispyrText from '../assets/vispyr-text.png';
-import NavBar from './NavBar.astro';
-import ThemeSelect from './ThemeSelect.astro';
+import githubDark from '../assets/github-dark.svg';
+import githubLight from '../assets/github-light.svg';
 ---
 <header class="landing-header">
   <div class="header-content">
@@ -15,11 +15,89 @@ import ThemeSelect from './ThemeSelect.astro';
     </div>
     
     <div class="header-right">
-      <NavBar />
-      <ThemeSelect />
+      <nav class="nav-links">
+        <a href="/docs/introduction/">Case Study</a>
+        <a href="/#team">Team</a>
+        <a href="https://github.com/vispyr" target="_blank">
+          <img id="github-logo" alt="GitHub Logo" width="28" height="28" />
+        </a>
+      </nav>
+      <button id="theme-toggle" aria-label="Toggle theme">
+        <svg class="sun-icon" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="5"></circle>
+          <line x1="12" y1="1" x2="12" y2="3"></line>
+          <line x1="12" y1="21" x2="12" y2="23"></line>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+          <line x1="1" y1="12" x2="3" y2="12"></line>
+          <line x1="21" y1="12" x2="23" y2="12"></line>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+        </svg>
+        <svg class="moon-icon" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+        </svg>
+      </button>
     </div>
   </div>
 </header>
+
+<script define:vars={{ githubDark: githubDark.src, githubLight: githubLight.src }}>
+  const button = document.getElementById('theme-toggle');
+  const githubLogo = document.getElementById('github-logo');
+
+  const logos = {
+    dark: githubDark,
+    light: githubLight
+  };
+
+  function updateIconsAndLogo() {
+    const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
+    const isDark = currentTheme === 'dark';
+    const sunIcon = button.querySelector('.sun-icon');
+    const moonIcon = button.querySelector('.moon-icon');
+    
+    if (sunIcon && moonIcon) {
+      sunIcon.style.display = isDark ? 'none' : 'block';
+      moonIcon.style.display = isDark ? 'block' : 'none';
+    }
+
+    if (githubLogo) {
+      githubLogo.src = logos[currentTheme];
+    }
+  }
+
+  function toggleTheme() {
+    const currentTheme = document.documentElement.getAttribute('data-theme');
+    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    
+    document.documentElement.setAttribute('data-theme', newTheme);
+    localStorage.setItem('starlight-theme', newTheme);
+    
+    window.dispatchEvent(new CustomEvent('theme-changed', { detail: { theme: newTheme } }));
+    
+    updateIconsAndLogo();
+  }
+
+  if (button) {
+    button.addEventListener('click', toggleTheme);
+
+    const observer = new MutationObserver(updateIconsAndLogo);
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['data-theme']
+    });
+
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+      if (!localStorage.getItem('starlight-theme')) {
+        document.documentElement.setAttribute('data-theme', e.matches ? 'dark' : 'light');
+        updateIconsAndLogo();
+      }
+    });
+
+    updateIconsAndLogo();
+  }
+</script>
 
 <style>
   .landing-header {

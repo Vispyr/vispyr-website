@@ -1,0 +1,132 @@
+---
+import '../styles/theme-toggle.css';
+---
+
+<starlight-theme-black-select>
+  <div id="theme-toggle-wrapper">
+    <div>
+      <input type="checkbox" class="theme-toggle-checkbox" id="chk" />
+      <label id="theme-toggle-label" for="chk" aria-label={Astro.locals.t('themeSelect.accessibleLabel')} title={Astro.locals.t('themeSelect.accessibleLabel')}>
+        <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="icon-tabler icon-tabler-sun" width="15px" height="15px" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+          <circle cx="12" cy="12" r="4" />
+          <path d="M3 12h1m8 -9v1m8 8h1m-9 8v1m-6.4 -15.4l.7 .7m12.1 -.7l-.7 .7m0 11.4l.7 .7m-12.1 -.7l-.7 .7" />
+        </svg>
+        <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="icon-tabler icon-tabler-moon" width="15" height="15" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+          <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+        </svg>
+        <div id="theme-toggle-ball"></div>
+      </label>
+    </div>
+  </div>
+</starlight-theme-black-select>
+
+<script is:inline>
+  (function() {
+    const storageKey = 'starlight-theme';
+    
+    function getTheme() {
+      if (typeof localStorage !== 'undefined' && localStorage.getItem(storageKey)) {
+        return localStorage.getItem(storageKey);
+      }
+      return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    }
+
+    function updateCheckboxState() {
+      const checkbox = document.querySelector('.theme-toggle-checkbox');
+      if (checkbox) {
+        const theme = getTheme();
+        const actualTheme = theme === 'auto' ? 
+          (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : 
+          theme;
+        checkbox.checked = actualTheme === 'dark';
+        return true;
+      }
+      return false;
+    }
+
+    if (document.readyState === 'loading') {
+      const observer = new MutationObserver(function() {
+        if (updateCheckboxState()) {
+          observer.disconnect();
+        }
+      });
+      observer.observe(document, { childList: true, subtree: true });
+    } else {
+      updateCheckboxState();
+    }
+  })();
+</script>
+
+<script is:inline>
+  StarlightThemeProvider.updatePickers()
+</script>
+
+<script>
+  type Theme = 'auto' | 'dark' | 'light'
+
+  const storageKey = 'starlight-theme'
+
+  function parseTheme(theme: unknown): Theme {
+    return theme === 'auto' || theme === 'dark' || theme === 'light' ? theme : 'auto'
+  }
+
+  function loadTheme(): Theme {
+    return parseTheme(typeof localStorage !== 'undefined' && localStorage.getItem(storageKey))
+  }
+
+  function storeTheme(theme: Theme): void {
+    if (typeof localStorage !== 'undefined') {
+      localStorage.setItem(storageKey, theme === 'light' || theme === 'dark' ? theme : '')
+    }
+  }
+
+  function getPreferredColorScheme(): Theme {
+    return matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark'
+  }
+
+  function onThemeChange(theme: Theme): void {
+    StarlightThemeProvider.updatePickers(theme)
+    document.documentElement.dataset.theme = theme === 'auto' ? getPreferredColorScheme() : theme
+    storeTheme(theme)
+    
+    const checkbox = document.querySelector('.theme-toggle-checkbox') as HTMLInputElement
+    if (checkbox) {
+      const actualTheme = theme === 'auto' ? getPreferredColorScheme() : theme
+      checkbox.checked = actualTheme === 'dark'
+    }
+  }
+
+  matchMedia(`(prefers-color-scheme: light)`).addEventListener('change', () => {
+    if (loadTheme() === 'auto') {
+      onThemeChange('auto')
+    }
+  })
+
+  customElements.define(
+    'starlight-theme-black-select',
+    class StarlightThemeBlackSelect extends HTMLElement {
+      constructor() {
+        super()
+        
+        onThemeChange(loadTheme())
+        
+        const checkbox = this.querySelector('.theme-toggle-checkbox') as HTMLInputElement
+        const label = this.querySelector('#theme-toggle-label') as HTMLLabelElement
+        
+        const handleToggle = () => {
+          const currentTheme = parseTheme(document.documentElement.dataset.theme)
+          const newTheme = currentTheme === 'dark' ? 'light' : 'dark'
+          onThemeChange(newTheme)
+        }
+        
+        checkbox?.addEventListener('change', handleToggle)
+        label?.addEventListener('click', (e) => {
+          e.preventDefault()
+          handleToggle()
+        })
+      }
+    },
+  )
+</script>
