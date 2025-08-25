@@ -85,7 +85,7 @@ This level of analysis alone is enough to identify code optimization opportuniti
 
 Altogether, the four telemetry signals can give developers an in-depth view of a program's performance. An observability platform surfaces insights from these signals through the following architectural layers:
 
-<figure style="display: flex; justify-content: center;">
+<figure style="display: flex; justify-content: center; margin: 1rem 4rem;">
   <img
     src={observabilityPlatform.src}
     style="width: 100%"
@@ -106,7 +106,7 @@ While eBPF is an increasingly popular option for instrumentation, specifically c
 
 ### Telemetry Pipeline
 
-<figure style="display: flex; justify-content: center;">
+<figure style="display: flex; justify-content: center; margin: 2rem 4rem;">
   <img
     src={telemetryPipeline.src}
     style="width: 100%"
@@ -127,7 +127,7 @@ The tradeoffs of implementing a collector are the increased complexity of adding
 
 Storage for observability data is unique because of the bespoke nature of different telemetry signals and high volumes. This results in many data stores that are customized to the specific telemetry data being collected, as opposed to traditional forms of data storage like a relational database.
 
-<figure style="display: flex; justify-content: center;">
+<figure style="display: flex; justify-content: center; margin: 2rem 4rem;">
   <img
     src={metricStorage.src}
     style="width: 100%"
@@ -142,6 +142,6 @@ The importance of the data store is also dependent on compatibility with the tel
 
 The last component of the platform is the visualization layer, which provides a dedicated user interface to interact with the data. Through the UI, a developer gains dashboarding, alerting, and querying capabilities. This all serves the benefit of giving developers the ability to take action based on the data collected. The choice of a visualization platform is driven by compatibility with chosen data sources and the provided features of the tool (e.g. querying, analysis, alerting, dashboarding etc).
 
-<figure style="display: flex; justify-content: center; margin: 4rem;">
+<figure style="display: flex; justify-content: center">
   <img src={dashboardExample.src} />
 </figure>

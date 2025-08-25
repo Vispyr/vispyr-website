@@ -15,7 +15,7 @@ Given the various components of an observability platform, the observability lan
 
 The observability community has coalesced around two specific projects as defacto standards for observability: OpenTelemetry and Prometheus.
 
-<figure style="display: flex; justify-content: center;">
+<figure style="display: flex; justify-content: center; margin: 2rem 4rem;">
   <img
     src={otelCollector.src}
     style="width: 100%"
@@ -26,7 +26,7 @@ The OpenTelemetry project itself (often called “OTel” for short) is a “fra
 
 OTel also includes a wide variety of instrumentation tooling to facilitate gathering telemetry data. This includes SDKs, zero-code instrumentation, and an experimental eBPF based instrumentation tool (OpenTelemetry eBPF Instrumentation, or OBI) currently in development. OTel provides both the specification and implementation of its tooling, which enables various vendors to implement OTel SDKs and deploy vendor specific distributions of the OTel Collector. The scope of OTel covers the three primary observability signals (metrics, traces and logs), with additional support for profiles currently in flight.
 
-<figure style="display: flex; justify-content: center; max-width: 100%;">
+<figure style="display: flex; justify-content: center; max-width: 100%; margin: 1rem 6rem;">
   <img
     src={prometheus.src}
     style="width: 100%"
@@ -55,7 +55,7 @@ Open source platforms provide flexibility to customize and deploy individual com
 
 As a result, options for platforms in this space often require DIY solutions that assemble different open source solutions into a cohesive platform. While there are a handful of platforms that provide solutions across all components of the observability stack (e.g. Grafana’s LGTM stack, Signoz, etc), many of them still require developers to set up and configure each component independently.
 
-<figure style="display: flex; justify-content: center; max-width: 100%;">
+<figure style="display: flex; justify-content: center; max-width: 100%; margin: 2rem 4rem;">
   <img
     src={ossPlatforms.src}
     style="width: 100%"
@@ -64,7 +64,7 @@ As a result, options for platforms in this space often require DIY solutions tha
 
 For example, if a developer wanted to analyze traces, metrics, and logs, they would need to combine OTel and Prometheus with tools such as Jaeger, Loki, and Grafana. Jaeger is a distributed tracing platform that also provides a UI for visualization, but it only supports traces, while Loki is purely a datastore for logs. In order to interact with all telemetry in a single UI, you would also need to deploy a data visualization tool like Grafana and configure it to connect to all data sources.
 
-<figure style="display: flex; justify-content: center;">
+<figure style="display: flex; justify-content: center; margin: 2rem 4rem;">
   <img
     src={ossScenario.src}
     style="width: 100%"
