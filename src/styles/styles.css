@@ -292,35 +292,23 @@ section::after {
   align-items: center;
 }
 
-.headshot-links svg {
-  margin: 1rem;
-}
-
 .headshot-links {
-  margin-top: 2rem;
   display: flex;
   justify-content: center;
   align-items: center;
-  opacity: 0;
-  transform: translateY(20px);
   transition: opacity 0.3s ease, transform 0.3s ease;
-}
-
-.card:hover .headshot-links {
-  opacity: 1;
-  transform: translateY(0);
 }
 
 .headshot-links a {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 0 0.5rem; /* Space between icons */
+  margin-top: -1rem;
   transition: transform 0.2s ease;
 }
 
 .headshot-links a:hover {
-  transform: scale(1.1); /* Optional: slight scale on individual icon hover */
+  transform: scale(1.3);
 }
 
 .headshot-links svg {

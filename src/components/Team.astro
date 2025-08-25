@@ -50,11 +50,10 @@ const team = [
         <div class="card-top">
           <img class="member-headshot" src={img} alt="Team Member headshot" />
           <h3>{name}</h3>
-          <p>{location}</p>
-        </div>
-        <div class="headshot-links">
-          <a href={github} target="_blank"><Icon name="github" size="2rem" color="white" /></a>
-          <a href={linkedin} target="_blank"><Icon name="linkedin" size="2rem" color="white" /></a>
+          <div class="headshot-links">
+            <a href={github} target="_blank"><Icon name="github" size="1.5rem" color="white" /></a>
+            <a href={linkedin} target="_blank"><Icon name="linkedin" size="1.5rem" color="white" /></a>
+          </div>
         </div>
       </div>
     ))}
