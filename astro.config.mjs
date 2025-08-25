@@ -27,7 +27,7 @@ export default defineConfig({
       components: {
         Header: './src/components/Header.astro',
         SocialIcons: "./src/components/SocialIcons.astro",
-        MobileMenuToggle: "./src/components/MobileMenuToggle.astro",
+        // MobileMenuToggle: "./src/components/MobileMenuToggle.astro",
       },
       sidebar: [
         { slug: 'docs/introduction' },

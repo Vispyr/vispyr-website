@@ -62,7 +62,7 @@ export function getTranslation(translations: Record<string, string>, link: strin
   }
 
   .nav-bar a:hover {
-    color: var(--sl-color-text-accent) !important;
+    color: rgb(255, 71, 58) !important;
   }
 
   @media (min-width: 1280px) {
@@ -77,10 +77,6 @@ export function getTranslation(translations: Record<string, string>, link: strin
     transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     transition-duration: 0.15s;
-    color: color-mix(in oklab, var(--foreground) 80%, transparent);
-  }
-
-  .nav-bar a:hover {
     color: color-mix(in oklab, var(--foreground) 80%, transparent);
   }
 
