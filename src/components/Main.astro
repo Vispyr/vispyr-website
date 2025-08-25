@@ -1,5 +1,4 @@
 ---
-import vispyrLogo from "../assets/vispyr-flame.png";
 import grafanaLogo from "../assets/grafana.svg";
 import terminalLogo from "../assets/terminal.svg";
 import cliMovie from "../assets/cli-deploy.mp4";
@@ -16,6 +15,7 @@ import pyroIcon from '../assets/icons/Pyroscope.svg';
 import nginxIcon from '../assets/icons/Nginx.svg';
 import dockerIcon from '../assets/icons/Docker.svg';
 import "../styles/styles.css";
+import Team from "./Team.astro";
 
 const icons = [
   {
@@ -61,17 +61,6 @@ const icons = [
 ];
 ---
 <main>
-  <section class="top">
-    <div class="top-content">
-      <img id='vispyr-logo' src={vispyrLogo.src} />
-      <div class="landing-hook">
-        <h1 class="landing-title">Code-Level Observability in Minutes</h1>
-        <h2 class="landing-subtitle">The self-hosted, easy-to-deploy observability tool that brings you code-level insights</h2>
-        <a id="case-study-button" href='/docs/introduction'>Read our Case Study</a>
-      </div>
-    </div>
-  </section>
-
   <section class="horizontal">
     <div class="feature-row">
       <div class="card">

@@ -26,6 +26,7 @@ export default defineConfig({
       ],
       components: {
         Header: './src/components/Header.astro',
+        Hero: './src/components/Hero.astro',
         SocialIcons: "./src/components/SocialIcons.astro",
         // MobileMenuToggle: "./src/components/MobileMenuToggle.astro",
       },

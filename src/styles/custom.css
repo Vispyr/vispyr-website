@@ -40,9 +40,9 @@ body {
   font-family: 'Nunito Sans', sans-serif;
 }
 
-/* .header {
-  height: 4rem;
-} */
+.tagline {
+  color: var(--sl-color-text);
+}
 
 .page.sl-flex {
   justify-content: flex-start !important;
@@ -130,6 +130,25 @@ footer a:hover {
 #starlight__on-this-page {
   font-size: 1.1rem;
   margin-left: 0.4rem;
+}
+
+.actions a {
+  font-size: 1rem;
+  text-decoration: none;
+  padding: 0.5rem;
+  width: 10rem;
+  border-radius: 0.8rem;
+  text-align: center;
+  color: var(--sl-color-text);
+  background-color: transparent;
+  border: 1px solid var(--sl-color-text);
+  transition: all 0.3s ease;
+}
+
+.actions a:hover {
+  color: rgb(255, 71, 58);
+  border: 1px solid rgb(255, 71, 58);
+  box-shadow: 0 0 10px rgb(255, 71, 58);
 }
 
 @media (max-width: 768px) {

@@ -38,6 +38,10 @@
   --sl-color-text-accent: #b6e7ff;
 }
 
+.sl-container {
+  max-width: none !important;
+}
+
 html {
   background-color: var(--sl-color-bg);
   color: var(--sl-color-text);
@@ -85,6 +89,10 @@ strong {
   color: rgb(255, 71, 58);
 }
 
+.page, .main-frame, .content-panel, main, .sl-markdown-content {
+  width: 100%;
+}
+
 main {
   display: flex;
   background-color: var(--sl-color-bg);
@@ -104,13 +112,6 @@ section {
   opacity: 0;
   animation: fadeInUp 0.8s ease forwards;
   animation-delay: 0.3s;
-}
-
-.top-content {
-  display: flex;
-  align-items: center;
-  min-height: 100vh;
-  justify-content: center;
 }
 
 .demonstration-content {
@@ -151,12 +152,16 @@ section::after {
   gap: 4rem;
 }
 
+.sl-markdown-content .card,
+main .card {
+  width: 16rem !important;
+  height: 20rem !important;
+}
+
 .card {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 12rem;
-  height: 16rem;
   padding: 2rem;
   border-radius: 0.8rem;
   transition: transform 0.3s ease;
@@ -230,6 +235,10 @@ section::after {
   transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
+.card-name-pair h3 {
+  white-space: nowrap !important;
+}
+
 .mini-card:hover {
   transform: translateY(-12px) scale(1);
   box-shadow: 0 10px 8px black;
@@ -273,6 +282,14 @@ section::after {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  max-width: none !important;
+  width: 100% !important;
+  padding: 0 !important;
+}
+
+#team .team-members {
+  margin: 0 auto;
+  width: auto;
 }
 
 .team-members {
@@ -280,16 +297,6 @@ section::after {
   align-items: center;
   justify-content: space-between;
   gap: 4rem;
-}
-
-.team-member {
-  padding: 2rem;
-  background-color: var(--sl-color-gray-2);
-  box-shadow: 0 0 10px var(--sl-color-gray-2);
-  border-radius: 0.5rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
 }
 
 .headshot-links {
@@ -397,12 +404,6 @@ section::after {
 
   .feature-row h3 {
     padding-top: .5rem;
-  }
-
-  .card {
-    width: 12rem;
-    height: 14rem;
-    padding: 1.5rem;
   }
 
   .card img {
