@@ -113,6 +113,14 @@ body {
   margin-left: 0 !important;
 } */
 
+footer {
+  width: 100%;
+}
+
+.pagination-links {
+  width: 100%;
+}
+
 footer a:hover {
   border: 1px solid rgb(255, 71, 58);
   transition: all 0.3s ease;
