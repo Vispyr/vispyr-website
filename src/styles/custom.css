@@ -43,6 +43,10 @@ body {
   height: 4rem;
 } */
 
+.page.sl-flex {
+  justify-content: flex-start !important;
+}
+
 .main-pane {
   padding: 1rem;
 }
@@ -77,8 +81,9 @@ body {
   color: white;
 }
 
-.sl-flex {
-  align-items: none;
+.sidebar-content.sl-flex {
+  align-items: flex-start !important;
+  justify-content: flex-start !important;
 }
 
 .right-sidebar-panel {
