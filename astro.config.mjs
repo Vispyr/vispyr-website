@@ -31,7 +31,7 @@ export default defineConfig({
       },
       sidebar: [
         { slug: 'docs/introduction' },
-        { slug: 'docs/observability' },
+        { slug: 'docs/observability-overview' },
         { slug: 'docs/observability-landscape' },
         { slug: 'docs/building-vispyr' },
         { slug: 'docs/design-decisions' },
