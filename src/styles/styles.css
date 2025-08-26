@@ -4,7 +4,7 @@
   --sl-color-gray-2: #e8eaed;
   --sl-color-gray-3: #c2c6cc;
   --sl-color-gray-4: #8d9199;
-  --sl-color-gray-5: #5d6066;
+  --sl-color-gray-5: #353841;
   --sl-color-gray-6: #383a42;
   --sl-color-black: #23262d;
   --sl-color-accent-low: #c7f0ff;
@@ -25,7 +25,7 @@
   --sl-color-gray-2: #2a2e37;
   --sl-color-gray-3: #383a42;
   --sl-color-gray-4: #5d6066;
-  --sl-color-gray-5: #8d9199;
+  --sl-color-gray-5: #353841;
   --sl-color-gray-6: #c2c6cc;
   --sl-color-black: #f5f6f8;
   --sl-color-accent-low: #0d4663;
@@ -94,7 +94,7 @@ strong {
 
 #_top {
   width: 90%;
-  word-break: keep-all;     /* Prevents breaking words */
+  word-break: keep-all;
   overflow-wrap: normal; 
 }
 
@@ -105,6 +105,10 @@ strong {
 
 .page, .main-frame, .content-panel, main, .sl-markdown-content {
   width: 100%;
+}
+
+.hero {
+  margin-top: -6rem;
 }
 
 .hero .sl-flex.stack {
@@ -558,6 +562,7 @@ main .card {
   }
 
   .hero {
+    margin-top: 0;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -568,7 +573,7 @@ main .card {
     display: block;
     margin: 0 auto;
     width: 10rem;
-    float: none; /* in case something else floats it */
+    float: none;
   }
 
   .hero .copy {
