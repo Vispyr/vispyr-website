@@ -64,15 +64,18 @@ body {
 }
 
 h1 {
+  color: var(--sl-color-text);
   font-size: 4rem;
   margin: 0;
 }
 
 h2 {
+  color: var(--sl-color-text);
   font-size: 1.5rem;
 }
 
 h3 {
+  color: var(--sl-color-text);
   font-size: 1.1rem;
   padding-bottom: 0;
 }
@@ -89,8 +92,41 @@ strong {
   color: rgb(255, 71, 58);
 }
 
+#_top {
+  width: 90%;
+  word-break: keep-all;     /* Prevents breaking words */
+  overflow-wrap: normal; 
+}
+
+.tagline {
+  color: var(--sl-color-text);
+  line-height: 1.5;
+}
+
 .page, .main-frame, .content-panel, main, .sl-markdown-content {
   width: 100%;
+}
+
+.hero .sl-flex.stack {
+  text-align: left !important;
+}
+
+.hero .copy {
+  align-items: flex-start !important;
+}
+
+.hero .actions a {
+  justify-content: flex-start !important;
+}
+
+.hero .actions * {
+  margin-left: 0 !important;
+  margin-right: auto !important;
+}
+
+
+.sl-flex, a.sl-flex, a[href*="github"].sl-flex {
+  align-items: flex-start !important;
 }
 
 main {
@@ -114,18 +150,12 @@ section {
   animation-delay: 0.3s;
 }
 
-.demonstration-content {
-  display: flex;
-  align-items: center;
-  gap: 2rem;
-}
-
 section::after {
   content: '';
   display: block;
   width: 100%;
   height: 2px;
-  margin: 24rem;
+  margin: 12rem;
   background: linear-gradient(
     to right,
     transparent 0%,
@@ -133,6 +163,10 @@ section::after {
     var(--sl-color-accent-high) 80%,
     transparent 100%
   );
+}
+
+.footer .sl-flex {
+  height: 0 !important;
 }
 
 #team::after {
@@ -150,6 +184,10 @@ section::after {
   align-items: center;
   justify-content: space-between;
   gap: 4rem;
+}
+
+.card, .card-name-pair {
+  margin-top: 0 !important;
 }
 
 .sl-markdown-content .card,
@@ -254,12 +292,24 @@ main .card {
   height: 70%;
 }
 
+.demonstration-content {
+  display: flex;
+  align-items: center;
+  justify-content:space-around;
+  gap: 2rem;
+}
+
 .demonstration {
-  width: 50rem;
+  max-width: 50rem;
+  width: 60%;
   padding: 0.5rem;
   background-color: var(--sl-color-gray-2);
   border: 1px solid rgb(255, 71, 58);
   box-shadow: 0 0 10px rgb(255, 71, 58);
+}
+
+.demo-description {
+  width: 40%;
 }
 
 .svg-container {
@@ -292,6 +342,11 @@ main .card {
   width: auto;
 }
 
+#team-intro {
+  margin-bottom: 2rem;
+  font-size: 2.5rem;
+}
+
 .team-members {
   display: flex;
   align-items: center;
@@ -319,11 +374,13 @@ main .card {
 }
 
 .headshot-links svg {
+  color: var(--sl-color-text);
   margin: 1rem;
 }
 
-#vispyr-logo {
+.hero img {
   width: 35rem;
+  margin-right: -3rem;
 }
 
 #case-study-button {
@@ -356,7 +413,24 @@ main .card {
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1280px) {
+  .team-members {
+    display: flex;
+    flex-direction: row;  /* stay in row layout */
+    flex-wrap: wrap;      /* allow wrapping onto new rows */
+    gap: 1rem;            /* optional spacing */
+  }
+
+  .team-members > * {
+    flex: 1 1 40%;
+  }
+
+  .team-members .card {
+    width: 8rem !important;
+  }
+}
+
+@media (max-width: 994px) {
   h1 {
     font-size: 2rem;
   }
@@ -432,12 +506,19 @@ main .card {
   }
 
   .demonstration {
-    width: 95%;
+    width: 100%;
+    min-width: 100px;
     max-width: 400px;
   }
 
+  .demo-description {
+    width: 100%;
+  }
+
   .demonstration-content {
+    display: flex;
     flex-direction: column;
+    justify-content: space-between;
     gap: 1rem;
   }
 
@@ -446,9 +527,13 @@ main .card {
     margin-top: 2rem;
   }
 
-  .team-members {
-    flex-direction: column;
-    gap: 2rem;
+  .team-members > * {
+    flex: 1 1 40%;
+  }
+
+  .team-members .card {
+    width: 10rem !important;
+    height: 16rem !important;
   }
 
   .headshot-links svg {
@@ -468,5 +553,51 @@ main .card {
 
   main {
     padding-top: 1rem;
+  }
+}
+
+@media (max-width: 800px) {
+  .sl-flex, a.sl-flex, a[href*="github"].sl-flex {
+    align-items: center !important;
+  }
+
+  .hero {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .hero img {
+    display: block;
+    margin: 0 auto;
+    width: 10rem;
+    float: none; /* in case something else floats it */
+  }
+
+  .hero .copy {
+    align-items: center !important;
+  }
+
+  #_top {
+    text-align: center;
+  }
+
+  .tagline {
+    text-align: center;
+  }
+
+  .card-name-pair h3 {
+    display: none;
+  }
+
+  .card:hover, .mini-card:hover {
+    transform: none;
+    box-shadow: 0 10px 8px black;
+  }
+
+  .team-members .card h3::after {
+    content: "\A"; /* Inserts a newline character */
+    white-space: pre;
   }
 }
