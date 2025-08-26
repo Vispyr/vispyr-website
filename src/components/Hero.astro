@@ -158,12 +158,17 @@ if (image) {
 			justify-content: center;
 		}
 
+    @media (max-width: 800px) {
+      .gradient {
+        margin-top: -3.5rem;
+      }
+    }
+
 		@media (min-width: 50rem) {
 			.hero {
 				grid-template-columns: 4fr 7fr; /* Swapped: image gets 4fr, text gets 7fr */
 				gap: 3%;
 				padding-block: clamp(2.5rem, calc(1rem + 10vmin), 10rem);
-        margin-bottom: 30rem;
 			}
 
 			.hero > img,
