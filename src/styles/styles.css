@@ -443,10 +443,6 @@ main .card {
     font-size: 1rem;
   }
 
-  .nav-bar {
-    display: none;
-  }
-
   section {
     width: 95%;
     padding: 0 1rem;
@@ -585,6 +581,10 @@ main .card {
 
   .tagline {
     text-align: center;
+  }
+
+  .nav-bar .main-links {
+    display: none;
   }
 
   .card-name-pair h3 {

@@ -147,7 +147,7 @@ footer a:hover {
   box-shadow: 0 0 10px rgb(255, 71, 58);
 }
 
-@media (max-width: 768px) {
+@media (max-width: 800px) {
   :root {
     --sl-nav-height: 5rem;
   }
@@ -174,5 +174,9 @@ footer a:hover {
 
   .sidebar {
     top: var(--sl-nav-height) !important;
+  }
+
+  .nav-bar .main-links {
+    display: none;
   }
 }

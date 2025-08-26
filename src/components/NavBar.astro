@@ -30,24 +30,26 @@ export function getTranslation(translations: Record<string, string>, link: strin
 ---
 
 <nav class="nav-bar">
-  {
-    userConfig.navLinks?.map((nav) => {
-      const absoluteLinkRegex = /^https?:\/\//
+  <div class="main-links">
+    {
+      userConfig.navLinks?.map((nav) => {
+        const absoluteLinkRegex = /^https?:\/\//
 
-      const link =
-        !absoluteLinkRegex.test(nav.link) && Astro.currentLocale
-          ? getRelativeLocaleUrl(Astro.currentLocale, nav.link)
-          : nav.link
-      const label = typeof nav.label === 'string' ? nav.label : getTranslation(nav.label, nav.link, 'label')
+        const link =
+          !absoluteLinkRegex.test(nav.link) && Astro.currentLocale
+            ? getRelativeLocaleUrl(Astro.currentLocale, nav.link)
+            : nav.link
+        const label = typeof nav.label === 'string' ? nav.label : getTranslation(nav.label, nav.link, 'label')
 
-      return (
-        <a class:list={[{ active: currentPath === link }]} href={link} {...nav.attrs}>
-          {label}
-          {nav.badge && <span class="badge">{nav.badge}</span>}
-        </a>
-      )
-    })
-  }
+        return (
+          <a class:list={[{ active: currentPath === link }]} href={link} {...nav.attrs}>
+            {label}
+            {nav.badge && <span class="badge">{nav.badge}</span>}
+          </a>
+        )
+      })
+    }
+  </div>
   <SocialIcons />
 </nav>
 

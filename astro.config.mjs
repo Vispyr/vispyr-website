@@ -28,7 +28,7 @@ export default defineConfig({
         Header: './src/components/Header.astro',
         Hero: './src/components/Hero.astro',
         SocialIcons: "./src/components/SocialIcons.astro",
-        // MobileMenuToggle: "./src/components/MobileMenuToggle.astro",
+        MobileMenuToggle: "./src/components/MobileMenuToggle.astro",
       },
       sidebar: [
         { slug: 'docs/introduction' },
@@ -38,7 +38,9 @@ export default defineConfig({
         { slug: 'docs/design-decisions' },
         { slug: 'docs/future-work' },
       ],
-      customCss: ['./src/styles/custom.css'],
+      customCss: [
+        './src/styles/custom.css',
+      ],
       head: [
         {
           tag: 'link',

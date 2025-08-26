@@ -12,6 +12,7 @@ export const userConfig: StarlightThemeBlackUserConfig = {
       link: "/#team",
       attrs: {},
     },
+    
   ],
   social: [
   {
