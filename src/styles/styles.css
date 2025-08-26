@@ -39,6 +39,7 @@
 }
 
 .sl-container {
+  background-color: transparent;
   max-width: none !important;
 }
 
@@ -203,6 +204,7 @@ main .card {
 .card {
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
   padding: 2rem;
   border-radius: 0.8rem;
