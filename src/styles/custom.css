@@ -194,6 +194,10 @@ footer a:hover {
   .nav-bar .main-links {
     display: none;
   }
+
+  .feature-row {
+    margin-top: 5rem;
+  }
 }
 
 @media (min-width: 72rem) {
