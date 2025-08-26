@@ -561,6 +561,16 @@ main .card {
     align-items: center !important;
   }
 
+  main {
+    width: 100%;
+  }
+
+  section {
+    width: 100%;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
   .header {
     height: 5rem !important;
   }

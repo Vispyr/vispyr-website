@@ -31,6 +31,13 @@ h3 {
   font-size: 1.4rem;
 }
 
+figure h4 {
+  margin-top: 0.8rem;
+  font-size: 0.8rem;
+  text-align: center;
+  color: var(--sl-color-gray-3);
+}
+
 p {
   font-size: 1.1rem;
   line-height: 1.5;
@@ -105,12 +112,6 @@ body {
   hyphens: auto;
 }
 
-/* .content-panel {
-  margin-top: 0 !important;
-  padding-top: 1rem !important;
-  margin-left: 0 !important;
-} */
-
 footer {
   width: 100%;
 }
@@ -175,6 +176,10 @@ footer a:hover {
 
   .sidebar {
     top: var(--sl-nav-height) !important;
+  }
+
+  figure {
+    margin: 1rem 0 !important;
   }
 
   .nav-bar .main-links {
