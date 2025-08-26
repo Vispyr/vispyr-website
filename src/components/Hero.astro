@@ -2,6 +2,7 @@
 import { Image } from 'astro:assets';
 import { PAGE_TITLE_ID } from '../constants';
 import { LinkButton } from '@astrojs/starlight/components';
+import VispyrGradient from '../assets/Vispyr-Gradient.svg';
 
 const { data } = Astro.locals.starlightRoute.entry;
 const { title = data.title, tagline, image, actions = [] } = data.hero || {};
@@ -30,6 +31,7 @@ if (image) {
 ---
 
 <div class="hero">
+  <VispyrGradient class="gradient" preserveAspectRatio="xMidYMid slice" />
 	{
 		darkImage && (
 			<Image
@@ -66,21 +68,63 @@ if (image) {
 <style>
 	@layer starlight.core {
 		.hero {
+			position: relative; /* This is crucial - creates stacking context */
 			display: grid;
 			align-items: center;
 			gap: 1rem;
 			padding-bottom: 1rem;
+      margin-bottom: 10rem;
 		}
 
 		.hero > img,
 		.hero > .hero-html {
+			position: relative; /* Ensure images are above gradient */
+			z-index: 2;
 			object-fit: contain;
 			width: min(70%, 20rem);
 			height: auto;
 			margin-inline: auto;
 		}
 
+		.gradient {
+			position: absolute;
+			top: 0;
+			left: 50%; /* Center it properly */
+			transform: translateX(-50%);
+			width: 100vw;
+			height: 100vh; /* Extend beyond hero for seamless transition */
+			z-index: 1; /* Behind content but above background */
+			opacity: 70%;
+			object-fit: cover;
+      mask: linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0) 0%,
+        rgba(0, 0, 0, .1) 5%,
+        rgba(0, 0, 0, 0.7) 25%,
+        rgba(0, 0, 0, 1) 50%,
+        rgba(0, 0, 0, 0.7) 75%,
+        rgba(0, 0, 0, 0.1) 95%,
+        rgba(0, 0, 0, 0) 100%
+      );
+      -webkit-mask: linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0) 0%,
+        rgba(0, 0, 0, .1) 5%,
+        rgba(0, 0, 0, 0.7) 25%,
+        rgba(0, 0, 0, 1) 50%,
+        rgba(0, 0, 0, 0.7) 75%,
+        rgba(0, 0, 0, 0.1) 95%,
+        rgba(0, 0, 0, 0) 100%
+      );
+		}
+
+    [data-theme="dark"] .gradient {
+      opacity: 50%;
+    }
+
 		.stack {
+			position: relative; /* Ensure text content is above gradient */
+			z-index: 2;
 			flex-direction: column;
 			gap: clamp(1.5rem, calc(1.5rem + 1vw), 2rem);
 			text-align: center;
