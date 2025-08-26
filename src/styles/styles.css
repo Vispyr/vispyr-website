@@ -561,6 +561,10 @@ main .card {
     align-items: center !important;
   }
 
+  .header {
+    height: 5rem !important;
+  }
+
   .hero {
     margin-top: 0;
     display: flex;
