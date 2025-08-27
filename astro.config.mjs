@@ -57,11 +57,4 @@ export default defineConfig({
   ],
 
   adapter: vercel(),
-
-  vite: {
-    assetsInclude: ['**/*.svg'],
-    optimizeDeps: {
-      exclude: ['*.svg']
-    }
-  }
 });

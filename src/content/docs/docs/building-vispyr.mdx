@@ -5,7 +5,7 @@ order: 4
 import { Picture } from 'astro:assets';
 
 import vendorComparison from '../../../assets/versus/Vendor-Comparison.svg';
-import vispyrInfrastructure from '../../../assets/diagrams/Vispyr-Infrastructure.svg';
+import vispyrInfrastructure from '../../../assets/diagrams/Vispyr-Infrastructure.svg?url';
 import vispyrBackend from '../../../assets/diagrams/Vispyr-Backend.svg';
 import vispyrAgent from '../../../assets/diagrams/Vispyr-Agent.svg';
 
@@ -29,7 +29,7 @@ Vispyr has three basic components: the backend, the agent, and the command line 
 
 <figure style="display: flex; flex-direction: column; justify-content: center; margin: 2rem 4rem;">
   <img
-    src={vispyrInfrastructure.src}
+    src={vispyrInfrastructure}
     style="width: 100%"
   />
   <h4>The full Vispyr architecture</h4>
