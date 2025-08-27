@@ -2,6 +2,7 @@
 title: 'Building Vispyr'
 order: 4
 ---
+import { Image } from 'astro:assets';
 
 import vendorComparison from '../../../assets/versus/Vendor-Comparison.svg';
 import vispyrInfrastructure from '../../../assets/diagrams/Vispyr-Infrastructure.svg';
@@ -25,6 +26,8 @@ Below is a summary of how these priorities position Vispyr against the landscape
 ## Architecture
 
 Vispyr has three basic components: the backend, the agent, and the command line tool (CLI). The backend is responsible for centralizing, storing, and displaying telemetry data, while the agent is responsible for collecting metrics, traces, and profiles from a user’s application and transmitting them to the backend. The CLI is used to deploy the Vispyr application and is responsible for orchestrating the setup of all tooling.
+
+<Image src={vispyrInfrastructure} alt="Vispyr Infrastructure" />
 
 <figure style="display: flex; flex-direction: column; justify-content: center; margin: 2rem 4rem;">
   <img
