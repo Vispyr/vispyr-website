@@ -38,9 +38,13 @@ figure h4 {
   color: var(--sl-color-gray-3);
 }
 
-p {
+p, li {
   font-size: 1.1rem;
   line-height: 1.5;
+}
+
+ul li {
+  width: 120%;
 }
 
 body {
@@ -205,6 +209,10 @@ footer a:hover {
 
   .feature-row {
     margin-top: 5rem;
+  }
+  
+  .pagination-links .link-title {
+    font-size: 1.1rem;
   }
 }
 
