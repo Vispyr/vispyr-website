@@ -202,6 +202,10 @@ footer a:hover {
   .nav-bar .main-links {
     display: none;
   }
+
+  .pagination-links .link-title {
+    font-size: 1.1rem;
+  }
 }
 
 @media (min-width: 72rem) {
