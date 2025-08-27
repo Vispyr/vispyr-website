@@ -61,7 +61,11 @@ body {
 
 .main-pane {
   padding: 1rem;
-  max-width: 1080px;
+  max-width: 1400px;
+}
+
+.main-pane:has(.hero) {
+  max-width: 1400px;
 }
 
 .main-pane:has(.hero) {
@@ -203,6 +207,10 @@ footer a:hover {
     display: none;
   }
 
+  .feature-row {
+    margin-top: 5rem;
+  }
+  
   .pagination-links .link-title {
     font-size: 1.1rem;
   }
