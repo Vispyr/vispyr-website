@@ -64,6 +64,10 @@ body {
   max-width: 1400px;
 }
 
+.main-pane:has(.hero) {
+  max-width: 1400px;
+}
+
 .sidebar {
   position: fixed !important;
   top: var(--sl-nav-height) !important;
