@@ -57,6 +57,10 @@ body {
 
 .main-pane {
   padding: 1rem;
+  max-width: 1080px;
+}
+
+.main-pane:has(.hero) {
   max-width: 1400px;
 }
 
