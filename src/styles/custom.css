@@ -51,8 +51,17 @@ body {
   justify-content: flex-start !important;
 }
 
+.lg:sl-flex {
+  align-items: center;
+}
+
 .main-pane {
   padding: 1rem;
+  max-width: 1080px;
+}
+
+.main-pane:has(.hero) {
+  max-width: 1400px;
 }
 
 .sidebar {
@@ -89,6 +98,10 @@ body {
   background-color: var(--sl-color-bg-nav);
   align-items: flex-start !important;
   justify-content: flex-start !important;
+}
+
+.sidebar-pane {
+  background-color: var(--sl-color-bg-nav);
 }
 
 .right-sidebar-panel {
@@ -184,5 +197,19 @@ footer a:hover {
 
   .nav-bar .main-links {
     display: none;
+  }
+}
+
+@media (min-width: 72rem) {
+  .lg\:sl-flex {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 }

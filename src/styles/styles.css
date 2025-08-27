@@ -4,14 +4,14 @@
   --sl-color-gray-2: #e8eaed;
   --sl-color-gray-3: #c2c6cc;
   --sl-color-gray-4: #8d9199;
-  --sl-color-gray-5: #353841;
+  --sl-color-gray-5: rgb(193, 195, 200);
   --sl-color-gray-6: #383a42;
   --sl-color-black: #23262d;
   --sl-color-accent-low: #c7f0ff;
   --sl-color-accent: rgb(255, 71, 58);
   --sl-color-accent-high: rgb(255, 71, 58);
   --sl-color-bg: #ffffff;
-  --sl-color-bg-nav: #ffffff;
+  --sl-color-bg-nav: #ededed;
   --sl-color-bg-sidebar: #fafbfc;
   --sl-color-text: #383a42;
   --sl-color-text-accent: rgb(255, 71, 58);

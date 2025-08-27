@@ -3,6 +3,7 @@ title: 'Building Vispyr'
 order: 4
 ---
 
+import vendorComparison from '../../../assets/versus/Vendor-Comparison.svg';
 import vispyrInfrastructure from '../../../assets/diagrams/Vispyr-Infrastructure.svg';
 import vispyrBackend from '../../../assets/diagrams/Vispyr-Backend.svg';
 import vispyrAgent from '../../../assets/diagrams/Vispyr-Agent.svg';
@@ -12,6 +13,14 @@ import vispyrAgent from '../../../assets/diagrams/Vispyr-Agent.svg';
 The goal of Vispyr is to expand observability and continuous profiling to smaller teams that do not have the resources for a managed cloud service or the capacity to research and implement a DIY solution. Our target user group is smaller teams in need of an observability platform that matches the flexibility, lower cost, and composability of open source tooling, combined with the ease of adoption provided by a managed cloud service. To maintain compatibility with existing industry standards, Vispyr prioritizes maintaining compatibility with OTel where possible. Continuous profiling is central to the platform, with additional telemetry signals incorporated to enhance our ability to monitor and investigate applications. Vispyr also prioritizes pre-provisioned, ready to use visuals in order to allow teams to ramp up quickly on analysis of telemetry data.
 
 Below is a summary of how these priorities position Vispyr against the landscape of managed cloud platforms and DIY solutions:
+
+<figure style="display: flex; flex-direction: column; justify-content: center; margin: 2rem 10rem;">
+  <img
+    src={vendorComparison.src}
+    style="width: 100%"
+  />
+  <h4>Vispyr compared to the landscape of observability platforms</h4>
+</figure>
 
 ## Architecture
 
