@@ -43,7 +43,6 @@ This allowed for a unified telemetry pipeline and simplified the connection betw
   src="Pyro-vs-Parca.svg"
   alt="Pyroscope vs Parca"
   caption="Pyroscope vs Parca"
-  style="margin-top: -2rem;"
 />
 
 For profiles, there were two open-source options considered: Parca by Polar Signals and Pyroscope. Parca is an eBPF-based system profiler and was the first tool we examined. It matched our goals for a simple to deploy instrumentation tool that required minimal customization of the user’s application. However, it being an eBPF-based profiler meant it came with the inherent limitations of eBPF tooling described previously, specifically the limitations around newer Linux kernels and lacking production-ready OTLP support. Additionally, Parca is designed as a self-contained tool with its own data storage and visualization components. While it does support connecting the data to Grafana, it does not support sending instrumentation data through our agent and gateway collectors. This tradeoff would reintroduce the data isolation issue described in the Agent & Gateway Collector decision above.

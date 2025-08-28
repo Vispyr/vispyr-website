@@ -1,4 +1,6 @@
 ---
+import ThemedImage from "./ThemedImage.astro";
+
 import grafanaLogo from "../assets/grafana.svg";
 import terminalLogo from "../assets/terminal.svg";
 import cliMovie from "../assets/cli-deploy.mp4";
@@ -83,9 +85,7 @@ const icons = [
       <h2>No telemetry-hookup required</h2>
       <h3>Vispyr deploys a <em>fully-provisioned backend</em>, handling all the telemetry configurations and allowing you to focus on what matters.</h3>
     </div>
-    <div class="svg-container">
-      <img src={telemetryFlow.src} />
-    </div>
+    <ThemedImage src="Telemetry-Flow.svg" alt="Telemetry Flow" />
   </section>
 
   <section>
