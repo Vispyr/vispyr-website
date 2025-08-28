@@ -389,25 +389,6 @@ main .card {
   margin-right: -3rem;
 }
 
-#case-study-button {
-  font-size: 1rem;
-  text-decoration: none;
-  padding: 0.5rem;
-  width: 10rem;
-  border-radius: 0.8rem;
-  text-align: center;
-  color: var(--sl-color-text);
-  background-color: transparent;
-  border: 1px solid var(--sl-color-text);
-  transition: all 0.3s ease;
-}
-
-#case-study-button:hover {
-  color: rgb(255, 71, 58);
-  border: 1px solid rgb(255, 71, 58);
-  box-shadow: 0 0 10px rgb(255, 71, 58);
-}
-
 @keyframes fadeInUp {
   from {
     opacity: 0;
