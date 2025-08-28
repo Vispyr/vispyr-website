@@ -68,7 +68,7 @@ if (image) {
 <style>
 	@layer starlight.core {
 		.hero {
-			position: relative; /* This is crucial - creates stacking context */
+			position: relative;
 			display: grid;
 			align-items: center;
 			gap: 1rem;
@@ -76,11 +76,14 @@ if (image) {
       margin-bottom: 10rem;
       height: 100vh;
       margin-top: -7rem !important;
+      opacity: 0;
+      animation: fadeInUp 0.8s ease forwards;
+      animation-delay: 0.5s;
 		}
 
 		.hero > img,
 		.hero > .hero-html {
-			position: relative; /* Ensure images are above gradient */
+			position: relative;
 			z-index: 2;
 			object-fit: contain;
 			width: min(70%, 20rem);
@@ -91,11 +94,11 @@ if (image) {
 		.gradient {
 			position: absolute;
 			top: 0;
-			left: 50%; /* Center it properly */
+			left: 50%;
 			transform: translateX(-50%);
 			width: 100vw;
-			height: 100vh; /* Extend beyond hero for seamless transition */
-			z-index: 1; /* Behind content but above background */
+			height: 100vh;
+			z-index: 1;
 			opacity: 65%;
 			object-fit: cover;
       mask: linear-gradient(
@@ -129,7 +132,7 @@ if (image) {
     }
 
 		.stack {
-			position: relative; /* Ensure text content is above gradient */
+			position: relative;
 			z-index: 2;
 			flex-direction: column;
 			gap: clamp(1.5rem, calc(1.5rem + 1vw), 2rem);
@@ -187,20 +190,20 @@ if (image) {
 
 		@media (min-width: 50rem) {
 			.hero {
-				grid-template-columns: 4fr 7fr; /* Swapped: image gets 4fr, text gets 7fr */
+				grid-template-columns: 4fr 7fr;
 				gap: 3%;
 				padding-block: clamp(2.5rem, calc(1rem + 10vmin), 10rem);
 			}
 
 			.hero > img,
 			.hero > .hero-html {
-				order: 1; /* Changed from order: 2 to order: 1 - image goes first */
+				order: 1;
 				width: min(100%, 25rem);
 			}
 
 			.stack {
 				text-align: start;
-				order: 2; /* Explicit order: 2 for text content */
+				order: 2;
 			}
 
 			.copy {
