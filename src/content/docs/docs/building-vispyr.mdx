@@ -3,10 +3,7 @@ title: 'Building Vispyr'
 order: 4
 ---
 
-import vendorComparison from '../../../assets/versus/Vendor-Comparison.svg';
-import vispyrInfrastructure from '../../../assets/diagrams/Vispyr-Infrastructure.svg';
-import vispyrBackend from '../../../assets/diagrams/Vispyr-Backend.svg';
-import vispyrAgent from '../../../assets/diagrams/Vispyr-Agent.svg';
+import ThemedImage from '../../../components/ThemedImage.astro';
 
 ## Vispyr's North Star
 
@@ -14,37 +11,31 @@ The goal of Vispyr is to expand observability and continuous profiling to smalle
 
 Below is a summary of how these priorities position Vispyr against the landscape of managed cloud platforms and DIY solutions:
 
-<figure style="display: flex; flex-direction: column; justify-content: center; margin: 2rem 10rem;">
-  <img
-    src={vendorComparison.src}
-    style="width: 100%"
-  />
-  <h4>Vispyr compared to the landscape of observability platforms</h4>
-</figure>
+<ThemedImage
+  src="Vendor-Comparison.svg"
+  alt="Vendor Comparisons"
+  caption="Vispyr compared to the landscape of observability platforms"
+/>
 
 ## Architecture
 
 Vispyr has three basic components: the backend, the agent, and the command line tool (CLI). The backend is responsible for centralizing, storing, and displaying telemetry data, while the agent is responsible for collecting metrics, traces, and profiles from a user’s application and transmitting them to the backend. The CLI is used to deploy the Vispyr application and is responsible for orchestrating the setup of all tooling.
 
-<figure style="display: flex; flex-direction: column; justify-content: center; margin: 2rem 4rem;">
-  <img
-    src={vispyrInfrastructure.src}
-    style="width: 100%"
-  />
-  <h4>The full Vispyr architecture</h4>
-</figure>
+<ThemedImage
+  src="Vispyr-Infrastructure.svg"
+  alt="Vispyr Infrastructure"
+  caption="The full Vispyr architecture"
+/>
 
 ### Vispyr Backend
 
 The Vispyr Backend includes a component of the telemetry pipeline, plus the full data storage and visualization layers of the observability platform. 
 
-<figure style="display: flex; flex-direction: column; justify-content: center; margin: 2rem 5%;">
-  <img
-    src={vispyrBackend.src}
-    style="width: 100%"
-  />
-  <h4>The Vispyr Backend architecture</h4>
-</figure>
+<ThemedImage
+  src="Vispyr-Backend.svg"
+  alt="Vispyr Backend"
+  caption="The Vispyr Backend architecture"
+/>
 
 The pipeline uses Grafana Alloy, a vendor-specific distribution of the OTel collector, which is deployed as a gateway collector receiving telemetry from one or more applications. The gateway collector centralizes the processing and routing of incoming telemetry signals from instrumented applications and is capable of processing the profiling data produced by the Vispyr continuous profiler (see below). This gives the backend a single point of ingestion while maintaining a clear separation between instrumentation alongside the user application and pipeline processing in the backend. The gateway is configured to receive traces, metrics, and profiles.
 
@@ -64,13 +55,11 @@ The backend is deployed on AWS. All components of the backend are run in Docker 
 
 The Vispyr Agent includes the instrumentation layer and a portion of the telemetry pipeline.
 
-<figure style="display: flex; flex-direction: column; justify-content: center; margin: 2rem 15%;">
-  <img
-    src={vispyrAgent.src}
-    style="width: 100%"
-  />
-  <h4>The Vispyr Agent architecture</h4>
-</figure>
+<ThemedImage
+  src="Vispyr-Agent.svg"
+  alt="Vispyr Agent"
+  caption="The Vispyr Agent architecture"
+/>
 
 Instrumentation of the user’s application relies on the OTel SDK and the Pyroscope SDK. Both SDKs are implemented through a script that is run as part of the application’s startup command. The script initializes OTel and Pyroscope components that produce telemetry data as the application runs and configures it to send that data to the agent collector. The instrumentation script produces traces, runtime application-specific metrics (such as garbage collection statistics, event loop metrics, etc), and profiles.
 

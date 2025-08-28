@@ -1,0 +1,30 @@
+---
+import { Zoom } from 'starlight-image-zoom/components';
+import { Image } from 'astro:assets';
+
+interface ImageProps {
+  src: string;
+  alt: string;
+  caption?: string;
+  style?: string;
+}
+
+const { src, alt, caption, style } = Astro.props;
+
+const images = import.meta.glob('../assets/diagrams/**/*.svg', { eager: true }) as Record<string, { default: ImageMetadata }>;
+
+const darkPath = `../assets/diagrams/dark/${src}`;
+const darkImage = images[darkPath]?.default;
+
+if (!darkImage) {
+  console.error('Available images:', Object.keys(images));
+  throw new Error(`Image not found: ${src}. Looking for: ${darkPath}`);
+}
+---
+
+<figure style="display: flex; flex-direction: column; justify-content: center; margin: 2rem 0;">
+  <Zoom label={alt}>
+    <Image src={darkImage} alt={alt} loading="lazy" style="width: 100%;" />
+  </Zoom>
+  <h4 style={style}>{caption}</h4>
+</figure>
