@@ -13,7 +13,7 @@ export default defineConfig({
     starlight({
       title: 'Vispyr',
       logo: {
-        src: './src/assets/vispyr-flame.png',
+        src: './src/assets/vispyr/vispyr-flame.png',
         replacesTitle: true,
       },
       favicon: '/favicon.ico',
@@ -57,10 +57,4 @@ export default defineConfig({
   ],
 
   adapter: vercel(),
-
-  vite: {
-    server: {
-      allowedHosts: ['localhost', 'f33cf3f0e04b.ngrok-free.app'] // Add your allowed host(s) here
-    },
-  }
 });

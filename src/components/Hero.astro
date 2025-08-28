@@ -2,7 +2,7 @@
 import { Image } from 'astro:assets';
 import { PAGE_TITLE_ID } from '../constants';
 import { LinkButton } from '@astrojs/starlight/components';
-import VispyrGradient from '../assets/Vispyr-Gradient.svg';
+import VispyrGradient from '../assets/vispyr/Vispyr-Gradient.svg';
 
 const { data } = Astro.locals.starlightRoute.entry;
 const { title = data.title, tagline, image, actions = [] } = data.hero || {};

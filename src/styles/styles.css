@@ -156,7 +156,7 @@ section {
   width: 90%;
   opacity: 0;
   animation: fadeInUp 0.8s ease forwards;
-  animation-delay: 0.3s;
+  animation-delay: 0.4s;
 }
 
 section::after {
