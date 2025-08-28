@@ -108,6 +108,10 @@ strong {
   width: 100%;
 }
 
+.content-panel, main, .main-pane {
+  padding-bottom: 0;
+}
+
 .hero {
   margin-top: -6rem;
 }
@@ -168,10 +172,6 @@ section::after {
     var(--sl-color-accent-high) 80%,
     transparent 100%
   );
-}
-
-.footer .sl-flex {
-  height: 0 !important;
 }
 
 #team::after {
@@ -387,6 +387,14 @@ main .card {
 .hero img {
   width: 35rem;
   margin-right: -3rem;
+}
+
+footer.sl-flex.astro-3yyafb3n {
+  display: none !important;
+}
+
+body[data-astro-pathname^="/docs/"] footer.sl-flex.astro-3yyafb3n {
+  display: block !important;
 }
 
 @keyframes fadeInUp {
