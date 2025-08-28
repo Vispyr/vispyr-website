@@ -15,6 +15,7 @@ Below is a summary of how these priorities position Vispyr against the landscape
   src="Vendor-Comparison.svg"
   alt="Vendor Comparisons"
   caption="Vispyr compared to the landscape of observability platforms"
+  style="border-radius: 10px;"
 />
 
 ## Architecture
@@ -25,6 +26,7 @@ Vispyr has three basic components: the backend, the agent, and the command line 
   src="Vispyr-Infrastructure.svg"
   alt="Vispyr Infrastructure"
   caption="The full Vispyr architecture"
+  style="border-radius: 10px;"
 />
 
 ### Vispyr Backend
@@ -35,6 +37,7 @@ The Vispyr Backend includes a component of the telemetry pipeline, plus the full
   src="Vispyr-Backend.svg"
   alt="Vispyr Backend"
   caption="The Vispyr Backend architecture"
+  style="border-radius: 10px;"
 />
 
 The pipeline uses Grafana Alloy, a vendor-specific distribution of the OTel collector, which is deployed as a gateway collector receiving telemetry from one or more applications. The gateway collector centralizes the processing and routing of incoming telemetry signals from instrumented applications and is capable of processing the profiling data produced by the Vispyr continuous profiler (see below). This gives the backend a single point of ingestion while maintaining a clear separation between instrumentation alongside the user application and pipeline processing in the backend. The gateway is configured to receive traces, metrics, and profiles.
@@ -59,6 +62,7 @@ The Vispyr Agent includes the instrumentation layer and a portion of the telemet
   src="Vispyr-Agent.svg"
   alt="Vispyr Agent"
   caption="The Vispyr Agent architecture"
+  style="border-radius: 10px;"
 />
 
 Instrumentation of the user’s application relies on the OTel SDK and the Pyroscope SDK. Both SDKs are implemented through a script that is run as part of the application’s startup command. The script initializes OTel and Pyroscope components that produce telemetry data as the application runs and configures it to send that data to the agent collector. The instrumentation script produces traces, runtime application-specific metrics (such as garbage collection statistics, event loop metrics, etc), and profiles.

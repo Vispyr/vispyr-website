@@ -116,6 +116,7 @@ A telemetry pipeline provides a means to collect, process, aggregate, and transm
   src="Telemetry-Pipeline.svg"
   alt="The telemetry pipeline"
   caption="A telemetry pipeline connecting instrumented applications to data storage"
+  style="border-radius: 10px;"
 />
 
 The benefits of using a pipeline are compounded when working with multiple telemetry signals, as it provides a central endpoint for all data, regardless of signal or tooling. Of course, leveraging this benefit requires all tooling to conform to the same format. For this reason, the observability industry has coalesced around the OpenTelemetry Protocol (OTLP) as the industry standard for transmitting telemetry signals. We expand more on OpenTelemetry and OTLP in The Observability Landscape section below.
@@ -132,6 +133,7 @@ Storage for observability data is unique because of the bespoke nature of differ
   src="Data-Storage.svg"
   alt="The telemetry data storage options"
   caption="A telemetry pipeline connecting to four distinct data stores, one for each telemetry signal"
+  style="border-radius: 10px;"
 />
 
 Metrics are perhaps the best example: this signal produces high volume, high cardinality time series data, requires frequent writes, and needs efficient indexing for fast, frequent retrieval of data. As a result, the data stores for metrics are typically time-series databases (TSDB) built to work with the high-volume nature of metrics. The most common of these is Prometheus, which is discussed further in the The Observability Landscape section below. Other forms of telemetry require different forms of data storage (e.g., traces and logs are often written to object storage instead of a time-series or relational database).

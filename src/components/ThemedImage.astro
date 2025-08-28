@@ -24,7 +24,7 @@ if (!image) {
 
 <figure style="display: flex; flex-direction: column; justify-content: center; margin: 2rem 0;">
   <Zoom label={alt}>
-    <Image src={image} alt={alt} loading="lazy" style="width: 100%; border-radius: 10px;" />
+    <Image src={image} alt={alt} loading="lazy" style=`width: 100%;${style}` />
   </Zoom>
-  <h4 style={style}>{caption}</h4>
+  <h4>{caption}</h4>
 </figure>

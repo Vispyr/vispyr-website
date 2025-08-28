@@ -19,6 +19,7 @@ The OpenTelemetry project (often called “OTel” for short) is a framework and
   src="Otel-Collector.svg"
   alt="The OpenTelemetry Collector"
   caption="Components of an OpenTelemetry Collector"
+  style="border-radius: 10px;"
 />
 
 OTel also includes a wide variety of instrumentation tooling to facilitate gathering telemetry data. This includes SDKs, zero-code instrumentation, and an experimental eBPF-based instrumentation tool (OpenTelemetry eBPF Instrumentation, or OBI) currently in development. OTel provides both the specification and implementation of its tooling, which enables various vendors to implement OTel SDKs and deploy vendor-specific distributions of the OTel Collector. The scope of OTel covers the three primary observability signals (metrics, traces, and logs), with additional support for profiles currently in flight.
@@ -29,6 +30,7 @@ Prometheus is “an open-source systems monitoring and alerting toolkit” which
   src="Prometheus.svg"
   alt="Prometheus diagram"
   caption="Prometheus instance scraping from multiple services and storing data"
+  style="border-radius: 10px;"
 />
 
 Prometheus is fully capable of fulfilling the instrumentation, telemetry pipeline, and data storage roles within an observability platform, but only for metrics. As a result, it's common for Prometheus to be deployed alongside an OpenTelemetry collector, as opposed to a choice between the two. The OTel Collector also implements a number of components designed to work directly with Prometheus.
@@ -55,6 +57,7 @@ As a result, options for platforms in this space often require DIY solutions tha
   src="OSS-Platform.svg"
   alt="Open Source Platforms"
   caption="Landscape of open-source observability tools by role in a telemetry pipeline"
+  style="border-radius: 10px;"
 />
 
 For example, if a developer wanted to analyze traces, metrics, and logs, they would need to combine OTel and Prometheus with tools such as Jaeger, Loki, and Grafana. Jaeger is a distributed tracing platform that also provides a UI for visualization, but it only supports traces, while Loki is purely a datastore for logs. In order to interact with all telemetry in a single UI, you would also need to deploy a data visualization tool like Grafana and configure it to connect to all data sources.
@@ -63,6 +66,7 @@ For example, if a developer wanted to analyze traces, metrics, and logs, they wo
   src="OSS-Scenario.svg"
   alt="Open Source Scenario"
   caption="An example of a DIY observability platform"
+  style="border-radius: 10px;"
 />
 
 In this scenario, a developer would need to configure OTel instrumentation and an OTel collector to gather metrics, traces, and logs, send the data to the three different data stores (Prometheus for metrics, Jaeger for traces, and Loki for logs), and then configure Grafana to connect to and read from each data source. Each component would require its own research and configuration to ensure they are production-ready. From there, additional long-term work would be needed to configure the platform for self-hosting, manage networking between components when operating in a cloud environment, scale the different components of the stack, and manage the maturity and compatibility of the different components.
