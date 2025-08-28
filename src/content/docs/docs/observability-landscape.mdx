@@ -59,19 +59,11 @@ As a result, options for platforms in this space often require DIY solutions tha
 
 For example, if a developer wanted to analyze traces, metrics, and logs, they would need to combine OTel and Prometheus with tools such as Jaeger, Loki, and Grafana. Jaeger is a distributed tracing platform that also provides a UI for visualization, but it only supports traces, while Loki is purely a datastore for logs. In order to interact with all telemetry in a single UI, you would also need to deploy a data visualization tool like Grafana and configure it to connect to all data sources.
 
-ThemedImage
+<ThemedImage
   src="OSS-Scenario.svg"
   alt="Open Source Scenario"
   caption="An example of a DIY observability platform"
-/> (THIS IS A PLACEHOLDER)
-
-<figure style="display: flex; flex-direction: column; justify-content: center; margin: 2rem 4rem;">
-  <img
-    src={ossScenario.src}
-    style="width: 100%"
-  />
-  <h4>An example of a DIY observability platform</h4>
-</figure>
+/>
 
 In this scenario, a developer would need to configure OTel instrumentation and an OTel collector to gather metrics, traces, and logs, send the data to the three different data stores (Prometheus for metrics, Jaeger for traces, and Loki for logs), and then configure Grafana to connect to and read from each data source. Each component would require its own research and configuration to ensure they are production-ready. From there, additional long-term work would be needed to configure the platform for self-hosting, manage networking between components when operating in a cloud environment, scale the different components of the stack, and manage the maturity and compatibility of the different components.
 

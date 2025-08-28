@@ -60,7 +60,7 @@ export default defineConfig({
 
   vite: {
     server: {
-      allowedHosts: ['localhost', 'a133acb94c1d.ngrok-free.app'] // Add your allowed host(s) here
+      allowedHosts: ['localhost', 'f33cf3f0e04b.ngrok-free.app'] // Add your allowed host(s) here
     },
   }
 });
