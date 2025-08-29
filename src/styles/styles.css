@@ -271,16 +271,15 @@ main .card {
 }
 
 .card-name-pair h3 {
-  width: 6rem;
+  width: 6.5rem;
   height: 6rem;
   text-align: center;
   opacity: 0;
   transform: translateY(20px);
   transition: opacity 0.3s ease, transform 0.3s ease;
-}
-
-.card-name-pair h3 {
-  white-space: nowrap !important;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  line-height: 1.2;
 }
 
 .mini-card:hover {
@@ -411,9 +410,9 @@ body[data-astro-pathname^="/docs/"] footer.sl-flex.astro-3yyafb3n {
 @media (max-width: 1280px) {
   .team-members {
     display: flex;
-    flex-direction: row;  /* stay in row layout */
-    flex-wrap: wrap;      /* allow wrapping onto new rows */
-    gap: 1rem;            /* optional spacing */
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 1rem;
   }
 
   .team-members > * {
@@ -522,11 +521,6 @@ body[data-astro-pathname^="/docs/"] footer.sl-flex.astro-3yyafb3n {
     flex: 1 1 40%;
   }
 
-  .team-members .card {
-    width: 10rem !important;
-    height: 16rem !important;
-  }
-
   .headshot-links svg {
     margin: 0.5rem;
   }
@@ -606,8 +600,18 @@ body[data-astro-pathname^="/docs/"] footer.sl-flex.astro-3yyafb3n {
     box-shadow: 0 10px 8px black;
   }
 
-  .team-members .card h3::after {
-    content: "\A"; /* Inserts a newline character */
-    white-space: pre;
+  .team-members .card h3 {
+    margin-top: 1rem;
+  }
+
+  .team-members .card .card-top {
+    gap: 0.5rem;
+  }
+
+  .team-members .card .card-top h3 {
+    word-break: break-word;
+    overflow-wrap: break-word;
+    width: 5.5rem;
+    line-height: 1.2;
   }
 }
