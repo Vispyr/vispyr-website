@@ -615,3 +615,9 @@ body[data-astro-pathname^="/docs/"] footer.sl-flex.astro-3yyafb3n {
     line-height: 1.2;
   }
 }
+
+@media (max-width: 467px ) {
+  .team-members .card {
+    height: 80% !important;
+  }
+}
