@@ -108,6 +108,10 @@ strong {
   width: 100%;
 }
 
+.content-panel, main, .main-pane {
+  padding-bottom: 0;
+}
+
 .hero {
   margin-top: -6rem;
 }
@@ -152,7 +156,7 @@ section {
   width: 90%;
   opacity: 0;
   animation: fadeInUp 0.8s ease forwards;
-  animation-delay: 0.3s;
+  animation-delay: 0.4s;
 }
 
 section::after {
@@ -168,10 +172,6 @@ section::after {
     var(--sl-color-accent-high) 80%,
     transparent 100%
   );
-}
-
-.footer .sl-flex {
-  height: 0 !important;
 }
 
 #team::after {
@@ -389,23 +389,12 @@ main .card {
   margin-right: -3rem;
 }
 
-#case-study-button {
-  font-size: 1rem;
-  text-decoration: none;
-  padding: 0.5rem;
-  width: 10rem;
-  border-radius: 0.8rem;
-  text-align: center;
-  color: var(--sl-color-text);
-  background-color: transparent;
-  border: 1px solid var(--sl-color-text);
-  transition: all 0.3s ease;
+footer.sl-flex.astro-3yyafb3n {
+  display: none !important;
 }
 
-#case-study-button:hover {
-  color: rgb(255, 71, 58);
-  border: 1px solid rgb(255, 71, 58);
-  box-shadow: 0 0 10px rgb(255, 71, 58);
+body[data-astro-pathname^="/docs/"] footer.sl-flex.astro-3yyafb3n {
+  display: block !important;
 }
 
 @keyframes fadeInUp {

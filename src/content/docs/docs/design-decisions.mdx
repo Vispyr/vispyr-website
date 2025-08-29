@@ -3,14 +3,7 @@ title: "Design Decisions & Tradeoffs"
 order: 5
 ---
 
-import collectorComparisonOtel from '../../../assets/diagrams/Collector-Comparison-Otel.svg';
-import collectorComparisonAlloy from '../../../assets/diagrams/Collector-Comparison-Alloy.svg';
-
-import pyroVsParca from '../../../assets/versus/Pyro-vs-Parca.svg';
-import mimirVsProm from '../../../assets/versus/Mimir-vs-Prom.svg';
-import tempoVsJaeger from '../../../assets/versus/Tempo-vs-Jaeger.png';
-
-import infrastructureChoice from '../../../assets/versus/Infrastructure-Choice.svg';
+import ThemedImage from '../../../components/ThemedImage.astro';
 
 ## Scope of Telemetry Data
 
@@ -28,34 +21,32 @@ Deciding which collector to use for the telemetry pipeline was a choice between 
 
 The initial choice was to use a vendor-agnostic solution, but OTel’s lack of profile support was a heavy trade-off. As mentioned previously, OTel lacks a production-ready profiler, and the profiles signal is still in development. Without an OTLP-compatible profile signal, sending profiles would require bypassing the agent-gateway telemetry pipeline. This would result in isolating profile data, increasing deployment complexity, and adding additional constraints when debugging issues between Vispyr components.
 
-<figure style="display: flex; flex-direction: column; justify-content: center; margin: 2rem 4rem;">
-  <img
-    src={collectorComparisonOtel.src}
-    style="width: 100%"
-  />
-  <h4>Telemetry pipeline with profiles bypassing the OTel Agent and Gateway Collectors</h4>
-</figure>
+<ThemedImage
+  src="Collector-Comparison-Otel.svg"
+  alt="Collector Comparison - Otel"
+  caption="Telemetry pipeline with profiles bypassing the OTel Agent and Gateway Collectors"
+  style="border-radius: 10px;"
+/>
 
 The alternative was to replace both the agent and gateway collector with Grafana Alloy. Alloy offers support for Pyroscope, an open source continuous profiler which we chose to use for instrumentation and data storage (see below for the decision related to Pyroscope).
 
-<figure style="display: flex; flex-direction: column; justify-content: center; margin: 2rem 4rem;">
-  <img
-    src={collectorComparisonAlloy.src}
-    style="width: 100%"
-  />
-  <h4>Telemetry pipeline with the Alloy Agent and Gateway Collectors processing profiles with all telemetry data</h4>
-</figure>
+<ThemedImage
+  src="Collector-Comparison-Alloy.svg"
+  alt="Collector Comparison - Alloy"
+  caption="Telemetry pipeline with the Alloy Agent and Gateway Collectors processing profiles with all telemetry data"
+  style="border-radius: 10px;"
+/>
 
 This allowed for a unified telemetry pipeline and simplified the connection between the agent collector and the Vispyr backend. The downside of this decision is that Alloy uses a different configuration format and custom collector components. Though these are specific to Alloy, the fact that this is an open-source tool based on the existing OTel collector was an appropriate compromise for deploying vendor-specific tooling over OTel. For this reason, we chose to use Alloy as both the Agent and Gateway collectors.
 
 ### Continuous Profiler
 
-<figure style="display: flex; flex-direction: column; justify-content: center; margin: -1rem 6rem -4rem">
-  <img
-    src={pyroVsParca.src}
-    style="width: 100%"
-  />
-</figure>
+<ThemedImage
+  src="Pyro-vs-Parca.svg"
+  alt="Pyroscope vs Parca"
+  caption="Pyroscope vs Parca"
+  style="border-radius: 10px;"
+/>
 
 For profiles, there were two open-source options considered: Parca by Polar Signals and Pyroscope. Parca is an eBPF-based system profiler and was the first tool we examined. It matched our goals for a simple to deploy instrumentation tool that required minimal customization of the user’s application. However, it being an eBPF-based profiler meant it came with the inherent limitations of eBPF tooling described previously, specifically the limitations around newer Linux kernels and lacking production-ready OTLP support. Additionally, Parca is designed as a self-contained tool with its own data storage and visualization components. While it does support connecting the data to Grafana, it does not support sending instrumentation data through our agent and gateway collectors. This tradeoff would reintroduce the data isolation issue described in the Agent & Gateway Collector decision above.
 
@@ -65,21 +56,21 @@ Ultimately, the benefits of Pyroscope’s maturity, ease of instrumentation, and
 
 ### Data Storage
 
-<figure style="display: flex; flex-direction: column; justify-content: center; margin: 1rem 6rem;">
-  <img
-    src={mimirVsProm.src}
-    style="width: 100%"
-  />
-</figure>
+<ThemedImage
+  src="Mimir-vs-Prom.svg"
+  alt="Mimir vs Prometheus"
+  caption="Mimir vs Prometheus"
+  style="border-radius: 10px;"
+/>
 
 The decision for the metrics data store was focused on Prometheus and Grafana Mimir. Similar to Alloy’s relationship with the OpenTelemetry Collector, Mimir is an extension of Prometheus, offering horizontal scalability, high availability, and multi-tenancy for long-term metric storage. While beneficial for a large, microservice infrastructure, the additional complexity and overhead from Mimir is unnecessary for smaller, monolith architectures, which is more aligned with the environment of the intended Vispyr user. Without a compelling reason to deviate from the industry standard, we chose to use Prometheus as the metrics data store.
 
-<figure style="display: flex; flex-direction: column; justify-content: center; margin: 1rem 6rem;">
-  <img
-    src={tempoVsJaeger.src}
-    style="width: 100%"
-  />
-</figure>
+<ThemedImage
+  src="Tempo-vs-Jaeger.svg"
+  alt="Tempo vs Jaeger"
+  caption="Tempo vs Jaeger"
+  style="border-radius: 10px;"
+/>
 
 The decision for traces focused on Jaeger and Grafana Tempo. While similar in identity, the approaches between the data stores are distinct. Jaeger uses external databases, such as Cassandra and Elasticsearch, to store traces. In contrast, Tempo’s only dependency is basic object storage, and it comes with configuration options for major cloud provider object storage services. Choosing Tempo would simplify the deployment process, as a simple AWS S3 bucket could be quickly and easily deployed along with the rest of the AWS resources in the Vispyr backend. The simplicity of setting up the underlying storage mechanism for traces made Tempo the clear choice for data storage.
 
@@ -93,13 +84,12 @@ Ultimately, the benefits of providing developers with the flexibility to investi
 
 ## Infrastructure Choices
 
-<figure style="display: flex; flex-direction: column; justify-content: center; margin: 2rem 4rem;">
-  <img
-    src={infrastructureChoice.src}
-    style="width: 100%"
-  />
-  <h4>Infrastructure decision between EC2 or ECS + Fargate deployment</h4>
-</figure>
+<ThemedImage
+  src="Infrastructure-Choice.svg"
+  alt="EC2 vs ECS"
+  caption="Infrastructure decision between EC2 or ECS + Fargate deployment"
+  style="border-radius: 10px;"
+/>
 
 Vispyr’s backend is fully containerized, so our first idea was to utilize the AWS Elastic Container Store (ECS), incorporating CloudMap for service discovery and network routing. ECS would simplify container deployment and management and including Fargate would facilitate horizontal scalability for each data store as needed. However, the tradeoff for ECS is cost. For five containerized applications, ECS can quickly become an expensive service, particularly in conjunction with Fargate.
 

@@ -1,8 +1,6 @@
 ---
-// Get the current page URL to highlight active links
 const currentPath = Astro.url.pathname;
 
-// Define the case study pages
 const caseStudyPages = [
   { title: 'Introduction', href: '/docs/introduction' },
   { title: 'Observability Overview', href: '/docs/observability-overview' },
@@ -12,7 +10,6 @@ const caseStudyPages = [
   { title: 'Future Work', href: '/docs/future-work' }
 ];
 
-// Check if we're currently in the case study section
 const isInCaseStudy = currentPath.startsWith('/docs/');
 ---
 
@@ -20,7 +17,6 @@ const isInCaseStudy = currentPath.startsWith('/docs/');
   <button class="overlay" popovertarget="drawer" popovertargetaction="hide"></button>
   <div class="drawer-content">
     <nav class="drawer-nav">
-      <!-- Main Navigation -->
       <div class="nav-section">
         <a href="/" class="nav-link main-link" popovertarget="drawer" popovertargetaction="hide">
           <span>Home</span>
@@ -33,7 +29,6 @@ const isInCaseStudy = currentPath.startsWith('/docs/');
         </a>
       </div>
 
-      <!-- Case Study Pages -->
       <div class="nav-section">
         <h3 class="section-header">Case Study</h3>
         <div class="case-study-links">
@@ -82,14 +77,6 @@ const isInCaseStudy = currentPath.startsWith('/docs/');
   [popover]:popover-open {
     opacity: 1;
     pointer-events: auto;
-  }
-
-  /* Prevent background scrolling when drawer is open */
-  body:has([popover]:popover-open) {
-    overflow: hidden !important;
-    position: fixed;
-    width: 100%;
-    height: 100%;
   }
 
   [popover]:popover-open .drawer-content {
@@ -197,7 +184,6 @@ const isInCaseStudy = currentPath.startsWith('/docs/');
     flex-direction: column;
   }
 
-  /* Hide on desktop */
   @media (min-width: 768px) {
     [popover] {
       display: none;
@@ -206,17 +192,14 @@ const isInCaseStudy = currentPath.startsWith('/docs/');
 </style>
 
 <script>
-  // Prevent body scroll when drawer is open
   document.addEventListener('DOMContentLoaded', () => {
     const drawer = document.getElementById('drawer');
     
     if (!drawer) return;
 
     let scrollY = 0;
-
     let isHashNavigation = false;
 
-    // Store scroll position and freeze body when drawer opens
     const freezeBody = () => {
       scrollY = window.scrollY;
       document.body.style.position = 'fixed';
@@ -225,37 +208,27 @@ const isInCaseStudy = currentPath.startsWith('/docs/');
       document.body.style.overflow = 'hidden';
     };
 
-    // Restore scroll position and unfreeze body when drawer closes
     const unfreezeBody = () => {
       document.body.style.position = '';
       document.body.style.top = '';
       document.body.style.width = '';
       document.body.style.overflow = '';
       
-      // Don't restore scroll position if we're navigating to a hash
       if (!isHashNavigation) {
         window.scrollTo(0, scrollY);
       }
       isHashNavigation = false;
     };
 
-    // Watch for popover state changes
-    const observer = new MutationObserver((mutations) => {
-      mutations.forEach((mutation) => {
-        if (mutation.type === 'attributes' && mutation.attributeName === 'popover') {
-          const isOpen = drawer.matches(':popover-open');
-          if (isOpen) {
-            freezeBody();
-          } else {
-            unfreezeBody();
-          }
-        }
-      });
+    drawer.addEventListener('toggle', (e) => {
+      const event = e as any;
+      if (event.newState === 'open') {
+        freezeBody();
+      } else if (event.newState === 'closed') {
+        unfreezeBody();
+      }
     });
 
-    observer.observe(drawer, { attributes: true });
-
-    // Detect hash navigation clicks
     drawer.addEventListener('click', (e) => {
       const target = e.target as HTMLElement;
       const link = target.closest('a[href*="#"]') as HTMLAnchorElement;
@@ -264,26 +237,20 @@ const isInCaseStudy = currentPath.startsWith('/docs/');
         
         const href = link.getAttribute('href');
         if (href && href.includes('#')) {
-          // Handle both same-page (/#team) and cross-page navigation
           const [path, hash] = href.split('#');
           const currentPath = window.location.pathname;
           
-          // If we're navigating to a different page with a hash
           if (path && path !== currentPath) {
-            // Let the browser handle the navigation normally
             drawer.hidePopover();
             return;
           }
           
-          // If we're on the same page, handle manually
           if (path === currentPath || href.startsWith('#')) {
             e.preventDefault();
             const targetElement = document.getElementById(hash);
             
-            // Close the drawer first
             drawer.hidePopover();
             
-            // Then scroll to the target after a small delay
             setTimeout(() => {
               if (targetElement) {
                 targetElement.scrollIntoView({ behavior: 'smooth' });
@@ -294,19 +261,23 @@ const isInCaseStudy = currentPath.startsWith('/docs/');
       }
     });
 
-    // Also listen for popover events as backup
-    drawer.addEventListener('toggle', (e) => {
-      if ((e as any).newState === 'open') {
-        freezeBody();
-      } else {
-        unfreezeBody();
-      }
-    });
-
-    // Handle escape key
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && drawer.matches(':popover-open')) {
         drawer.hidePopover();
+      }
+    });
+
+    const cleanupScroll = () => {
+      document.body.style.position = '';
+      document.body.style.top = '';
+      document.body.style.width = '';
+      document.body.style.overflow = '';
+    };
+
+    window.addEventListener('beforeunload', cleanupScroll);
+    document.addEventListener('visibilitychange', () => {
+      if (!drawer.matches(':popover-open')) {
+        cleanupScroll();
       }
     });
   });

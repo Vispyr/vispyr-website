@@ -61,11 +61,7 @@ body {
 
 .main-pane {
   padding: 1rem;
-  max-width: 1400px;
-}
-
-.main-pane:has(.hero) {
-  max-width: 1400px;
+  max-width: 1000px;
 }
 
 .main-pane:has(.hero) {
@@ -168,6 +164,10 @@ footer a:hover {
   color: rgb(255, 71, 58);
   border: 1px solid rgb(255, 71, 58);
   box-shadow: 0 0 10px rgb(255, 71, 58);
+}
+
+.example img {
+  border-radius: 3px;
 }
 
 @media (max-width: 800px) {

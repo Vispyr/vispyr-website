@@ -1,21 +1,23 @@
 ---
-import grafanaLogo from "../assets/grafana.svg";
-import terminalLogo from "../assets/terminal.svg";
-import cliMovie from "../assets/cli-deploy.mp4";
-import dashboardMovie from "../assets/grafana-dashboard.mp4";
-import telemetryFlow from '../assets/diagrams/Telemetry-Flow.svg';
-import pipelineIcon from '../assets/pipeline-icon.png';
+import ThemedImage from "./ThemedImage.astro";
+
+import cliMovie from "../assets/recordings/cli-deploy.mp4";
+import dashboardMovie from "../assets/recordings/grafana-dashboard.mp4";
+
+import pipelineIcon from '../assets/icons/pipeline-icon.png';
+import terminalIcon from "../assets/icons/terminal.svg";
 
 import awsIcon from '../assets/icons/AWS.svg';
 import grafanaIcon from "../assets/icons/Grafana.svg";
+import typescriptIcon from "../assets/icons/TypeScript.svg";
 import alloyIcon from '../assets/icons/Alloy.svg';
 import promIcon from '../assets/icons/Prometheus.svg';
 import tempoIcon from '../assets/icons/Tempo.svg';
 import pyroIcon from '../assets/icons/Pyroscope.svg';
 import nginxIcon from '../assets/icons/Nginx.svg';
 import dockerIcon from '../assets/icons/Docker.svg';
+
 import "../styles/styles.css";
-import Team from "./Team.astro";
 
 const icons = [
   {
@@ -27,6 +29,11 @@ const icons = [
     name: 'AWS',
     src: awsIcon,
     site: 'https://aws.amazon.com/',
+  },
+  {
+    name: 'TypeScript',
+    src: typescriptIcon,
+    site: 'https://www.typescriptlang.org/',
   },
   {
     name: 'Grafana Alloy',
@@ -68,11 +75,11 @@ const icons = [
         <h3>Fully Provisioned Telemetry Pipeline</h3>
       </div>
       <div class="card">
-        <img src={grafanaLogo.src} />
+        <img src={grafanaIcon.src} />
         <h3>Feature-rich Visualization Powered by Grafana</h3>
       </div>
       <div class="card">
-        <img src={terminalLogo.src} />
+        <img src={terminalIcon.src} />
         <h3>Automated AWS Deployment using a simple CLI</h3>
       </div>
     </div>
@@ -83,9 +90,7 @@ const icons = [
       <h2>No telemetry-hookup required</h2>
       <h3>Vispyr deploys a <em>fully-provisioned backend</em>, handling all the telemetry configurations and allowing you to focus on what matters.</h3>
     </div>
-    <div class="svg-container">
-      <img src={telemetryFlow.src} />
-    </div>
+    <ThemedImage src="Telemetry-Flow.svg" alt="Telemetry Flow" />
   </section>
 
   <section>
